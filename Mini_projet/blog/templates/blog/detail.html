@@ -12,31 +12,36 @@
 
     <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
 
+        
         {% if article.image %}
-        <div class="bg-gray-50 px-10 py-8 flex justify-center">
+        <div class="bg-gray-50 px-10 py-8 flex justify-center border-b">
             <img src="{{ article.image.url }}"
                  alt="{{ article.name }}"
-                 class="max-h-[460px] w-auto rounded-xl shadow-lg object-contain">
+                 class="max-h-[460px] w-auto rounded-xl shadow-md object-contain">
         </div>
         {% endif %}
 
+        
         <div class="px-12 py-10">
 
+        
             <h1 class="text-4xl font-bold text-gray-900 mb-4 leading-snug">
                 {{ article.name }}
             </h1>
 
+            
             <div class="flex flex-wrap items-center gap-6 text-sm text-gray-500 mb-8">
-                <span class="flex items-center gap-2">
+                <span>
                     <span class="font-semibold text-gray-700">Auteur :</span>
                     {{ article.auteur }}
                 </span>
-                <span class="flex items-center gap-2">
+                <span>
                     <span class="font-semibold text-gray-700">Date :</span>
                     {{ article.date }}
                 </span>
             </div>
 
+            
             <div class="text-gray-700 text-lg leading-relaxed mb-12">
                 {{ article.description }}
             </div>
@@ -44,29 +49,48 @@
             
             <div class="flex items-center justify-between border-t pt-6">
 
+                
                 <a href="{% url 'articles' %}"
-                   class="inline-flex items-center gap-2 text-blue-600 font-semibold
-                          hover:text-indigo-600 transition">
+                   class="text-blue-600 font-semibold hover:text-blue-800 transition">
                     ← Retour aux articles
                 </a>
 
                 
-                <form method="POST"
-                      action="{% url 'supprimer_article' article.id %}"
-                      onsubmit="return confirm('Voulez-vous vraiment supprimer cet article ?');">
-                    {% csrf_token %}
-                    <button type="submit"
-                        class="inline-flex items-center gap-2
-                               bg-red-600 text-white px-5 py-2 rounded-full font-semibold
-                               hover:bg-red-700 active:scale-95 transition-all">
-                         Supprimer l’article
-                    </button>
-                </form>
+                <div class="flex items-center gap-4">
 
+                    
+                    <form method="GET" action="{% url 'modifier' article.id %}">
+                        <button type="submit"
+                            class="px-6 py-2.5
+                                   bg-blue-600 text-white font-semibold
+                                   rounded-lg shadow-md
+                                   hover:bg-blue-700
+                                   active:scale-95
+                                   focus:outline-none focus:ring-2 focus:ring-blue-400
+                                   transition">
+                            Modifier
+                        </button>
+                    </form>
+                    <form method="POST"
+                          action="{% url 'supprimer_article' article.id %}"
+                          onsubmit="return confirm('Voulez-vous vraiment supprimer cet article ?');">
+                        {% csrf_token %}
+                        <button type="submit"
+                            class="px-6 py-2.5
+                                   bg-red-600 text-white font-semibold
+                                   rounded-lg shadow-md
+                                   hover:bg-red-700
+                                   active:scale-95
+                                   focus:outline-none focus:ring-2 focus:ring-red-400
+                                   transition">
+                            Supprimer
+                        </button>
+                    </form>
+
+                </div>
             </div>
 
         </div>
-
     </div>
 
 </body>

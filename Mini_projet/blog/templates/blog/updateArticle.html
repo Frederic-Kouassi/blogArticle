@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-2xl w-full bg-white p-8 rounded-xl shadow-xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-1">
+
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">
+        Modifier l’article
+    </h1>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+
+        
+        <div>
+            <label class="block text-gray-700 font-semibold mb-1">Name</label>
+            <input type="text" name="name" required
+                value="{{ article.name }}"
+                class="w-full border border-gray-300 rounded-lg px-4 py-3 text-black
+                       focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200">
+        </div>
+
+        
+        <div>
+            <label class="block text-gray-700 font-semibold mb-1">Auteur</label>
+            <input type="text" name="auteur" required
+                value="{{ article.auteur }}"
+                class="w-full border border-gray-300 rounded-lg px-4 py-3 text-black
+                       focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200">
+        </div>
+
+    
+        <div>
+            <label class="block text-gray-700 font-semibold mb-1">Description</label>
+            <textarea name="description" rows="6" required
+                class="w-full border border-gray-300 rounded-lg px-4 py-3 text-black
+                       focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200">{{ article.description }}</textarea>
+        </div>
+
+        
+        <div>
+            <label class="block text-black font-semibold mb-1">
+                Image actuelle
+            </label>
+
+            {% if article.image %}
+                <img src="{{ article.image.url }}"
+                     alt="Image article"
+                     class="w-32 h-32 object-cover rounded-lg mb-3 border">
+            {% else %}
+                <p class="text-gray-500 text-sm mb-3">Aucune image</p>
+            {% endif %}
+
+            <label class="block text-black font-semibold mb-1">
+                Changer l’image
+            </label>
+
+            <input type="file" name="image" accept="image/*"
+                class="w-full border border-black rounded-lg px-4 py-3
+                       bg-white text-black
+                       file:text-black file:bg-transparent file:border-0
+                       focus:outline-none focus:ring-2 focus:ring-black transition-all duration-200">
+        </div>
+
+        
+        <button type="submit"
+            class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold
+                   hover:bg-blue-700 hover:shadow-lg active:scale-95 transition-all duration-200">
+            Mettre à jour
+        </button>
+    </form>
+
+</div>
+{% endblock %}

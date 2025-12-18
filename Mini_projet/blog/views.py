@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from .models import Article
+from .forms import ArticleForm
 
 # Create your views here.
 
@@ -33,3 +34,25 @@ def supprimer(request, id):
     return redirect("articles")  
 
     
+
+
+def modifier_article(request, id):
+    article = get_object_or_404(Article, id=id)
+
+    if request.method == 'POST':
+        article.name = request.POST.get('name')
+        article.auteur = request.POST.get('auteur')
+        article.description = request.POST.get('description')
+
+        # Image facultative
+        if request.FILES.get('image'):
+            article.image = request.FILES.get('image')
+
+        article.save()
+        return redirect('articles')
+
+    return render(
+        request,
+        'blog/updateArticle.html',
+        {'article': article}
+    )
