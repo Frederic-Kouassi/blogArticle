@@ -33,6 +33,7 @@ def supprimer(request, id):
     article.delete()
     return redirect("articles")  
 
+
     
 
 
@@ -44,7 +45,7 @@ def modifier_article(request, id):
         article.auteur = request.POST.get('auteur')
         article.description = request.POST.get('description')
 
-        # Image facultative
+       
         if request.FILES.get('image'):
             article.image = request.FILES.get('image')
 
@@ -56,3 +57,8 @@ def modifier_article(request, id):
         'blog/updateArticle.html',
         {'article': article}
     )
+
+
+def create_user(request):
+    
+    return render (request,'blog/create_User.html')

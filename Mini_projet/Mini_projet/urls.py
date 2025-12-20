@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path
-from blog.views import index, liste_article, detail,supprimer, modifier_article
+from blog.views import index, liste_article, detail,supprimer, modifier_article, create_user
 from django.conf.urls.static import static
 
 from django.conf import settings
@@ -13,6 +13,7 @@ urlpatterns = [
      path("detail/<int:id>/", detail, name="detail"),
     path("articles/supprimer/<int:id>/", supprimer, name="supprimer_article"),
     path('modifier/<int:id>/', modifier_article, name='modifier'),
+    path('user', create_user, name="user"),
 
 ]
 
