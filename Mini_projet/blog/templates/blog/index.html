@@ -16,11 +16,34 @@
                     class="w-full border border-gray-300 rounded-lg px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200">
             </div>
 
-            <div>
-                <label class="block text-gray-700 font-semibold mb-1">Auteur</label>
-                <input type="text" name="auteur" required
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200">
-            </div>
+           
+<div class="w-full">
+    <label class="block text-gray-700 font-semibold mb-2">
+        Sélectionner un utilisateur
+    </label>
+
+    <select name="auteur"
+        class="w-full bg-white text-gray-800
+               border-2 border-gray-300 rounded-lg
+               px-4 py-3
+               focus:outline-none focus:ring-2 focus:ring-blue-500
+               hover:border-blue-400
+               transition duration-200">
+
+        <option value="" disabled selected>
+            
+        </option>
+
+        {% for user in users %}
+            <option value="{{ user.id }}">
+                {{ user.prenom }}- {{ user.nom}}
+            </option>
+        {% empty %}
+            <option disabled>Aucun utilisateur trouvé</option>
+        {% endfor %}
+
+    </select>
+</div>
 
             <div>
                 <label class="block text-gray-700 font-semibold mb-1">Description</label>
