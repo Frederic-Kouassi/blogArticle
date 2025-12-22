@@ -15,7 +15,9 @@ urlpatterns = [
     path('modifier/<int:id>/', modifier_article, name='modifier'),
     path('user', create_users, name="user"),
     path("users/", liste_user, name="users"),
-      path("login/", connexion, name="login"),
+    path('suppresion/<int:id>/', user_delete, name='user_delete'),
+      path("update_user/<int:id>", user_update, name="update_user"),
+      
 
 ]
 

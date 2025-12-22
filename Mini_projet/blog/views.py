@@ -108,36 +108,28 @@ def liste_user(request):
         "users": users
     })
 
+def user_delete(request, id):
+    user = get_object_or_404(Utilisateurs, id=id)
+    user.delete()
+    return redirect('users')
 
 
 
 
 
 
-def connexion(request):
-    error = None
+def user_update(request, id):
+    user = get_object_or_404(Utilisateurs, id=id)
 
     if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+        user.nom = request.POST.get("nom")
+        user.prenom = request.POST.get("prenom")
+        user.email = request.POST.get("email")
+        user.telephone = request.POST.get("telephone")
+        user.adresse = request.POST.get("adresse")
+        user.save()
 
-        try:
-            user = Utilisateurs.objects.get(email=email)
+        return redirect("users") 
 
-            if user.check_password(password):
-              
-                request.session["user_id"] = user.id
-                request.session["user_name"] = f"{user.prenom} {user.nom}"
-                return redirect("articles")
-            else:
-                error = "Mot de passe incorrect"
+    return render(request, "blog/update_user.html", {"user": user})
 
-        except Utilisateurs.DoesNotExist:
-            error = "Utilisateur introuvable"
-
-    return render(request, "blog/connexion.html")
-
-
-def logout_view(request):
-    request.session.flush()
-    return redirect("login")

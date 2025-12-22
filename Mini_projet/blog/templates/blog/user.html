@@ -3,19 +3,15 @@
 
 {% block content %}
 
-
 <div class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 py-12">
 
     <div class="max-w-7xl mx-auto px-6">
 
-     
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10">
-
             <h1 class="text-4xl font-extrabold text-gray-800 tracking-tight">
                 Liste des utilisateurs
             </h1>
 
-            
             <a href="{% url 'user' %}"
                class="inline-flex items-center justify-center
                       bg-gradient-to-r from-indigo-600 to-violet-600
@@ -28,30 +24,23 @@
                       transition-all duration-300">
                 ➕ Ajouter un utilisateur
             </a>
-
         </div>
 
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200">
 
-            
             <table class="w-full border-collapse">
 
                 <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
                     <tr>
-                        <th class="px-6 py-4 text-left text-gray-600 font-semibold uppercase text-sm">
-                            Nom
-                        </th>
-                        <th class="px-6 py-4 text-left text-gray-600 font-semibold uppercase text-sm">
-                            Prénom
-                        </th>
-                        <th class="px-6 py-4 text-left text-gray-600 font-semibold uppercase text-sm">
-                            Email
-                        </th>
-                        <th class="px-6 py-4 text-left text-gray-600 font-semibold uppercase text-sm">
-                            Téléphone
-                        </th>
-                        <th class="px-6 py-4 text-left text-gray-600 font-semibold uppercase text-sm">
-                            Date création
+                        <th class="px-6 py-4 text-left text-gray-600 font-semibold uppercase text-sm">Nom</th>
+                        <th class="px-6 py-4 text-left text-gray-600 font-semibold uppercase text-sm">Prénom</th>
+                        <th class="px-6 py-4 text-left text-gray-600 font-semibold uppercase text-sm">Email</th>
+                        <th class="px-6 py-4 text-left text-gray-600 font-semibold uppercase text-sm">Téléphone</th>
+                        <th class="px-6 py-4 text-left text-gray-600 font-semibold uppercase text-sm">Date création</th>
+
+                        <!-- 🔥 Nouvelle colonne -->
+                        <th class="px-6 py-4 text-center text-gray-600 font-semibold uppercase text-sm">
+                            Actions
                         </th>
                     </tr>
                 </thead>
@@ -61,30 +50,47 @@
                     {% for user in users %}
                     <tr class="hover:bg-indigo-50 transition duration-200">
 
-                        <td class="px-6 py-4 font-medium text-gray-800">
-                            {{ user.nom }}
-                        </td>
-
-                        <td class="px-6 py-4 text-gray-700">
-                            {{ user.prenom }}
-                        </td>
-
-                        <td class="px-6 py-4 text-indigo-600 font-semibold">
-                            {{ user.email }}
-                        </td>
-
-                        <td class="px-6 py-4 text-gray-700">
-                            {{ user.telephone|default:"—" }}
-                        </td>
-
+                        <td class="px-6 py-4 font-medium text-gray-800">{{ user.nom }}</td>
+                        <td class="px-6 py-4 text-gray-700">{{ user.prenom }}</td>
+                        <td class="px-6 py-4 text-indigo-600 font-semibold">{{ user.email }}</td>
+                        <td class="px-6 py-4 text-gray-700">{{ user.telephone|default:"—" }}</td>
                         <td class="px-6 py-4 text-gray-500 text-sm">
                             {{ user.date_creation|date:"d/m/Y" }}
+                        </td>
+
+                      
+                        <td class="px-6 py-4">
+                            <div class="flex items-center justify-center gap-3">
+
+                               
+                                <a href="{% url 'update_user' user.id %}"
+                                   class="px-4 py-2 rounded-lg
+                                          bg-blue-500 text-white text-sm font-semibold
+                                          hover:bg-blue-600
+                                          transition shadow">
+                                    ✏️ Modifier
+                                </a>
+
+                               
+                                <form action="{% url 'user_delete' user.id %}" method="post"
+                                      onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            class="px-4 py-2 rounded-lg
+                                                   bg-red-500 text-white text-sm font-semibold
+                                                   hover:bg-red-600
+                                                   transition shadow">
+                                        🗑️ Supprimer
+                                    </button>
+                                </form>
+
+                            </div>
                         </td>
 
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="5" class="py-16 text-center text-gray-500 text-lg">
+                        <td colspan="6" class="py-16 text-center text-gray-500 text-lg">
                             Aucun utilisateur trouvé
                         </td>
                     </tr>
