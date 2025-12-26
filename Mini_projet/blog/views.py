@@ -13,6 +13,12 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html')
 
+def admin_dashboard(request):
+    return render(request, 'admin_dashboard.html')
+
+def user_dashboard(request):
+    return render(request, 'user_dashboard.html')
+
 
 def index(request):
     if request.method == "POST":
