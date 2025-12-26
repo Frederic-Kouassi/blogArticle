@@ -46,39 +46,32 @@ Contact page refactoring guide covering:
 - Form validation and security
 - Backend models and email configuration
 
+### 👤 [04_user_dashboard_doc.md](04_user_dashboard_doc.md)
+
+User dashboard refactoring guide covering:
+
+- Dashboard sections (Overview, My Blogs, Create Blog, Profile, Analytics, Settings)
+- Class-Based Views (CBV) approach
+- Forms and models
+- JavaScript functionality
+- Security and permissions
+
+### 🛡️ [05_admin_dashboard_doc.md](05_admin_dashboard_doc.md)
+
+Admin dashboard refactoring guide covering:
+
+- Admin sections (Users, Blogs, Comments, Categories, Analytics, Settings)
+- Class-Based Views (CBV) with admin permissions
+- User management and content moderation
+- System settings and reports
+- Security and access control
+
 ## Getting Started
 
 1. Start with **task.md** to see the complete checklist
 2. Read the specific page documentation for implementation details
 3. Check off tasks as you complete them
 4. Follow the implementation steps in each document
-
-## Project Structure After Refactoring
-
-```
-Mini_projet/
-├── docs/                    # Documentation (this folder)
-├── templates/
-│   ├── base.html           # Base template
-│   ├── home.html           # Landing page
-│   ├── about.html          # About page
-│   ├── contact.html        # Contact page
-│   └── includes/           # Reusable components
-│       ├── header.html
-│       └── footer.html
-├── static/
-│   ├── css/
-│   │   └── main.css        # Main stylesheet
-│   └── js/
-│       ├── main.js         # Shared JavaScript
-│       └── home.js         # Page-specific JS
-└── blog/
-    ├── models.py           # Database models
-    ├── views.py            # View functions
-    ├── forms.py            # Django forms
-    ├── urls.py             # URL patterns
-    └── admin.py            # Admin configuration
-```
 
 ## Models Overview
 

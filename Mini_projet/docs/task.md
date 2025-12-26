@@ -108,15 +108,17 @@
 
 ### 4.2 User Dashboard Documentation
 
-- [ ] Create documentation for user dashboard features
-- [ ] List all user-specific functionalities
-- [ ] Document user permissions and access control
+- [x] Create documentation for user dashboard features
+- [x] List all user-specific functionalities
+- [x] Document user permissions and access control
+- [x] Document CBV (Class-Based Views) approach
 
 ### 4.3 Admin Dashboard Documentation
 
-- [ ] Create documentation for admin dashboard features
-- [ ] List all admin-specific functionalities
-- [ ] Document admin permissions and access control
+- [x] Create documentation for admin dashboard features
+- [x] List all admin-specific functionalities
+- [x] Document admin permissions and access control
+- [x] Document CBV (Class-Based Views) approach
 
 ## Phase 5: Testing & Verification
 
