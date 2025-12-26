@@ -4,7 +4,7 @@ from .models import Article
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['name', 'description', 'auteur', 'image']
+        fields = ['name', 'description', 'author', 'image']
 
         widgets = {
             'name': forms.TextInput(attrs={
@@ -16,7 +16,7 @@ class ArticleForm(forms.ModelForm):
                 'placeholder': 'Description',
                 'rows': 5
             }),
-            'auteur': forms.TextInput(attrs={
+            'author': forms.TextInput(attrs={
                 'class': 'w-full p-2 border rounded',
                 'placeholder': 'Nom de l’auteur'
             }),

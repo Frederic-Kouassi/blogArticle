@@ -23,10 +23,10 @@ def user_dashboard(request):
 def index(request):
     if request.method == "POST":
         name=request.POST.get("name"),
-        auteur=request.POST.get("auteur"),
+        author=request.POST.get("author"),
         description=request.POST.get("description"),
         image=request.FILES.get("image")
-        Article.objects.create(name=name, auteur=auteur, description=description,image=image)
+        Article.objects.create(name=name, author=author, description=description,image=image)
         return redirect('articles')
     return render (request, 'blog/index.html')
 
@@ -57,7 +57,7 @@ def modifier_article(request, id):
 
     if request.method == 'POST':
         article.name = request.POST.get('name')
-        article.auteur = request.POST.get('auteur')
+        article.author = request.POST.get('author')
         article.description = request.POST.get('description')
 
         # Image facultative
