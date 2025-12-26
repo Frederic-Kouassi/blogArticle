@@ -7,6 +7,12 @@ from .forms import ArticleForm
 def home(request):
     return render(request, 'home.html')
 
+def about(request):
+    return render(request, 'about.html')
+
+def contact(request):
+    return render(request, 'contact.html')
+
 
 def index(request):
     if request.method == "POST":

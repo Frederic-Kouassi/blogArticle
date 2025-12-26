@@ -124,8 +124,8 @@
                     <a href="#" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">Home</a>
                     <a href="#blogs" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">Blogs</a>
                     <a href="#categories" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">Categories</a>
-                    <a href="#about" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">About</a>
-                    <a href="#contact" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">Contact</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">About</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">Contact</a>
                 </nav>
                 
                 <!-- Mobile menu button -->
@@ -140,16 +140,17 @@
                     <a href="#" class="text-gray-700 hover:text-[#000080] font-medium py-2">Home</a>
                     <a href="#blogs" class="text-gray-700 hover:text-[#000080] font-medium py-2">Blogs</a>
                     <a href="#categories" class="text-gray-700 hover:text-[#000080] font-medium py-2">Categories</a>
-                    <a href="#about" class="text-gray-700 hover:text-[#000080] font-medium py-2">About</a>
-                    <a href="#contact" class="text-gray-700 hover:text-[#000080] font-medium py-2">Contact</a>
+                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-[#000080] font-medium py-2">About</a>
+                    <a href="{% url 'contact' %}" class="text-gray-700 hover:text-[#000080] font-medium py-2">Contact</a>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50">
-        <div class="container mx-auto px-4 md:px-8">
+    <section class="py-12 md:py-20 bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1499750310159-5b5f0918a530?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
+        <div class="absolute inset-0 bg-white/90"></div>
+        <div class="container mx-auto px-4 md:px-8 relative z-10">
             <div class="text-center mb-12">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-gray-900 mb-4">Insightful Blog</h1>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">A premium platform for thought-provoking content on technology, education, and personal growth</p>
@@ -164,8 +165,11 @@
                     <!-- Featured Post 1 -->
                     <div class="snap-center flex-shrink-0 w-full md:w-2/3 lg:w-1/2">
                         <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 blog-card">
-                            <div class="h-64 md:h-72 bg-gradient-to-r from-blue-50 to-indigo-50 flex items-center justify-center">
-                                <span class="text-[#000080] text-4xl font-bold">AI & Future</span>
+                            <div class="h-64 md:h-72 bg-gray-100 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="AI Future" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                                    <span class="text-white text-3xl font-bold">AI & Future</span>
+                                </div>
                             </div>
                             <div class="p-6">
                                 <div class="flex items-center text-sm text-gray-500 mb-3">
@@ -177,7 +181,7 @@
                                 <p class="text-gray-600 mb-4">Exploring how AI will transform our daily routines, work environments, and creative processes in the coming decade.</p>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-200 to-indigo-200 mr-3"></div>
+                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Alex Johnson" class="w-10 h-10 rounded-full mr-3 object-cover">
                                         <span class="font-medium">Alex Johnson</span>
                                     </div>
                                     <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Read More →</a>
@@ -189,8 +193,11 @@
                     <!-- Featured Post 2 -->
                     <div class="snap-center flex-shrink-0 w-full md:w-2/3 lg:w-1/2">
                         <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 blog-card">
-                            <div class="h-64 md:h-72 bg-gradient-to-r from-green-50 to-teal-50 flex items-center justify-center">
-                                <span class="text-[#000080] text-4xl font-bold">Mindful Work</span>
+                            <div class="h-64 md:h-72 bg-gray-100 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1497215842964-222b4bef5732?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Mindful Work" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                                    <span class="text-white text-3xl font-bold">Mindful Work</span>
+                                </div>
                             </div>
                             <div class="p-6">
                                 <div class="flex items-center text-sm text-gray-500 mb-3">
@@ -202,7 +209,7 @@
                                 <p class="text-gray-600 mb-4">How to maintain focus, manage energy, and achieve meaningful progress without burnout in today's fast-paced environment.</p>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-200 to-teal-200 mr-3"></div>
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Sarah Chen" class="w-10 h-10 rounded-full mr-3 object-cover">
                                         <span class="font-medium">Sarah Chen</span>
                                     </div>
                                     <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Read More →</a>
@@ -214,8 +221,11 @@
                     <!-- Featured Post 3 -->
                     <div class="snap-center flex-shrink-0 w-full md:w-2/3 lg:w-1/2">
                         <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 blog-card">
-                            <div class="h-64 md:h-72 bg-gradient-to-r from-purple-50 to-pink-50 flex items-center justify-center">
-                                <span class="text-[#000080] text-4xl font-bold">Learning 2023</span>
+                            <div class="h-64 md:h-72 bg-gray-100 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Learning 2023" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                                    <span class="text-white text-3xl font-bold">Learning 2023</span>
+                                </div>
                             </div>
                             <div class="p-6">
                                 <div class="flex items-center text-sm text-gray-500 mb-3">
@@ -227,7 +237,7 @@
                                 <p class="text-gray-600 mb-4">Evidence-based strategies to learn new skills faster and more effectively in the digital age.</p>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-200 to-pink-200 mr-3"></div>
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Michael Torres" class="w-10 h-10 rounded-full mr-3 object-cover">
                                         <span class="font-medium">Michael Torres</span>
                                     </div>
                                     <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Read More →</a>
@@ -262,7 +272,9 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <!-- Blog Post 1 -->
                         <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
-                            <div class="h-48 bg-gradient-to-r from-blue-100 to-indigo-100"></div>
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Quantum Computing" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                            </div>
                             <div class="p-6">
                                 <div class="flex items-center text-sm text-gray-500 mb-3">
                                     <span class="bg-blue-100 text-[#000080] font-medium py-1 px-3 rounded-full">Technology</span>
@@ -273,7 +285,7 @@
                                 <p class="text-gray-600 mb-4">Quantum computing is no longer just theoretical. Discover how it will revolutionize industries from pharmaceuticals to cryptography.</p>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-200 to-indigo-200 mr-2"></div>
+                                        <img src="https://images.unsplash.com/photo-1573496359-136d47552640?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Dr. Lisa Park" class="w-8 h-8 rounded-full mr-2 object-cover">
                                         <span class="text-sm font-medium">Dr. Lisa Park</span>
                                     </div>
                                     <span class="text-sm text-gray-500">8 min read</span>
@@ -283,7 +295,9 @@
                         
                         <!-- Blog Post 2 -->
                         <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
-                            <div class="h-48 bg-gradient-to-r from-green-100 to-teal-100"></div>
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1511871893393-82e9c16b8d77?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Digital Detox" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                            </div>
                             <div class="p-6">
                                 <div class="flex items-center text-sm text-gray-500 mb-3">
                                     <span class="bg-green-100 text-[#000080] font-medium py-1 px-3 rounded-full">Wellness</span>
@@ -294,7 +308,7 @@
                                 <p class="text-gray-600 mb-4">Practical strategies to reduce screen time and improve focus, creativity, and mental wellbeing in a hyper-connected world.</p>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-green-200 to-teal-200 mr-2"></div>
+                                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Emma Richardson" class="w-8 h-8 rounded-full mr-2 object-cover">
                                         <span class="text-sm font-medium">Emma Richardson</span>
                                     </div>
                                     <span class="text-sm text-gray-500">6 min read</span>
@@ -304,7 +318,9 @@
                         
                         <!-- Blog Post 3 -->
                         <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
-                            <div class="h-48 bg-gradient-to-r from-yellow-100 to-orange-100"></div>
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Remote Work" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                            </div>
                             <div class="p-6">
                                 <div class="flex items-center text-sm text-gray-500 mb-3">
                                     <span class="bg-yellow-100 text-[#000080] font-medium py-1 px-3 rounded-full">Business</span>
@@ -315,7 +331,7 @@
                                 <p class="text-gray-600 mb-4">How successful companies are adapting to hybrid work models and creating inclusive, productive remote environments.</p>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-200 to-orange-200 mr-2"></div>
+                                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="David Kim" class="w-8 h-8 rounded-full mr-2 object-cover">
                                         <span class="text-sm font-medium">David Kim</span>
                                     </div>
                                     <span class="text-sm text-gray-500">10 min read</span>
@@ -325,7 +341,9 @@
                         
                         <!-- Blog Post 4 -->
                         <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
-                            <div class="h-48 bg-gradient-to-r from-purple-100 to-pink-100"></div>
+                            <div class="h-48 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1499244571973-2e6fd6a6be45?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Creativity" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                            </div>
                             <div class="p-6">
                                 <div class="flex items-center text-sm text-gray-500 mb-3">
                                     <span class="bg-purple-100 text-[#000080] font-medium py-1 px-3 rounded-full">Creativity</span>
@@ -336,7 +354,7 @@
                                 <p class="text-gray-600 mb-4">Research-backed methods to cultivate creativity and overcome blocks, whether you're an artist, engineer, or entrepreneur.</p>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-200 to-pink-200 mr-2"></div>
+                                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Sophia Williams" class="w-8 h-8 rounded-full mr-2 object-cover">
                                         <span class="text-sm font-medium">Sophia Williams</span>
                                     </div>
                                     <span class="text-sm text-gray-500">7 min read</span>
@@ -362,10 +380,13 @@
                     
                     <div class="bg-white rounded-xl overflow-hidden shadow-lg">
                         <!-- Featured Image -->
-                        <div class="h-64 md:h-80 bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center justify-center">
-                            <div class="text-center">
-                                <span class="text-5xl font-bold text-[#000080] mb-4 block">AI Ethics</span>
-                                <p class="text-xl text-gray-700">Navigating the moral implications of artificial intelligence</p>
+                        <div class="h-64 md:h-80 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" alt="AI Ethics" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent flex items-end justify-center pb-12">
+                                <div class="text-center">
+                                    <span class="text-5xl font-bold text-white mb-4 block drop-shadow-lg">AI Ethics</span>
+                                    <p class="text-xl text-gray-200 drop-shadow-md">Navigating the moral implications of artificial intelligence</p>
+                                </div>
                             </div>
                         </div>
                         
@@ -376,7 +397,7 @@
                                 <h1 class="text-3xl md:text-4xl font-bold font-serif text-gray-900 mb-4">The Ethical Dimensions of Artificial Intelligence Development</h1>
                                 <div class="flex flex-wrap items-center text-gray-600 mb-6">
                                     <div class="flex items-center mr-6 mb-2">
-                                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-200 to-indigo-200 mr-3"></div>
+                                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Dr. Marcus Johnson" class="w-10 h-10 rounded-full mr-3 object-cover">
                                         <div>
                                             <div class="font-medium">Dr. Marcus Johnson</div>
                                             <div class="text-sm">Senior AI Ethics Researcher</div>
@@ -465,7 +486,7 @@
                                 <!-- Author Bio -->
                                 <div class="bg-gray-50 rounded-xl p-6">
                                     <div class="flex flex-col md:flex-row items-center md:items-start">
-                                        <div class="w-20 h-20 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 mb-4 md:mb-0 md:mr-6"></div>
+                                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=200&h=200&q=80" alt="Dr. Marcus Johnson" class="w-20 h-20 rounded-full mb-4 md:mb-0 md:mr-6 object-cover border-4 border-white shadow-md">
                                         <div>
                                             <h3 class="text-xl font-bold text-gray-900 mb-2">About Dr. Marcus Johnson</h3>
                                             <p class="text-gray-700">Dr. Johnson leads the AI Ethics Research Group at Stanford University. With over 15 years of experience in technology ethics, he advises governments and corporations on responsible AI development. His work focuses on creating frameworks for ethical decision-making in autonomous systems.</p>
@@ -611,8 +632,8 @@
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Home</a></li>
                         <li><a href="#blogs" class="text-gray-400 hover:text-white transition-colors duration-200">Blogs</a></li>
                         <li><a href="#categories" class="text-gray-400 hover:text-white transition-colors duration-200">Categories</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors duration-200">About Us</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors duration-200">Contact</a></li>
+                        <li><a href="{% url 'about' %}" class="text-gray-400 hover:text-white transition-colors duration-200">About Us</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-gray-400 hover:text-white transition-colors duration-200">Contact</a></li>
                     </ul>
                 </div>
                 
