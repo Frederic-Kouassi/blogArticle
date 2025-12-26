@@ -4,6 +4,10 @@ from .forms import ArticleForm
 
 # Create your views here.
 
+def home(request):
+    return render(request, 'home.html')
+
+
 def index(request):
     if request.method == "POST":
         name=request.POST.get("name"),

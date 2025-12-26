@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insightful Blog | Premium Content Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #000080;
+            --primary-light: #333399;
+            --primary-dark: #000066;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --bg-light: #f9fafb;
+            --border-color: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.125rem;
+            line-height: 1.8;
+        }
+        
+        .article-content h2 {
+            font-size: 1.875rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .featured-slider {
+            scroll-behavior: smooth;
+        }
+        
+        .blog-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .sticky-header {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 128, 0.08);
+        }
+        
+        @media (max-width: 768px) {
+            .article-content p {
+                font-size: 1rem;
+            }
+            
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .article-content h3 {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header & Navigation -->
+    <header class="sticky-header sticky top-0 z-50 bg-white/90 py-4 transition-all duration-300">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold font-serif text-[#000080]">Insightful</a>
+                    <span class="ml-2 text-sm font-medium text-gray-500 hidden md:inline">Blog</span>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">Home</a>
+                    <a href="#blogs" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">Blogs</a>
+                    <a href="#categories" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">Categories</a>
+                    <a href="#about" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">About</a>
+                    <a href="#contact" class="text-gray-700 hover:text-[#000080] font-medium transition-colors duration-200">Contact</a>
+                </nav>
+                
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2">
+                <div class="flex flex-col space-y-3">
+                    <a href="#" class="text-gray-700 hover:text-[#000080] font-medium py-2">Home</a>
+                    <a href="#blogs" class="text-gray-700 hover:text-[#000080] font-medium py-2">Blogs</a>
+                    <a href="#categories" class="text-gray-700 hover:text-[#000080] font-medium py-2">Categories</a>
+                    <a href="#about" class="text-gray-700 hover:text-[#000080] font-medium py-2">About</a>
+                    <a href="#contact" class="text-gray-700 hover:text-[#000080] font-medium py-2">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-gray-900 mb-4">Insightful Blog</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">A premium platform for thought-provoking content on technology, education, and personal growth</p>
+                <div class="mt-8">
+                    <a href="#blogs" class="inline-block bg-[#000080] hover:bg-[#000066] text-white font-medium py-3 px-8 rounded-lg transition-colors duration-300 shadow-md hover:shadow-lg">Explore Our Blog</a>
+                </div>
+            </div>
+            
+            <!-- Featured Posts Slider -->
+            <div class="relative">
+                <div class="featured-slider flex overflow-x-auto space-x-6 pb-6 snap-x snap-mandatory scrollbar-hide" id="featured-slider">
+                    <!-- Featured Post 1 -->
+                    <div class="snap-center flex-shrink-0 w-full md:w-2/3 lg:w-1/2">
+                        <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 blog-card">
+                            <div class="h-64 md:h-72 bg-gradient-to-r from-blue-50 to-indigo-50 flex items-center justify-center">
+                                <span class="text-[#000080] text-4xl font-bold">AI & Future</span>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 mb-3">
+                                    <span class="bg-blue-100 text-[#000080] font-medium py-1 px-3 rounded-full">Technology</span>
+                                    <span class="mx-3">•</span>
+                                    <span>June 15, 2023</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">The Future of Artificial Intelligence in Everyday Life</h3>
+                                <p class="text-gray-600 mb-4">Exploring how AI will transform our daily routines, work environments, and creative processes in the coming decade.</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-200 to-indigo-200 mr-3"></div>
+                                        <span class="font-medium">Alex Johnson</span>
+                                    </div>
+                                    <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Read More →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Post 2 -->
+                    <div class="snap-center flex-shrink-0 w-full md:w-2/3 lg:w-1/2">
+                        <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 blog-card">
+                            <div class="h-64 md:h-72 bg-gradient-to-r from-green-50 to-teal-50 flex items-center justify-center">
+                                <span class="text-[#000080] text-4xl font-bold">Mindful Work</span>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 mb-3">
+                                    <span class="bg-green-100 text-[#000080] font-medium py-1 px-3 rounded-full">Productivity</span>
+                                    <span class="mx-3">•</span>
+                                    <span>June 10, 2023</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Mindful Productivity: Working Smarter in a Distracted World</h3>
+                                <p class="text-gray-600 mb-4">How to maintain focus, manage energy, and achieve meaningful progress without burnout in today's fast-paced environment.</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-200 to-teal-200 mr-3"></div>
+                                        <span class="font-medium">Sarah Chen</span>
+                                    </div>
+                                    <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Read More →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Featured Post 3 -->
+                    <div class="snap-center flex-shrink-0 w-full md:w-2/3 lg:w-1/2">
+                        <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 blog-card">
+                            <div class="h-64 md:h-72 bg-gradient-to-r from-purple-50 to-pink-50 flex items-center justify-center">
+                                <span class="text-[#000080] text-4xl font-bold">Learning 2023</span>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 mb-3">
+                                    <span class="bg-purple-100 text-[#000080] font-medium py-1 px-3 rounded-full">Education</span>
+                                    <span class="mx-3">•</span>
+                                    <span>June 5, 2023</span>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Modern Learning Techniques for Rapid Skill Acquisition</h3>
+                                <p class="text-gray-600 mb-4">Evidence-based strategies to learn new skills faster and more effectively in the digital age.</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-200 to-pink-200 mr-3"></div>
+                                        <span class="font-medium">Michael Torres</span>
+                                    </div>
+                                    <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Read More →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slider controls -->
+                <div class="flex justify-center mt-6 space-x-2">
+                    <button class="slider-prev w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-[#000080] hover:bg-gray-50 transition-colors duration-200">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-next w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-[#000080] hover:bg-gray-50 transition-colors duration-200">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area with Sidebar -->
+    <div class="container mx-auto px-4 md:px-8 py-12">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Blog Listing Section -->
+            <main class="lg:w-2/3">
+                <div id="blogs" class="mb-12">
+                    <h2 class="text-3xl font-bold font-serif text-gray-900 mb-2">Latest Articles</h2>
+                    <p class="text-gray-600 mb-8">Fresh perspectives on technology, productivity, and personal development</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Blog Post 1 -->
+                        <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
+                            <div class="h-48 bg-gradient-to-r from-blue-100 to-indigo-100"></div>
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 mb-3">
+                                    <span class="bg-blue-100 text-[#000080] font-medium py-1 px-3 rounded-full">Technology</span>
+                                    <span class="mx-2">•</span>
+                                    <span>June 12, 2023</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">The Rise of Quantum Computing: What You Need to Know</h3>
+                                <p class="text-gray-600 mb-4">Quantum computing is no longer just theoretical. Discover how it will revolutionize industries from pharmaceuticals to cryptography.</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-200 to-indigo-200 mr-2"></div>
+                                        <span class="text-sm font-medium">Dr. Lisa Park</span>
+                                    </div>
+                                    <span class="text-sm text-gray-500">8 min read</span>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Blog Post 2 -->
+                        <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
+                            <div class="h-48 bg-gradient-to-r from-green-100 to-teal-100"></div>
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 mb-3">
+                                    <span class="bg-green-100 text-[#000080] font-medium py-1 px-3 rounded-full">Wellness</span>
+                                    <span class="mx-2">•</span>
+                                    <span>June 8, 2023</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Digital Detox: Reclaiming Your Attention in the Age of Distraction</h3>
+                                <p class="text-gray-600 mb-4">Practical strategies to reduce screen time and improve focus, creativity, and mental wellbeing in a hyper-connected world.</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-green-200 to-teal-200 mr-2"></div>
+                                        <span class="text-sm font-medium">Emma Richardson</span>
+                                    </div>
+                                    <span class="text-sm text-gray-500">6 min read</span>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Blog Post 3 -->
+                        <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
+                            <div class="h-48 bg-gradient-to-r from-yellow-100 to-orange-100"></div>
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 mb-3">
+                                    <span class="bg-yellow-100 text-[#000080] font-medium py-1 px-3 rounded-full">Business</span>
+                                    <span class="mx-2">•</span>
+                                    <span>June 3, 2023</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Remote Work Evolution: Building Sustainable Distributed Teams</h3>
+                                <p class="text-gray-600 mb-4">How successful companies are adapting to hybrid work models and creating inclusive, productive remote environments.</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-200 to-orange-200 mr-2"></div>
+                                        <span class="text-sm font-medium">David Kim</span>
+                                    </div>
+                                    <span class="text-sm text-gray-500">10 min read</span>
+                                </div>
+                            </div>
+                        </article>
+                        
+                        <!-- Blog Post 4 -->
+                        <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
+                            <div class="h-48 bg-gradient-to-r from-purple-100 to-pink-100"></div>
+                            <div class="p-6">
+                                <div class="flex items-center text-sm text-gray-500 mb-3">
+                                    <span class="bg-purple-100 text-[#000080] font-medium py-1 px-3 rounded-full">Creativity</span>
+                                    <span class="mx-2">•</span>
+                                    <span>May 28, 2023</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">Unlocking Creative Potential: Techniques for Consistent Innovation</h3>
+                                <p class="text-gray-600 mb-4">Research-backed methods to cultivate creativity and overcome blocks, whether you're an artist, engineer, or entrepreneur.</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-200 to-pink-200 mr-2"></div>
+                                        <span class="text-sm font-medium">Sophia Williams</span>
+                                    </div>
+                                    <span class="text-sm text-gray-500">7 min read</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    
+                    <!-- Pagination/Load More -->
+                    <div class="mt-12 text-center">
+                        <button id="load-more" class="bg-white border border-[#000080] text-[#000080] hover:bg-[#000080] hover:text-white font-medium py-3 px-8 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md">
+                            Load More Articles
+                        </button>
+                        <div class="mt-4 text-sm text-gray-500">
+                            Showing 8 of 24 articles
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Single Blog Post Preview Section -->
+                <div id="single-post" class="mb-16">
+                    <h2 class="text-3xl font-bold font-serif text-gray-900 mb-8">Featured Article Preview</h2>
+                    
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg">
+                        <!-- Featured Image -->
+                        <div class="h-64 md:h-80 bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center justify-center">
+                            <div class="text-center">
+                                <span class="text-5xl font-bold text-[#000080] mb-4 block">AI Ethics</span>
+                                <p class="text-xl text-gray-700">Navigating the moral implications of artificial intelligence</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Article Content -->
+                        <div class="p-8">
+                            <!-- Article Header -->
+                            <div class="mb-8">
+                                <h1 class="text-3xl md:text-4xl font-bold font-serif text-gray-900 mb-4">The Ethical Dimensions of Artificial Intelligence Development</h1>
+                                <div class="flex flex-wrap items-center text-gray-600 mb-6">
+                                    <div class="flex items-center mr-6 mb-2">
+                                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-200 to-indigo-200 mr-3"></div>
+                                        <div>
+                                            <div class="font-medium">Dr. Marcus Johnson</div>
+                                            <div class="text-sm">Senior AI Ethics Researcher</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-6 mb-2">
+                                        <span class="flex items-center">
+                                            <i class="far fa-calendar text-[#000080] mr-2"></i>
+                                            June 18, 2023
+                                        </span>
+                                        <span class="flex items-center">
+                                            <i class="far fa-clock text-[#000080] mr-2"></i>
+                                            12 min read
+                                        </span>
+                                        <span class="bg-blue-100 text-[#000080] font-medium py-1 px-3 rounded-full">
+                                            Technology
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Article Body Preview -->
+                            <div class="article-content">
+                                <p class="lead text-xl text-gray-700 font-medium mb-8">As artificial intelligence systems become more integrated into our daily lives, the ethical considerations surrounding their development and deployment grow increasingly complex and urgent.</p>
+                                
+                                <h2>Understanding AI Bias and Fairness</h2>
+                                <p>One of the most pressing ethical concerns in AI development is algorithmic bias. When trained on historical data that reflects societal inequalities, AI systems can perpetuate and even amplify these biases.</p>
+                                
+                                <p>Consider hiring algorithms that have been shown to favor certain demographics over others, or facial recognition systems with significantly higher error rates for people of color. These aren't just technical glitches—they're ethical failures with real-world consequences.</p>
+                                
+                                <blockquote>
+                                    "We must remember that AI systems are created by humans, trained on human-generated data, and deployed in human societies. Their ethics are, at their core, a reflection of our own."
+                                </blockquote>
+                                
+                                <h2>Transparency and Accountability</h2>
+                                <p>Another critical dimension is the "black box" problem in complex AI models. When decisions are made by algorithms that even their creators don't fully understand, establishing accountability becomes challenging.</p>
+                                
+                                <p>Should a bank be allowed to deny loans using an opaque algorithm? Can healthcare providers rely on AI diagnostics without understanding how recommendations are generated? These questions highlight the need for explainable AI and clear accountability frameworks.</p>
+                                
+                                <h2>The Path Forward</h2>
+                                <p>Developing ethical AI requires multidisciplinary collaboration—bringing together technologists, ethicists, policymakers, and representatives from affected communities. It also demands proactive measures:</p>
+                                
+                                <ul class="list-disc pl-6">
+                                    <li>Diverse development teams to identify potential biases early</li>
+                                    <li>Ethical impact assessments before deployment</li>
+                                    <li>Transparent documentation of training data and methodologies</li>
+                                    <li>Ongoing monitoring and auditing of AI systems in production</li>
+                                </ul>
+                                
+                                <p>The future of AI should be shaped not just by what we can build, but by what we should build—prioritizing human dignity, fairness, and societal wellbeing alongside technological advancement.</p>
+                            </div>
+                            
+                            <!-- Article Footer -->
+                            <div class="mt-12 pt-8 border-t border-gray-200">
+                                <!-- Tags -->
+                                <div class="mb-8">
+                                    <h3 class="text-lg font-bold text-gray-900 mb-4">Tags</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full">Artificial Intelligence</span>
+                                        <span class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full">Ethics</span>
+                                        <span class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full">Technology</span>
+                                        <span class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full">Future</span>
+                                        <span class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full">Society</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Social Sharing -->
+                                <div class="mb-8">
+                                    <h3 class="text-lg font-bold text-gray-900 mb-4">Share This Article</h3>
+                                    <div class="flex space-x-4">
+                                        <a href="#" class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center hover:bg-blue-200 transition-colors duration-200">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="#" class="w-10 h-10 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center hover:bg-blue-200 transition-colors duration-200">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                        <a href="#" class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center hover:bg-red-200 transition-colors duration-200">
+                                            <i class="fab fa-pinterest-p"></i>
+                                        </a>
+                                        <a href="#" class="w-10 h-10 rounded-full bg-gray-100 text-gray-800 flex items-center justify-center hover:bg-gray-200 transition-colors duration-200">
+                                            <i class="far fa-envelope"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <!-- Author Bio -->
+                                <div class="bg-gray-50 rounded-xl p-6">
+                                    <div class="flex flex-col md:flex-row items-center md:items-start">
+                                        <div class="w-20 h-20 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 mb-4 md:mb-0 md:mr-6"></div>
+                                        <div>
+                                            <h3 class="text-xl font-bold text-gray-900 mb-2">About Dr. Marcus Johnson</h3>
+                                            <p class="text-gray-700">Dr. Johnson leads the AI Ethics Research Group at Stanford University. With over 15 years of experience in technology ethics, he advises governments and corporations on responsible AI development. His work focuses on creating frameworks for ethical decision-making in autonomous systems.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <!-- Sidebar -->
+            <aside class="lg:w-1/3">
+                <!-- Newsletter Subscription -->
+                <div class="bg-gradient-to-r from-[#000080] to-[#333399] rounded-xl p-6 text-white mb-8">
+                    <h3 class="text-2xl font-bold font-serif mb-4">Join Our Newsletter</h3>
+                    <p class="mb-6 opacity-90">Get weekly insights on technology, productivity, and personal growth delivered to your inbox.</p>
+                    <form id="newsletter-form" class="space-y-4">
+                        <input type="email" placeholder="Your email address" class="w-full px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white">
+                        <button type="submit" class="w-full bg-white text-[#000080] font-medium py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200">Subscribe</button>
+                    </form>
+                    <p class="text-sm opacity-75 mt-4">No spam. Unsubscribe anytime.</p>
+                </div>
+                
+                <!-- Categories -->
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200">Categories</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="flex justify-between items-center text-gray-700 hover:text-[#000080] transition-colors duration-200">
+                                <span>Technology</span>
+                                <span class="bg-gray-100 text-gray-800 text-sm font-medium py-1 px-3 rounded-full">12</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex justify-between items-center text-gray-700 hover:text-[#000080] transition-colors duration-200">
+                                <span>Productivity</span>
+                                <span class="bg-gray-100 text-gray-800 text-sm font-medium py-1 px-3 rounded-full">8</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex justify-between items-center text-gray-700 hover:text-[#000080] transition-colors duration-200">
+                                <span>Personal Growth</span>
+                                <span class="bg-gray-100 text-gray-800 text-sm font-medium py-1 px-3 rounded-full">10</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex justify-between items-center text-gray-700 hover:text-[#000080] transition-colors duration-200">
+                                <span>Business</span>
+                                <span class="bg-gray-100 text-gray-800 text-sm font-medium py-1 px-3 rounded-full">6</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex justify-between items-center text-gray-700 hover:text-[#000080] transition-colors duration-200">
+                                <span>Wellness</span>
+                                <span class="bg-gray-100 text-gray-800 text-sm font-medium py-1 px-3 rounded-full">5</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Recent Posts -->
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200">Recent Posts</h3>
+                    <div class="space-y-6">
+                        <div class="flex">
+                            <div class="w-20 h-16 rounded-lg bg-gradient-to-r from-blue-100 to-indigo-100 mr-4 flex-shrink-0"></div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1 hover:text-[#000080] transition-colors duration-200">
+                                    <a href="#">The Psychology of Habit Formation</a>
+                                </h4>
+                                <p class="text-sm text-gray-500">June 14, 2023</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-20 h-16 rounded-lg bg-gradient-to-r from-green-100 to-teal-100 mr-4 flex-shrink-0"></div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1 hover:text-[#000080] transition-colors duration-200">
+                                    <a href="#">Sustainable Tech for a Better Future</a>
+                                </h4>
+                                <p class="text-sm text-gray-500">June 10, 2023</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-20 h-16 rounded-lg bg-gradient-to-r from-purple-100 to-pink-100 mr-4 flex-shrink-0"></div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1 hover:text-[#000080] transition-colors duration-200">
+                                    <a href="#">The Future of Remote Education</a>
+                                </h4>
+                                <p class="text-sm text-gray-500">June 7, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Popular Tags -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200">Popular Tags</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">AI</a>
+                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Productivity</a>
+                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Learning</a>
+                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Mindfulness</a>
+                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Tech</a>
+                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Future</a>
+                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Innovation</a>
+                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Wellness</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Logo & Description -->
+                <div>
+                    <div class="text-2xl font-bold font-serif mb-4">Insightful</div>
+                    <p class="text-gray-400 mb-6">A premium platform for thoughtful content on technology, education, and personal growth.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#000080] transition-colors duration-200">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#000080] transition-colors duration-200">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#000080] transition-colors duration-200">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#000080] transition-colors duration-200">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Home</a></li>
+                        <li><a href="#blogs" class="text-gray-400 hover:text-white transition-colors duration-200">Blogs</a></li>
+                        <li><a href="#categories" class="text-gray-400 hover:text-white transition-colors duration-200">Categories</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors duration-200">About Us</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors duration-200">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Categories</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Technology</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Productivity</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Personal Growth</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Business</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Wellness</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6">Stay Updated</h3>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest articles and insights.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="flex-grow px-4 py-3 rounded-l-lg text-gray-900 focus:outline-none">
+                        <button type="submit" class="bg-[#000080] hover:bg-[#000066] px-4 rounded-r-lg transition-colors duration-200">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 Insightful Blog. All rights reserved. Designed with a focus on content presentation and readability.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Sticky header effect on scroll
+        const header = document.querySelector('.sticky-header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+        
+        // Featured slider functionality
+        const slider = document.getElementById('featured-slider');
+        const prevButton = document.querySelector('.slider-prev');
+        const nextButton = document.querySelector('.slider-next');
+        
+        if (slider && prevButton && nextButton) {
+            prevButton.addEventListener('click', () => {
+                slider.scrollBy({ left: -slider.offsetWidth * 0.8, behavior: 'smooth' });
+            });
+            
+            nextButton.addEventListener('click', () => {
+                slider.scrollBy({ left: slider.offsetWidth * 0.8, behavior: 'smooth' });
+            });
+        }
+        
+        // Load more button functionality
+        const loadMoreButton = document.getElementById('load-more');
+        
+        if (loadMoreButton) {
+            loadMoreButton.addEventListener('click', () => {
+                loadMoreButton.textContent = 'Loading...';
+                loadMoreButton.disabled = true;
+                
+                // Simulate loading delay
+                setTimeout(() => {
+                    // In a real implementation, this would fetch more posts from an API
+                    alert('In a real implementation, this would load more blog posts from the server.');
+                    loadMoreButton.textContent = 'Load More Articles';
+                    loadMoreButton.disabled = false;
+                }, 1000);
+            });
+        }
+        
+        // Newsletter form submission
+        const newsletterForm = document.getElementById('newsletter-form');
+        
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const emailInput = newsletterForm.querySelector('input[type="email"]');
+                
+                if (emailInput.value && emailInput.value.includes('@')) {
+                    alert('Thank you for subscribing to our newsletter!');
+                    emailInput.value = '';
+                } else {
+                    alert('Please enter a valid email address.');
+                }
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Initialize with header state
+        if (window.scrollY > 50) {
+            header.classList.add('header-scrolled');
+        }
+    </script>
+</body>
+</html>
