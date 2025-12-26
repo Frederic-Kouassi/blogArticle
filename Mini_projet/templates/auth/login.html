@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Insightful Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #000080;
+            --primary-light: #333399;
+            --primary-dark: #000066;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --bg-light: #f9fafb;
+            --border-color: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-color: #f8fafc;
+            min-height: 100vh;
+        }
+        
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+        }
+        
+        .login-left {
+            flex: 1;
+            background: linear-gradient(135deg, #000080 0%, #333399 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><path fill="rgba(255,255,255,0.05)" d="M0,500Q250,450,500,500Q750,550,1000,500L1000,1000L0,1000Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
+        }
+        
+        .login-right {
+            flex: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 128, 0.08);
+            border: 1px solid #e2e8f0;
+            padding: 3rem;
+            width: 100%;
+            max-width: 480px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 0, 128, 0.12);
+        }
+        
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #000080 0%, #333399 100%);
+            color: white;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #000066 0%, #2a2a7a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 128, 0.15);
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.875rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+            background: white;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        
+        .social-btn:hover {
+            border-color: #cbd5e0;
+            background: #f7fafc;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #718096;
+            font-size: 0.875rem;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .divider::before {
+            margin-right: 1rem;
+        }
+        
+        .divider::after {
+            margin-left: 1rem;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #a0aec0;
+            cursor: pointer;
+        }
+        
+        .toggle-password:hover {
+            color: #718096;
+        }
+        
+        .checkbox-custom {
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 0.375rem;
+            border: 2px solid #cbd5e0;
+            background-color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .checkbox-custom.checked {
+            background-color: #000080;
+            border-color: #000080;
+        }
+        
+        .checkbox-custom.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .error-message {
+            background-color: #fed7d7;
+            border: 1px solid #fc8181;
+            color: #c53030;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        
+        .success-message {
+            background-color: #c6f6d5;
+            border: 1px solid #9ae6b4;
+            color: #22543d;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        
+        @media (max-width: 1024px) {
+            .login-left {
+                display: none;
+            }
+            
+            .login-right {
+                padding: 1.5rem;
+            }
+            
+            .login-card {
+                padding: 2rem;
+            }
+        }
+        
+        .back-to-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            z-index: 10;
+        }
+        
+        .back-to-home:hover {
+            color: #e2e8f0;
+        }
+        
+        .terms-link {
+            color: #000080;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .terms-link:hover {
+            color: #000066;
+            text-decoration: underline;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 2rem;
+        }
+        
+        .feature-list li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to Home Button -->
+    <a href="index.html" class="back-to-home">
+        <i class="fas fa-arrow-left mr-2"></i>
+        Back to Blog
+    </a>
+
+    <div class="login-container">
+        <!-- Left Side - Branding & Features -->
+        <div class="login-left">
+            <div class="relative z-10 max-w-lg mx-auto">
+                <div class="flex items-center mb-8">
+                    <div class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center mr-4">
+                        <i class="fas fa-lock text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-4xl font-bold font-serif">Insightful</h1>
+                        <p class="text-blue-100">Premium Blog Platform</p>
+                    </div>
+                </div>
+                
+                <h2 class="text-3xl font-bold mb-6">Welcome Back</h2>
+                <p class="text-xl text-blue-100 mb-8">Sign in to access your personalized reading experience, saved articles, and writing dashboard.</p>
+                
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-8">
+                    <h3 class="text-xl font-bold mb-4">Why Join Insightful?</h3>
+                    <ul class="feature-list">
+                        <li>Personalized content recommendations</li>
+                        <li>Save and organize your favorite articles</li>
+                        <li>Comment and join discussions</li>
+                        <li>Write and publish your own blogs</li>
+                        <li>Track your reading progress</li>
+                        <li>Get weekly curated digests</li>
+                    </ul>
+                </div>
+                
+                <div class="flex items-center text-blue-100">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium">Enterprise-grade security</p>
+                        <p class="text-sm opacity-80">Your data is encrypted and protected</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Decorative elements -->
+            <div class="absolute top-1/4 right-10 w-64 h-64 rounded-full bg-white/5 blur-xl"></div>
+            <div class="absolute bottom-1/4 left-10 w-48 h-48 rounded-full bg-white/5 blur-xl"></div>
+        </div>
+        
+        <!-- Right Side - Login Form -->
+        <div class="login-right">
+            <div class="login-card">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900">Sign In to Your Account</h2>
+                    <p class="text-gray-600 mt-2">Enter your credentials to access the platform</p>
+                </div>
+                
+                <!-- Error Message -->
+                <div id="login-error" class="error-message">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span id="login-error-text">Invalid email or password. Please try again.</span>
+                </div>
+                
+                <!-- Success Message -->
+                <div id="login-success" class="success-message">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span id="login-success-text">Login successful! Redirecting...</span>
+                </div>
+                
+                <form id="login-form">
+                    <div class="space-y-6">
+                        <!-- Email Input -->
+                        <div>
+                            <label for="login-email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                            <div class="relative">
+                                <input type="email" id="login-email" name="email" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 pl-12" placeholder="you@example.com">
+                                <div class="absolute left-4 top-3.5 text-gray-400">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Password Input -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label for="login-password" class="block text-gray-700 font-medium">Password</label>
+                                <a href="#forgot-password" id="forgot-password-link" class="text-sm text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Forgot password?</a>
+                            </div>
+                            <div class="relative">
+                                <input type="password" id="login-password" name="password" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 pl-12 pr-12" placeholder="Enter your password">
+                                <div class="absolute left-4 top-3.5 text-gray-400">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <button type="button" class="toggle-password" id="toggle-login-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Remember Me & Security -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="checkbox-custom mr-3" id="remember-checkbox"></div>
+                                <label for="remember-checkbox" class="text-gray-700 cursor-pointer">Remember me for 30 days</label>
+                            </div>
+                            
+                            <div class="flex items-center text-sm text-green-600">
+                                <i class="fas fa-shield-alt mr-1"></i>
+                                <span>Secure Connection</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-primary pulse-animation">
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                            Sign In to Account
+                        </button>
+                    </div>
+                    
+                    <!-- Divider -->
+                    <div class="my-8">
+                        <div class="divider">Or continue with</div>
+                    </div>
+                    
+                    <!-- Social Login -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        <button type="button" class="social-btn">
+                            <i class="fab fa-google text-red-500 mr-3"></i>
+                            Google
+                        </button>
+                        <button type="button" class="social-btn">
+                            <i class="fab fa-github text-gray-800 mr-3"></i>
+                            GitHub
+                        </button>
+                    </div>
+                    
+                    <!-- Create Account -->
+                    <div class="text-center pt-6 border-t border-gray-200">
+                        <p class="text-gray-600">
+                            Don't have an account? 
+                            <a href="register.html" class="text-[#000080] font-semibold hover:text-[#000066] transition-colors duration-200 ml-1">
+                                Create an account
+                            </a>
+                        </p>
+                    </div>
+                </form>
+                
+                <!-- Terms -->
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <p class="text-xs text-gray-500 text-center">
+                        By signing in, you agree to our 
+                        <a href="#" class="terms-link">Terms of Service</a> and 
+                        <a href="#" class="terms-link">Privacy Policy</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-password-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                    <i class="fas fa-key text-blue-600 text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Reset Password</h3>
+                    <p class="text-gray-600">Enter your email to receive reset instructions</p>
+                </div>
+            </div>
+            
+            <!-- Success Message -->
+            <div id="reset-success" class="success-message hidden">
+                <i class="fas fa-check-circle mr-2"></i>
+                <span>Password reset instructions sent to your email.</span>
+            </div>
+            
+            <form id="reset-form">
+                <div class="space-y-5">
+                    <div>
+                        <label for="reset-email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                        <div class="relative">
+                            <input type="email" id="reset-email" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 pl-12" placeholder="you@example.com">
+                            <div class="absolute left-4 top-3.5 text-gray-400">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">We'll send you a link to reset your password.</p>
+                    </div>
+                    
+                    <div class="flex space-x-3">
+                        <button type="button" id="cancel-reset" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors duration-200">
+                            Cancel
+                        </button>
+                        <button type="submit" class="flex-1 btn-primary">
+                            Send Reset Link
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginForm = document.getElementById('login-form');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
+        const forgotPasswordModal = document.getElementById('forgot-password-modal');
+        const cancelResetBtn = document.getElementById('cancel-reset');
+        const resetForm = document.getElementById('reset-form');
+        const loginError = document.getElementById('login-error');
+        const loginSuccess = document.getElementById('login-success');
+        const resetSuccess = document.getElementById('reset-success');
+        const toggleLoginPassword = document.getElementById('toggle-login-password');
+        const rememberCheckbox = document.getElementById('remember-checkbox');
+
+        // Custom checkbox functionality
+        rememberCheckbox.addEventListener('click', () => {
+            rememberCheckbox.classList.toggle('checked');
+        });
+
+        // Password visibility toggle
+        toggleLoginPassword.addEventListener('click', () => {
+            const passwordInput = document.getElementById('login-password');
+            const icon = toggleLoginPassword.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        // Forgot Password Modal
+        forgotPasswordLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            forgotPasswordModal.classList.remove('hidden');
+        });
+
+        cancelResetBtn.addEventListener('click', () => {
+            forgotPasswordModal.classList.add('hidden');
+            resetSuccess.classList.add('hidden');
+        });
+
+        // Close modal when clicking outside
+        forgotPasswordModal.addEventListener('click', (e) => {
+            if (e.target === forgotPasswordModal) {
+                forgotPasswordModal.classList.add('hidden');
+                resetSuccess.classList.add('hidden');
+            }
+        });
+
+        // Show error message
+        function showError(element, message) {
+            const textElement = element.querySelector('span');
+            if (textElement) {
+                textElement.textContent = message;
+            }
+            element.style.display = 'block';
+        }
+
+        // Show success message
+        function showSuccess(element, message) {
+            const textElement = element.querySelector('span');
+            if (textElement) {
+                textElement.textContent = message;
+            }
+            element.style.display = 'block';
+        }
+
+        // Clear messages
+        function clearMessages() {
+            loginError.style.display = 'none';
+            loginSuccess.style.display = 'none';
+            resetSuccess.classList.add('hidden');
+        }
+
+        // Login Form Submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const rememberMe = rememberCheckbox.classList.contains('checked');
+            
+            // Clear previous messages
+            clearMessages();
+            
+            // Basic validation
+            if (!email || !password) {
+                showError(loginError, 'Please fill in all fields.');
+                return;
+            }
+            
+            // Simple email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError(loginError, 'Please enter a valid email address.');
+                return;
+            }
+            
+            // Mock authentication (in a real app, this would be an API call)
+            // For demo purposes, accept these credentials
+            const demoCredentials = {
+                email: 'demo@insightfulblog.com',
+                password: 'demo123'
+            };
+            
+            if (email === demoCredentials.email && password === demoCredentials.password) {
+                showSuccess(loginSuccess, 'Login successful! Redirecting to dashboard...');
+                
+                // Simulate API call delay
+                setTimeout(() => {
+                    window.location.href = 'user-dashboard.html';
+                }, 1500);
+            } else {
+                // For demo, accept any email/password combination
+                showSuccess(loginSuccess, 'Login successful! Redirecting to dashboard...');
+                
+                // Simulate API call delay
+                setTimeout(() => {
+                    window.location.href = 'user-dashboard.html';
+                }, 1500);
+            }
+        });
+
+        // Reset Password Form Submission
+        resetForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('reset-email').value;
+            
+            // Basic validation
+            if (!email) {
+                alert('Please enter your email address.');
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Mock reset request
+            resetSuccess.classList.remove('hidden');
+            
+            // Simulate sending email
+            setTimeout(() => {
+                forgotPasswordModal.classList.add('hidden');
+                resetSuccess.classList.add('hidden');
+                resetForm.reset();
+                
+                // Show success message on login form
+                showSuccess(loginSuccess, 'Password reset email sent! Check your inbox.');
+            }, 2000);
+        });
+
+        // Social login buttons
+        document.querySelectorAll('.social-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const platform = button.textContent.trim();
+                showSuccess(loginSuccess, `Redirecting to ${platform} authentication...`);
+                
+                // In a real app, this would redirect to OAuth flow
+                setTimeout(() => {
+                    showError(loginError, `${platform} authentication is not configured in this demo.`);
+                    loginSuccess.style.display = 'none';
+                }, 1500);
+            });
+        });
+
+        // Add some interactivity to the form
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('ring-2', 'ring-blue-500/20');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('ring-2', 'ring-blue-500/20');
+            });
+        });
+    </script>
+</body>
+</html>
