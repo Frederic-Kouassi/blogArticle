@@ -339,19 +339,17 @@
                     <p class="text-gray-600 mt-2">Enter your credentials to access the platform</p>
                 </div>
                 
-                <!-- Error Message -->
-                <div id="login-error" class="error-message">
-                    <i class="fas fa-exclamation-circle mr-2"></i>
-                    <span id="login-error-text">Invalid email or password. Please try again.</span>
-                </div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="mb-4 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                            <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %} mr-2"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 
-                <!-- Success Message -->
-                <div id="login-success" class="success-message">
-                    <i class="fas fa-check-circle mr-2"></i>
-                    <span id="login-success-text">Login successful! Redirecting...</span>
-                </div>
-                
-                <form id="login-form">
+                <form id="login-form" method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
                     <div class="space-y-6">
                         <!-- Email Input -->
                         <div>
@@ -565,53 +563,9 @@
         }
 
         // Login Form Submission
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const rememberMe = rememberCheckbox.classList.contains('checked');
-            
-            // Clear previous messages
-            clearMessages();
-            
-            // Basic validation
-            if (!email || !password) {
-                showError(loginError, 'Please fill in all fields.');
-                return;
-            }
-            
-            // Simple email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showError(loginError, 'Please enter a valid email address.');
-                return;
-            }
-            
-            // Mock authentication (in a real app, this would be an API call)
-            // For demo purposes, accept these credentials
-            const demoCredentials = {
-                email: 'demo@insightfulblog.com',
-                password: 'demo123'
-            };
-            
-            if (email === demoCredentials.email && password === demoCredentials.password) {
-                showSuccess(loginSuccess, 'Login successful! Redirecting to dashboard...');
-                
-                // Simulate API call delay
-                setTimeout(() => {
-                    window.location.href = 'user-dashboard.html';
-                }, 1500);
-            } else {
-                // For demo, accept any email/password combination
-                showSuccess(loginSuccess, 'Login successful! Redirecting to dashboard...');
-                
-                // Simulate API call delay
-                setTimeout(() => {
-                    window.location.href = 'user-dashboard.html';
-                }, 1500);
-            }
-        });
+        // loginForm.addEventListener('submit', (e) => {
+            // Let form submit normally
+        // });
 
         // Reset Password Form Submission
         resetForm.addEventListener('submit', (e) => {

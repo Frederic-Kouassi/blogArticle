@@ -420,19 +420,17 @@
                     <p class="text-gray-600 mt-2">Join our community of readers and writers</p>
                 </div>
                 
-                <!-- Error Message -->
-                <div id="register-error" class="error-message">
-                    <i class="fas fa-exclamation-circle mr-2"></i>
-                    <span id="register-error-text">Please fix the errors below.</span>
-                </div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="mb-4 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                            <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %} mr-2"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 
-                <!-- Success Message -->
-                <div id="register-success" class="success-message">
-                    <i class="fas fa-check-circle mr-2"></i>
-                    <span id="register-success-text">Account created successfully!</span>
-                </div>
-                
-                <form id="register-form">
+                <form id="register-form" method="POST" action="{% url 'register' %}">
+                    {% csrf_token %}
                     <div class="space-y-6">
                         <!-- Name Fields -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -939,7 +937,7 @@
 
         // Register Form Submission
         registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+            // e.preventDefault(); // allow default unless invalid
             
             // Get form values
             const firstName = document.getElementById('first-name').value;
@@ -993,18 +991,12 @@
             
             // If validation fails, show error
             if (!isValid) {
+                e.preventDefault();
                 showError(registerError, errorMessage);
                 return;
             }
             
-            // Mock registration (in a real app, this would be an API call)
-            showSuccess(registerSuccess, 'Account created successfully! Redirecting to dashboard...');
-            
-            // Simulate API call delay
-            setTimeout(() => {
-                // Redirect to login page with success message
-                window.location.href = 'login.html?registered=true';
-            }, 2000);
+            // If valid, let the form submit to Django
         });
 
         // Social registration buttons
