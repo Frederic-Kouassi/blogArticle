@@ -1,0 +1,154 @@
+:root {
+  --primary-color: #000080;
+  --primary-light: #333399;
+  --primary-dark: #000066;
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --bg-light: #f9fafb;
+  --border-color: #e2e8f0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-serif {
+  font-family: "Playfair Display", serif;
+}
+
+.article-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.article-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+
+.article-content h2 {
+  font-size: 1.875rem;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.article-content h3 {
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.article-content blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+}
+
+.article-content ul,
+.article-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.article-content li {
+  margin-bottom: 0.5rem;
+}
+
+.featured-slider {
+  scroll-behavior: smooth;
+}
+
+.blog-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+}
+
+.sticky-header {
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.header-scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 128, 0.08);
+}
+
+@media (max-width: 768px) {
+  .article-content p {
+    font-size: 1rem;
+  }
+
+  .article-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .article-content h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Extra CSS from Contact/About pages */
+.page-hero {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 128, 0.03) 0%,
+    rgba(51, 51, 153, 0.03) 100%
+  );
+}
+
+.team-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+}
+
+.contact-card {
+  transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 128, 0.1);
+}
+
+.form-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
+}
+
+.values-card {
+  border-left: 4px solid var(--primary-color);
+}
+
+.timeline-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 16px;
+  width: 2px;
+  height: calc(100% - 40px);
+  background: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .timeline-item:not(:last-child)::after {
+    left: 12px;
+  }
+}

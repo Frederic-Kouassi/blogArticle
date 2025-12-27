@@ -1,0 +1,12 @@
+<!-- Page Navigation -->
+<div class="bg-white border-b border-gray-100">
+    <div class="container mx-auto px-4 md:px-8">
+        <div class="py-4">
+            <nav class="flex space-x-2 text-sm">
+                <a href="{% url 'home' %}" class="text-gray-500 hover:text-[#000080] transition-colors duration-200">Home</a>
+                <span class="text-gray-300">/</span>
+                <span class="text-[#000080] font-medium">{{ page_title|default:"About & Contact" }}</span>
+            </nav>
+        </div>
+    </div>
+</div>
