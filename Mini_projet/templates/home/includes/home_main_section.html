@@ -3,18 +3,18 @@
         <div class="container mx-auto px-4 md:px-8 relative z-10">
             <div class="text-center mb-12">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold font-serif text-gray-900 mb-4">Insightful Blog</h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">A premium platform for thought-provoking content on technology, education, and personal growth</p>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Une plateforme premium pour des contenus réfléchis sur la technologie, l'éducation et le développement personnel</p>
                 <div class="mt-8 flex justify-center gap-4">
                     {% if user.is_authenticated %}
                         <a href="{% url 'user_dashboard' %}" class="inline-block bg-[#000080] hover:bg-[#000066] text-white font-medium py-3 px-8 rounded-lg transition-colors duration-300 shadow-md hover:shadow-lg">
-                            Go to Dashboard <i class="fas fa-arrow-right ml-2"></i>
+                            Aller au Tableau de bord <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     {% else %}
                         <a href="{% url 'register' %}" class="inline-block bg-[#000080] hover:bg-[#000066] text-white font-medium py-3 px-8 rounded-lg transition-colors duration-300 shadow-md hover:shadow-lg">
-                            Get Started
+                            Commencer
                         </a>
                         <a href="{% url 'login' %}" class="inline-block bg-white hover:bg-gray-100 text-[#000080] border border-[#000080] font-medium py-3 px-8 rounded-lg transition-colors duration-300 shadow-sm hover:shadow-md">
-                            Log In
+                            Connexion
                         </a>
                     {% endif %}
                 </div>
@@ -27,25 +27,25 @@
                     <div class="snap-center flex-shrink-0 w-full md:w-2/3 lg:w-1/2">
                         <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 blog-card">
                             <div class="h-64 md:h-72 bg-gray-100 overflow-hidden relative">
-                                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="AI Future" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                                <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="IA Futur" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                                    <span class="text-white text-3xl font-bold">AI & Future</span>
+                                    <span class="text-white text-3xl font-bold">IA & Futur</span>
                                 </div>
                             </div>
                             <div class="p-6">
                                 <div class="flex items-center text-sm text-gray-500 mb-3">
-                                    <span class="bg-blue-100 text-[#000080] font-medium py-1 px-3 rounded-full">Technology</span>
+                                    <span class="bg-blue-100 text-[#000080] font-medium py-1 px-3 rounded-full">Technologie</span>
                                     <span class="mx-3">•</span>
-                                    <span>June 15, 2023</span>
+                                    <span>15 Juin 2023</span>
                                 </div>
-                                <h3 class="text-2xl font-bold text-gray-900 mb-3">The Future of Artificial Intelligence in Everyday Life</h3>
-                                <p class="text-gray-600 mb-4">Exploring how AI will transform our daily routines, work environments, and creative processes in the coming decade.</p>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">L'Avenir de l'Intelligence Artificielle dans la Vie Quotidienne</h3>
+                                <p class="text-gray-600 mb-4">Explorer comment l'IA transformera nos routines quotidiennes, nos environnements de travail et nos processus créatifs dans la décennie à venir.</p>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
                                         <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Alex Johnson" class="w-10 h-10 rounded-full mr-3 object-cover">
                                         <span class="font-medium">Alex Johnson</span>
                                     </div>
-                                    <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Read More →</a>
+                                    <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Lire Plus →</a>
                                 </div>
                             </div>
                         </div>
@@ -55,25 +55,25 @@
                     <div class="snap-center flex-shrink-0 w-full md:w-2/3 lg:w-1/2">
                         <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 blog-card">
                             <div class="h-64 md:h-72 bg-gray-100 overflow-hidden relative">
-                                <img src="https://images.unsplash.com/photo-1497215842964-222b4bef5732?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Mindful Work" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                                <img src="https://images.unsplash.com/photo-1497215842964-222b4bef5732?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Travail Conscient" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                                    <span class="text-white text-3xl font-bold">Mindful Work</span>
+                                    <span class="text-white text-3xl font-bold">Travail Conscient</span>
                                 </div>
                             </div>
                             <div class="p-6">
                                 <div class="flex items-center text-sm text-gray-500 mb-3">
-                                    <span class="bg-green-100 text-[#000080] font-medium py-1 px-3 rounded-full">Productivity</span>
+                                    <span class="bg-green-100 text-[#000080] font-medium py-1 px-3 rounded-full">Productivité</span>
                                     <span class="mx-3">•</span>
-                                    <span>June 10, 2023</span>
+                                    <span>10 Juin 2023</span>
                                 </div>
-                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Mindful Productivity: Working Smarter in a Distracted World</h3>
-                                <p class="text-gray-600 mb-4">How to maintain focus, manage energy, and achieve meaningful progress without burnout in today's fast-paced environment.</p>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Productivité Consciente : Travailler Intelligemment dans un Monde Distrait</h3>
+                                <p class="text-gray-600 mb-4">Comment maintenir sa concentration, gérer son énergie et réaliser des progrès significatifs sans épuisement dans l'environnement rapide d'aujourd'hui.</p>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
                                         <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Sarah Chen" class="w-10 h-10 rounded-full mr-3 object-cover">
                                         <span class="font-medium">Sarah Chen</span>
                                     </div>
-                                    <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Read More →</a>
+                                    <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Lire Plus →</a>
                                 </div>
                             </div>
                         </div>
@@ -83,25 +83,25 @@
                     <div class="snap-center flex-shrink-0 w-full md:w-2/3 lg:w-1/2">
                         <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 blog-card">
                             <div class="h-64 md:h-72 bg-gray-100 overflow-hidden relative">
-                                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Learning 2023" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Apprentissage 2023" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                                    <span class="text-white text-3xl font-bold">Learning 2023</span>
+                                    <span class="text-white text-3xl font-bold">Apprentissage 2023</span>
                                 </div>
                             </div>
                             <div class="p-6">
                                 <div class="flex items-center text-sm text-gray-500 mb-3">
-                                    <span class="bg-purple-100 text-[#000080] font-medium py-1 px-3 rounded-full">Education</span>
+                                    <span class="bg-purple-100 text-[#000080] font-medium py-1 px-3 rounded-full">Éducation</span>
                                     <span class="mx-3">•</span>
-                                    <span>June 5, 2023</span>
+                                    <span>5 Juin 2023</span>
                                 </div>
-                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Modern Learning Techniques for Rapid Skill Acquisition</h3>
-                                <p class="text-gray-600 mb-4">Evidence-based strategies to learn new skills faster and more effectively in the digital age.</p>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Techniques d'Apprentissage Modernes pour l'Acquisition Rapide de Compétences</h3>
+                                <p class="text-gray-600 mb-4">Stratégies fondées sur des preuves pour apprendre de nouvelles compétences plus rapidement et plus efficacement à l'ère numérique.</p>
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
                                         <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Michael Torres" class="w-10 h-10 rounded-full mr-3 object-cover">
                                         <span class="font-medium">Michael Torres</span>
                                     </div>
-                                    <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Read More →</a>
+                                    <a href="#" class="text-[#000080] font-medium hover:text-[#000066] transition-colors duration-200">Lire Plus →</a>
                                 </div>
                             </div>
                         </div>

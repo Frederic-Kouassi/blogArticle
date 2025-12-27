@@ -1,10 +1,10 @@
 {% extends 'home/base.html' %}
 {% load static %}
 
-{% block title %}About Us | Insightful Blog{% endblock %}
+{% block title %}À Propos | Blog Insightful{% endblock %}
 
 {% block content %}
-    {% with page_title="About Us" %}
+    {% with page_title="À Propos" %}
         {% include 'home/includes/page_navigation.html' %}
     {% endwith %}
 
@@ -14,12 +14,12 @@
             <!-- About Hero -->
             <div class="page-hero rounded-2xl p-8 md:p-12 mb-16 relative overflow-hidden">
                 <div class="absolute inset-0 z-0">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Team collaboration" class="w-full h-full object-cover opacity-20">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Collaboration d'équipe" class="w-full h-full object-cover opacity-20">
                     <div class="absolute inset-0 bg-gradient-to-r from-white/90 to-white/70"></div>
                 </div>
                 <div class="max-w-3xl relative z-10">
-                    <h1 class="text-4xl md:text-5xl font-bold font-serif text-gray-900 mb-6">Our Story & Mission</h1>
-                    <p class="text-xl text-gray-600 mb-8">Building a platform where thoughtful ideas meet curious minds, fostering growth through knowledge sharing and meaningful conversations.</p>
+                    <h1 class="text-4xl md:text-5xl font-bold font-serif text-gray-900 mb-6">Notre Histoire & Mission</h1>
+                    <p class="text-xl text-gray-600 mb-8">Construire une plateforme où les idées réfléchies rencontrent les esprits curieux, favorisant la croissance par le partage de connaissances et les conversations significatives.</p>
                     <div class="flex flex-wrap gap-4">
                         <div class="flex items-center">
                             <div class="w-12 h-12 rounded-full bg-[#000080]/10 flex items-center justify-center mr-3">
@@ -27,7 +27,7 @@
                             </div>
                             <div>
                                 <div class="font-bold text-gray-900">10,000+</div>
-                                <div class="text-sm text-gray-600">Monthly Readers</div>
+                                <div class="text-sm text-gray-600">Lecteurs Mensuels</div>
                             </div>
                         </div>
                         <div class="flex items-center">
@@ -36,7 +36,7 @@
                             </div>
                             <div>
                                 <div class="font-bold text-gray-900">250+</div>
-                                <div class="text-sm text-gray-600">Published Articles</div>
+                                <div class="text-sm text-gray-600">Articles Publiés</div>
                             </div>
                         </div>
                         <div class="flex items-center">
@@ -45,7 +45,7 @@
                             </div>
                             <div>
                                 <div class="font-bold text-gray-900">150+</div>
-                                <div class="text-sm text-gray-600">Countries Reached</div>
+                                <div class="text-sm text-gray-600">Pays Atteints</div>
                             </div>
                         </div>
                     </div>
@@ -55,50 +55,50 @@
             <!-- Mission & Vision -->
             <div class="grid md:grid-cols-2 gap-12 mb-16">
                 <div>
-                    <h2 class="text-3xl font-bold font-serif text-gray-900 mb-6">Our Mission</h2>
-                    <p class="text-gray-700 mb-6">To create a trusted digital space where professionals, thinkers, and lifelong learners can access well-researched, thought-provoking content that empowers personal and professional growth.</p>
-                    <p class="text-gray-700">We believe in the power of knowledge to transform lives, careers, and communities. Our mission is to curate and create content that matters—content that challenges assumptions, inspires action, and fosters meaningful dialogue.</p>
+                    <h2 class="text-3xl font-bold font-serif text-gray-900 mb-6">Notre Mission</h2>
+                    <p class="text-gray-700 mb-6">Créer un espace numérique de confiance où les professionnels, les penseurs et les apprenants à vie peuvent accéder à un contenu bien documenté et stimulant qui favorise la croissance personnelle et professionnelle.</p>
+                    <p class="text-gray-700">Nous croyons au pouvoir de la connaissance pour transformer les vies, les carrières et les communautés. Notre mission est de curer et créer du contenu qui compte — un contenu qui remet en question les suppositions, inspire l'action et favorise un dialogue significatif.</p>
                 </div>
                 <div>
-                    <h2 class="text-3xl font-bold font-serif text-gray-900 mb-6">Our Vision</h2>
-                    <p class="text-gray-700 mb-6">To become the premier destination for professionals seeking substantive, well-crafted content on technology, personal development, and modern work culture.</p>
-                    <p class="text-gray-700">We envision a world where access to quality information bridges knowledge gaps, reduces echo chambers, and creates more informed, empathetic global citizens.</p>
+                    <h2 class="text-3xl font-bold font-serif text-gray-900 mb-6">Notre Vision</h2>
+                    <p class="text-gray-700 mb-6">Devenir la destination privilégiée pour les professionnels à la recherche de contenu substantiel et bien conçu sur la technologie, le développement personnel et la culture de travail moderne.</p>
+                    <p class="text-gray-700">Nous envisageons un monde où l'accès à une information de qualité comble les fossés de connaissances, réduit les chambres d'écho et crée des citoyens du monde plus informés et empathiques.</p>
                 </div>
             </div>
             
             <!-- Our Values -->
             <div class="mb-16">
-                <h2 class="text-3xl font-bold font-serif text-gray-900 mb-12 text-center">Our Core Values</h2>
+                <h2 class="text-3xl font-bold font-serif text-gray-900 mb-12 text-center">Nos Valeurs Fondamentales</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="values-card bg-white p-8 rounded-xl shadow-sm border border-gray-100">
                         <div class="w-14 h-14 rounded-full bg-[#000080]/10 flex items-center justify-center mb-6">
                             <i class="fas fa-search text-[#000080] text-2xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">Integrity & Accuracy</h3>
-                        <p class="text-gray-700">We commit to rigorous fact-checking, cite sources transparently, and correct errors promptly. Truth and accuracy form the foundation of our content.</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Intégrité & Exactitude</h3>
+                        <p class="text-gray-700">Nous nous engageons à une vérification rigoureuse des faits, citons nos sources de manière transparente et corrigeons les erreurs rapidement. La vérité et l'exactitude forment la base de notre contenu.</p>
                     </div>
                     
                     <div class="values-card bg-white p-8 rounded-xl shadow-sm border border-gray-100">
                         <div class="w-14 h-14 rounded-full bg-[#000080]/10 flex items-center justify-center mb-6">
                             <i class="fas fa-lightbulb text-[#000080] text-2xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">Thoughtful Depth</h3>
-                        <p class="text-gray-700">We prioritize substance over sensationalism, providing nuanced perspectives that go beyond surface-level analysis to explore complex topics thoroughly.</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Profondeur Réfléchie</h3>
+                        <p class="text-gray-700">Nous privilégions la substance au sensationnalisme, offrant des perspectives nuancées qui vont au-delà de l'analyse superficielle pour explorer les sujets complexes en profondeur.</p>
                     </div>
                     
                     <div class="values-card bg-white p-8 rounded-xl shadow-sm border border-gray-100">
                         <div class="w-14 h-14 rounded-full bg-[#000080]/10 flex items-center justify-center mb-6">
                             <i class="fas fa-hands-helping text-[#000080] text-2xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">Community Focus</h3>
-                        <p class="text-gray-700">We foster respectful dialogue, welcome diverse viewpoints, and create content that serves our readers' needs for growth, understanding, and connection.</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Focus Communautaire</h3>
+                        <p class="text-gray-700">Nous favorisons un dialogue respectueux, accueillons des points de vue divers et créons du contenu qui répond aux besoins de croissance, de compréhension et de connexion de nos lecteurs.</p>
                     </div>
                 </div>
             </div>
             
             <!-- Our Story Timeline -->
             <div class="mb-16">
-                <h2 class="text-3xl font-bold font-serif text-gray-900 mb-12 text-center">Our Journey</h2>
+                <h2 class="text-3xl font-bold font-serif text-gray-900 mb-12 text-center">Notre Parcours</h2>
                 <div class="max-w-3xl mx-auto">
                     <div class="space-y-8">
                         <!-- Timeline Item 1 -->
@@ -108,10 +108,10 @@
                             </div>
                             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                                 <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-xl font-bold text-gray-900">The Beginning</h3>
+                                    <h3 class="text-xl font-bold text-gray-900">Le Commencement</h3>
                                     <span class="text-[#000080] font-medium bg-[#000080]/10 py-1 px-3 rounded-full">2018</span>
                                 </div>
-                                <p class="text-gray-700">Insightful Blog began as a personal project by founder Alex Morgan, sharing reflections on technology's impact on modern work and life. The initial audience grew organically through word-of-mouth.</p>
+                                <p class="text-gray-700">Blog Insightful a commencé comme un projet personnel du fondateur Alex Morgan, partageant des réflexions sur l'impact de la technologie sur le travail et la vie moderne. L'audience initiale a grandi organiquement grâce au bouche-à-oreille.</p>
                             </div>
                         </div>
                         
@@ -122,10 +122,10 @@
                             </div>
                             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                                 <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-xl font-bold text-gray-900">Building the Team</h3>
+                                    <h3 class="text-xl font-bold text-gray-900">Construction de l'Équipe</h3>
                                     <span class="text-[#000080] font-medium bg-[#000080]/10 py-1 px-3 rounded-full">2020</span>
                                 </div>
-                                <p class="text-gray-700">We welcomed our first editorial staff and established our core content pillars: Technology, Productivity, Personal Growth, and Future of Work. Our readership grew to 50,000 monthly visitors.</p>
+                                <p class="text-gray-700">Nous avons accueilli notre premier personnel éditorial et établi nos piliers de contenu principaux : Technologie, Productivité, Croissance Personnelle et Avenir du Travail. Notre lectorat a atteint 50 000 visiteurs mensuels.</p>
                             </div>
                         </div>
                         
@@ -136,10 +136,10 @@
                             </div>
                             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                                 <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-xl font-bold text-gray-900">Platform Expansion</h3>
+                                    <h3 class="text-xl font-bold text-gray-900">Expansion de la Plateforme</h3>
                                     <span class="text-[#000080] font-medium bg-[#000080]/10 py-1 px-3 rounded-full">2022</span>
                                 </div>
-                                <p class="text-gray-700">Launched our contributor network, welcoming expert writers from diverse fields. Introduced the premium newsletter and expanded our multimedia content with podcast interviews and video essays.</p>
+                                <p class="text-gray-700">Lancement de notre réseau de contributeurs, accueillant des rédacteurs experts de divers domaines. Introduction de la newsletter premium et expansion de notre contenu multimédia avec des interviews podcast et des essais vidéo.</p>
                             </div>
                         </div>
                         
@@ -150,10 +150,10 @@
                             </div>
                             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                                 <div class="flex justify-between items-start mb-2">
-                                    <h3 class="text-xl font-bold text-gray-900">Today & Beyond</h3>
+                                    <h3 class="text-xl font-bold text-gray-900">Aujourd'hui & Au-delà</h3>
                                     <span class="text-[#000080] font-medium bg-[#000080]/10 py-1 px-3 rounded-full">2023+</span>
                                 </div>
-                                <p class="text-gray-700">Reaching readers in 150+ countries with a team of 15 editors, writers, and researchers. Our focus remains on quality over quantity, depth over virality, and building a sustainable platform for thoughtful discourse.</p>
+                                <p class="text-gray-700">Atteignant des lecteurs dans plus de 150 pays avec une équipe de 15 éditeurs, rédacteurs et chercheurs. Notre focus reste sur la qualité plutôt que la quantité, la profondeur plutôt que la viralité, et la construction d'une plateforme durable pour un discours réfléchi.</p>
                             </div>
                         </div>
                     </div>
@@ -162,12 +162,12 @@
             
             <!-- Team Section -->
             <div class="mb-16">
-                <h2 class="text-3xl font-bold font-serif text-gray-900 mb-12 text-center">Meet Our Team</h2>
+                <h2 class="text-3xl font-bold font-serif text-gray-900 mb-12 text-center">Rencontrez Notre Équipe</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <!-- Team Member 1 -->
                     <div class="team-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
                         <div class="h-48 overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Office background" class="w-full h-full object-cover">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fond de bureau" class="w-full h-full object-cover">
                         </div>
                         <div class="px-6 relative">
                             <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden absolute -top-16 left-1/2 transform -translate-x-1/2 shadow-md">
@@ -175,8 +175,8 @@
                             </div>
                             <div class="pt-20 pb-6 text-center">
                             <h3 class="text-xl font-bold text-gray-900 mb-1">Alex Morgan</h3>
-                            <p class="text-[#000080] font-medium mb-4">Founder & Editor-in-Chief</p>
-                            <p class="text-gray-600 text-sm mb-4">Former tech journalist with 12+ years experience covering digital transformation and workplace evolution.</p>
+                            <p class="text-[#000080] font-medium mb-4">Fondateur & Rédacteur en Chef</p>
+                            <p class="text-gray-600 text-sm mb-4">Ancien journaliste tech avec plus de 12 ans d'expérience couvrant la transformation numérique et l'évolution du lieu de travail.</p>
                             <div class="flex justify-center space-x-3">
                                 <a href="#" class="text-gray-400 hover:text-[#000080] transition-colors duration-200">
                                     <i class="fab fa-twitter"></i>
@@ -194,7 +194,7 @@
                     <!-- Team Member 2 -->
                     <div class="team-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
                         <div class="h-48 overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Creative workspace" class="w-full h-full object-cover">
+                            <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Espace de travail créatif" class="w-full h-full object-cover">
                         </div>
                         <div class="px-6 relative">
                             <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden absolute -top-16 left-1/2 transform -translate-x-1/2 shadow-md">
@@ -202,8 +202,8 @@
                             </div>
                             <div class="pt-20 pb-6 text-center">
                             <h3 class="text-xl font-bold text-gray-900 mb-1">Dr. Sarah Chen</h3>
-                            <p class="text-[#000080] font-medium mb-4">Content Director</p>
-                            <p class="text-gray-600 text-sm mb-4">Cognitive psychologist specializing in learning science and productivity research. PhD from Stanford.</p>
+                            <p class="text-[#000080] font-medium mb-4">Directrice de Contenu</p>
+                            <p class="text-gray-600 text-sm mb-4">Psychologue cognitive spécialisée dans les sciences de l'apprentissage et la recherche sur la productivité. Doctorat de Stanford.</p>
                             <div class="flex justify-center space-x-3">
                                 <a href="#" class="text-gray-400 hover:text-[#000080] transition-colors duration-200">
                                     <i class="fab fa-twitter"></i>
@@ -221,7 +221,7 @@
                     <!-- Team Member 3 -->
                     <div class="team-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
                         <div class="h-48 overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Tech background" class="w-full h-full object-cover">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fond technologique" class="w-full h-full object-cover">
                         </div>
                         <div class="px-6 relative">
                             <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden absolute -top-16 left-1/2 transform -translate-x-1/2 shadow-md">
@@ -229,8 +229,8 @@
                             </div>
                             <div class="pt-20 pb-6 text-center">
                             <h3 class="text-xl font-bold text-gray-900 mb-1">Michael Torres</h3>
-                            <p class="text-[#000080] font-medium mb-4">Technology Editor</p>
-                            <p class="text-gray-600 text-sm mb-4">Software engineer turned tech analyst. Focuses on AI ethics, future tech trends, and digital privacy.</p>
+                            <p class="text-[#000080] font-medium mb-4">Éditeur Technologie</p>
+                            <p class="text-gray-600 text-sm mb-4">Ingénieur logiciel devenu analyste tech. Se concentre sur l'éthique de l'IA, les tendances futures et la confidentialité numérique.</p>
                             <div class="flex justify-center space-x-3">
                                 <a href="#" class="text-gray-400 hover:text-[#000080] transition-colors duration-200">
                                     <i class="fab fa-twitter"></i>
@@ -248,7 +248,7 @@
                     <!-- Team Member 4 -->
                     <div class="team-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
                         <div class="h-48 overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Community background" class="w-full h-full object-cover">
+                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fond communautaire" class="w-full h-full object-cover">
                         </div>
                         <div class="px-6 relative">
                             <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden absolute -top-16 left-1/2 transform -translate-x-1/2 shadow-md">
@@ -256,8 +256,8 @@
                             </div>
                             <div class="pt-20 pb-6 text-center">
                             <h3 class="text-xl font-bold text-gray-900 mb-1">Emma Richardson</h3>
-                            <p class="text-[#000080] font-medium mb-4">Community Manager</p>
-                            <p class="text-gray-600 text-sm mb-4">Builds and nurtures our reader community. Background in digital marketing and audience development.</p>
+                            <p class="text-[#000080] font-medium mb-4">Responsable Communauté</p>
+                            <p class="text-gray-600 text-sm mb-4">Construit et nourrit notre communauté de lecteurs. Expérience en marketing numérique et développement d'audience.</p>
                             <div class="flex justify-center space-x-3">
                                 <a href="#" class="text-gray-400 hover:text-[#000080] transition-colors duration-200">
                                     <i class="fab fa-twitter"></i>
