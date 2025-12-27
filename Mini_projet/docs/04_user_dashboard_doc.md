@@ -1,266 +1,266 @@
-# User Dashboard - Refactoring Documentation
+# Tableau de Bord Utilisateur - Documentation de Refactoring
 
-## Overview
+## Aperçu
 
-Refactor the user dashboard to use Class-Based Views (CBV), template includes, and dynamic data from the database.
-
----
-
-## 1. Components to Extract
-
-### Use Shared Components
-
-- Header from `includes/header.html` (if applicable for dashboard)
-- Create `includes/dashboard_sidebar.html` for sidebar navigation
-- Create `includes/dashboard_header.html` for top header bar
-- CSS to `static/css/dashboard.css`
-- JavaScript to `static/js/dashboard.js`
-
-### Template Structure
-
-- Create `templates/dashboard/base_dashboard.html` - Base template for all dashboard pages
-- Update `user_dashboard.html` to extend base_dashboard
-- Extract sidebar (lines 167-232) to include
-- Extract top header (lines 236-308) to include
+Refactoriser le tableau de bord utilisateur pour utiliser des Vues Basées sur des Classes (CBV), des inclusions de templates, et des données dynamiques depuis la base de données.
 
 ---
 
-## 2. Dashboard Sections (Tabs)
+## 1. Composants à Extraire
 
-### 2.1 Dashboard Overview (Lines 313-453)
+### Utiliser les Composants Partagés
 
-**Current:** Static stats and recent activity
+- En-tête de `includes/header.html` (si applicable pour le tableau de bord)
+- Créer `includes/dashboard_sidebar.html` pour la navigation latérale
+- Créer `includes/dashboard_header.html` pour la barre d'en-tête supérieure
+- CSS vers `static/css/dashboard.css`
+- JavaScript vers `static/js/dashboard.js`
 
-**Make dynamic:**
+### Structure du Modèle (Template)
 
-- Total blogs count (from user's posts)
-- Total views count (sum of all post views)
-- Comments count (total comments on user's posts)
-- Followers count
-- Recent activity feed (latest actions)
-- Quick action buttons
-
-### 2.2 My Blogs (Lines 456-647)
-
-**Current:** Static table with 4 hardcoded blogs
-
-**Make dynamic:**
-
-- List all user's blog posts
-- Show title, category, status, views, date
-- Pagination (4 posts per page)
-- Actions: Edit, View, Delete
-- Filter by status (all, published, draft, pending)
-- Search functionality
-
-### 2.3 Create Blog (Lines 650-788)
-
-**Current:** Static form with rich text editor
-
-**Make dynamic:**
-
-- Form submission to create new blog
-- Image upload for featured image
-- Rich text editor for content
-- Category dropdown from database
-- Tags input
-- Status selection (draft, pending, published)
-- Form validation
-
-### 2.4 Profile (Lines 791-800+)
-
-**Make dynamic:**
-
-- User profile information
-- Avatar upload
-- Bio editing
-- Social media links
-- Email preferences
-
-### 2.5 Analytics
-
-**Create new section:**
-
-- Views over time (chart)
-- Most popular posts
-- Traffic sources
-- Engagement metrics
-
-### 2.6 Settings
-
-**Create new section:**
-
-- Account settings
-- Notification preferences
-- Privacy settings
-- Password change
+- Créer `templates/dashboard/base_dashboard.html` - Modèle de base pour toutes les pages du tableau de bord
+- Mettre à jour `user_dashboard.html` pour étendre base_dashboard
+- Extraire la barre latérale (lignes 167-232) vers un include
+- Extraire l'en-tête supérieur (lignes 236-308) vers un include
 
 ---
 
-## 3. Backend Requirements - Class-Based Views (CBV)
+## 2. Sections du Tableau de Bord (Onglets)
 
-### Views to Create
+### 2.1 Vue d'Ensemble (Lignes 313-453)
 
-**Use Django's generic CBVs:**
+**Actuel :** Statistiques statiques et activité récente
+
+**Rendre dynamique :**
+
+- Nombre total de blogs (des articles de l'utilisateur)
+- Nombre total de vues (somme de toutes les vues des articles)
+- Nombre de commentaires (total des commentaires sur les articles)
+- Nombre d'abonnés
+- Flux d'activité récent (dernières actions)
+- Boutons d'action rapide
+
+### 2.2 Mes Blogs (Lignes 456-647)
+
+**Actuel :** Tableau statique avec 4 blogs codés en dur
+
+**Rendre dynamique :**
+
+- Lister tous les articles de blog de l'utilisateur
+- Afficher titre, catégorie, statut, vues, date
+- Pagination (4 articles par page)
+- Actions : Modifier, Voir, Supprimer
+- Filtrer par statut (tous, publié, brouillon, en attente)
+- Fonctionnalité de recherche
+
+### 2.3 Créer un Blog (Lignes 650-788)
+
+**Actuel :** Formulaire statique avec éditeur de texte riche
+
+**Rendre dynamique :**
+
+- Soumission du formulaire pour créer un nouveau blog
+- Téléchargement d'image pour l'image mise en avant
+- Éditeur de texte riche pour le contenu
+- Menu déroulant de catégorie depuis la base de données
+- Entrée des tags
+- Sélection du statut (brouillon, en attente, publié)
+- Validation du formulaire
+
+### 2.4 Profil (Lignes 791-800+)
+
+**Rendre dynamique :**
+
+- Informations de profil utilisateur
+- Téléchargement d'avatar
+- Édition de la bio
+- Liens réseaux sociaux
+- Préférences email
+
+### 2.5 Analytique
+
+**Créer nouvelle section :**
+
+- Vues au fil du temps (graphique)
+- Articles les plus populaires
+- Sources de trafic
+- Métriques d'engagement
+
+### 2.6 Paramètres
+
+**Créer nouvelle section :**
+
+- Paramètres du compte
+- Préférences de notification
+- Paramètres de confidentialité
+- Changement de mot de passe
+
+---
+
+## 3. Exigences Backend - Vues Basées sur des Classes (CBV)
+
+### Vues à Créer
+
+**Utiliser les CBV génériques de Django :**
 
 1. **DashboardView** (TemplateView)
 
-   - Display overview statistics
-   - Recent activity
+   - Afficher les statistiques de vue d'ensemble
+   - Activité récente
 
 2. **BlogListView** (ListView)
 
-   - List user's blogs with pagination
-   - Filter and search
+   - Lister les blogs de l'utilisateur avec pagination
+   - Filtrer et rechercher
 
 3. **BlogCreateView** (CreateView)
 
-   - Create new blog post
-   - Handle form submission and image upload
+   - Créer un nouvel article de blog
+   - Gérer la soumission du formulaire et le téléchargement d'image
 
 4. **BlogUpdateView** (UpdateView)
 
-   - Edit existing blog post
+   - Modifier un article existant
 
 5. **BlogDeleteView** (DeleteView)
 
-   - Delete blog post with confirmation
+   - Supprimer un article avec confirmation
 
 6. **ProfileView** (UpdateView)
 
-   - View and update user profile
+   - Voir et mettre à jour le profil utilisateur
 
 7. **AnalyticsView** (TemplateView)
 
-   - Display analytics data
+   - Afficher les données analytiques
 
 8. **SettingsView** (UpdateView)
-   - Manage user settings
+   - Gérer les paramètres utilisateur
 
-### Mixins to Use
+### Mixins à Utiliser
 
-- **LoginRequiredMixin** - Require authentication for all views
-- **UserPassesTestMixin** - Ensure user can only edit their own posts
-
----
-
-## 4. Models Needed
-
-### User Profile Extension
-
-- Bio, avatar, social links, preferences
-
-### Blog Post
-
-- Already exists (from landing page)
-- Ensure user foreign key
-
-### User Activity
-
-- Track user actions (create, edit, publish, delete)
-- Timestamp and action type
-
-### User Settings
-
-- Notification preferences
-- Privacy settings
+- **LoginRequiredMixin** - Exiger l'authentification pour toutes les vues
+- **UserPassesTestMixin** - Assurer que l'utilisateur ne peut modifier que ses propres articles
 
 ---
 
-## 5. URLs Structure
+## 4. Modèles Nécessaires
+
+### Extension Profil Utilisateur
+
+- Bio, avatar, liens sociaux, préférences
+
+### Article de Blog (BlogPost)
+
+- Existe déjà (de la page d'accueil)
+- Assurer la clé étrangère utilisateur
+
+### Activité Utilisateur
+
+- Suivre les actions utilisateur (créer, modifier, publier, supprimer)
+- Horodatage et type d'action
+
+### Paramètres Utilisateur
+
+- Préférences de notification
+- Paramètres de confidentialité
+
+---
+
+## 5. Structure des URLs
 
 ```
-/dashboard/ - Dashboard overview
-/dashboard/blogs/ - My blogs list
-/dashboard/blogs/create/ - Create new blog
-/dashboard/blogs/<id>/edit/ - Edit blog
-/dashboard/blogs/<id>/delete/ - Delete blog
-/dashboard/profile/ - User profile
-/dashboard/analytics/ - Analytics
-/dashboard/settings/ - Settings
+/dashboard/ - Vue d'ensemble
+/dashboard/blogs/ - Liste de mes blogs
+/dashboard/blogs/create/ - Créer nouveau blog
+/dashboard/blogs/<id>/edit/ - Modifier blog
+/dashboard/blogs/<id>/delete/ - Supprimer blog
+/dashboard/profile/ - Profil utilisateur
+/dashboard/analytics/ - Analytique
+/dashboard/settings/ - Paramètres
 ```
 
 ---
 
-## 6. Forms to Create
+## 6. Formulaires à Créer
 
-1. **BlogForm** - Create/edit blog posts
-2. **ProfileForm** - Update user profile
-3. **SettingsForm** - Update user settings
+1. **BlogForm** - Créer/modifier articles
+2. **ProfileForm** - Mettre à jour profil utilisateur
+3. **SettingsForm** - Mettre à jour paramètres utilisateur
 
 ---
 
-## 7. JavaScript Functionality
+## 7. Fonctionnalité JavaScript
 
-### Tab Navigation
+### Navigation par Onglets
 
-- Switch between dashboard sections
-- Update URL without page reload
-- Save active tab in localStorage
+- Basculer entre les sections du tableau de bord
+- Mettre à jour l'URL sans rechargement de page
+- Sauvegarder l'onglet actif dans localStorage
 
-### Rich Text Editor
+### Éditeur de Texte Riche
 
-- Implement toolbar functionality
-- Format text (bold, italic, headings, lists)
-- Insert links and images
-- Auto-save drafts
+- Implémenter la fonctionnalité de barre d'outils
+- Formater le texte (gras, italique, titres, listes)
+- Insérer liens et images
+- Sauvegarde automatique des brouillons
 
-### Image Upload
+### Téléchargement d'Image
 
-- Drag and drop functionality
-- Preview before upload
-- Validate file size and type
+- Fonctionnalité glisser-déposer
+- Prévisualisation avant téléchargement
+- Valider taille et type de fichier
 
 ### Notifications
 
-- Dropdown toggle
-- Mark as read
-- Real-time updates (optional - WebSocket)
+- Bascule menu déroulant
+- Marquer comme lu
+- Mises à jour temps réel (optionnel - WebSocket)
 
-### Blog Actions
+### Actions Blog
 
-- Edit, view, delete with confirmation
-- AJAX for delete action
-
----
-
-## 8. Implementation Steps
-
-1. Create base_dashboard.html template
-2. Extract sidebar to include
-3. Extract header to include
-4. Create all CBVs (Dashboard, BlogList, BlogCreate, etc.)
-5. Create forms (BlogForm, ProfileForm, SettingsForm)
-6. Update models (UserProfile, UserActivity, UserSettings)
-7. Run migrations
-8. Create URL patterns
-9. Extract CSS to dashboard.css
-10. Extract JavaScript to dashboard.js
-11. Implement AJAX functionality
-12. Add form validation
-13. Test all dashboard features
-14. Add permission checks (user can only edit own posts)
+- Modifier, voir, supprimer avec confirmation
+- AJAX pour action supprimer
 
 ---
 
-## 9. Security Considerations
+## 8. Étapes d'Implémentation
 
-- LoginRequiredMixin on all views
-- CSRF protection on all forms
-- Validate user owns blog before edit/delete
-- Sanitize rich text editor input
-- Validate image uploads (type, size)
-- Rate limiting on form submissions
+1. Créer le template base_dashboard.html
+2. Extraire la barre latérale vers un include
+3. Extraire l'en-tête vers un include
+4. Créer toutes les CBV (Dashboard, BlogList, BlogCreate, etc.)
+5. Créer les formulaires (BlogForm, ProfileForm, SettingsForm)
+6. Mettre à jour les modèles (UserProfile, UserActivity, UserSettings)
+7. Exécuter les migrations
+8. Créer les motifs d'URL
+9. Extraire le CSS vers dashboard.css
+10. Extraire le JavaScript vers dashboard.js
+11. Implémenter la fonctionnalité AJAX
+12. Ajouter la validation de formulaire
+13. Tester toutes les fonctionnalités du tableau de bord
+14. Ajouter les vérifications de permissions
 
 ---
 
-## 10. Features to Add
+## 9. Considérations de Sécurité
 
-- Auto-save drafts (every 30 seconds)
-- Blog post preview before publish
-- Duplicate blog post
-- Bulk actions (delete multiple posts)
-- Export blog data
-- Schedule posts for future publication
-- SEO settings per post
-- Reading time calculation
+- LoginRequiredMixin sur toutes les vues
+- Protection CSRF sur tous les formulaires
+- Valider que l'utilisateur possède le blog avant modification/suppression
+- Aseptiser l'entrée de l'éditeur de texte riche
+- Valider les téléchargements d'images (type, taille)
+- Limitation de débit sur les soumissions de formulaire
+
+---
+
+## 10. Fonctionnalités à Ajouter
+
+- Sauvegarde auto des brouillons (toutes les 30 secondes)
+- Prévisualisation avant publication
+- Dupliquer un article
+- Actions en masse (supprimer plusieurs articles)
+- Exporter les données du blog
+- Planifier les articles pour publication future
+- Paramètres SEO par article
+- Calcul du temps de lecture

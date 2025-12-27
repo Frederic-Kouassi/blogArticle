@@ -1,128 +1,128 @@
-# Contact Page - Refactoring Documentation
+# Page de Contact - Documentation de Refactoring
 
-## 1. Components to Extract
+## 1. Composants à Extraire
 
-### Use Shared Components
+### Utiliser les Composants Partagés
 
-- Header from `includes/header.html`
-- Footer from `includes/footer.html`
-- CSS from `static/css/main.css`
-- JavaScript from `static/js/main.js`
+- En-tête de `includes/header.html`
+- Pied de page de `includes/footer.html`
+- CSS de `static/css/main.css`
+- JavaScript de `static/js/main.js`
 
-### Update Template
+### Mettre à Jour le Modèle
 
-- Make contact.html extend base.html
-- Remove duplicate header/footer code
-- Remove inline CSS and JavaScript
-
----
-
-## 2. Dynamic Elements to Implement
-
-### 2.1 Contact Information (Lines 437-507)
-
-**Current:** Static contact cards with hardcoded emails and addresses
-
-**Make dynamic:**
-
-- General inquiries email
-- Editorial/submissions email
-- Partnerships email
-- Technical support email
-- Office address
-- Office phone number
-
-**Database needs:**
-
-- ContactInfo model with all contact fields
-- Single record editable from admin
-
-### 2.2 Contact Form (Lines 496-557)
-
-**Current:** Static form with JavaScript alert
-
-**Make dynamic:**
-
-- Form submission saves to database
-- Email notification sent to admin
-- Success/error messages displayed
-- Newsletter subscription checkbox functionality
-- Form validation (server-side)
-- CSRF protection
-
-**Database needs:**
-
-- ContactMessage model (name, email, subject, message, subscribe_newsletter, ip_address, created_at, is_read, replied_at)
-- Subject choices (general, submission, partnership, technical, feedback, other)
-
-**Form needs:**
-
-- Django ModelForm for ContactMessage
-- Field validation
-- Custom widgets with Tailwind classes
-
-### 2.3 FAQ Section (Lines 560-608)
-
-**Current:** 4 hardcoded FAQ items with accordion
-
-**Make dynamic:**
-
-- Question text
-- Answer text
-- Display order
-- Active/inactive status
-
-**Database needs:**
-
-- FAQ model (question, answer, order, is_active)
-- Multiple records ordered by order field
+- Faire en sorte que contact.html étende base.html
+- Supprimer le code dupliqué en-tête/pied de page
+- Supprimer le CSS et JavaScript inline
 
 ---
 
-## 3. Backend Requirements
+## 2. Éléments Dynamiques à Implémenter
 
-### Models to Create
+### 2.1 Informations de Contact (Lignes 437-507)
 
-1. **ContactInfo** - All contact details
-2. **ContactMessage** - Form submissions
-3. **FAQ** - Frequently asked questions
+**Actuel :** Cartes de contact statiques avec emails et adresses codés en dur
 
-### Form to Create
+**Rendre dynamique :**
 
-- **ContactForm** - ModelForm for contact submissions with validation
+- Email demande générale
+- Email éditorial/soumissions
+- Email partenariats
+- Email support technique
+- Adresse du bureau
+- Numéro de téléphone
 
-### View to Create
+**Besoins base de données :**
 
-- **contact()** - Handle GET (display form) and POST (process submission)
-- Send email notification on form submission
-- Handle newsletter subscription if checkbox checked
+- Modèle ContactInfo avec tous les champs de contact
+- Enregistrement unique éditable depuis l'admin
 
-### Email Functionality
+### 2.2 Formulaire de Contact (Lignes 496-557)
 
-- Create email template for admin notifications
-- Configure email settings (SMTP)
-- Send notification when contact form submitted
+**Actuel :** Formulaire statique avec alerte JavaScript
 
-### URL to Add
+**Rendre dynamique :**
 
-- `/contact/` - Contact page
+- La soumission du formulaire sauvegarde en base de données
+- Notification email envoyée à l'administrateur
+- Messages de succès/erreur affichés
+- Fonctionnalité de case à cocher inscription newsletter
+- Validation du formulaire (côté serveur)
+- Protection CSRF
 
-### Admin Interface
+**Besoins base de données :**
 
-- Register all models
-- ContactMessage admin: list view with filters (subject, is_read, date)
-- Mark messages as read
-- View submission details
-- FAQ admin: inline ordering
+- Modèle ContactMessage (nom, email, sujet, message, inscription_newsletter, adresse_ip, cree_le, est_lu, repondu_le)
+- Choix de sujet (général, soumission, partenariat, technique, feedback, autre)
+
+**Besoins formulaire :**
+
+- Django ModelForm pour ContactMessage
+- Validation des champs
+- Widgets personnalisés avec classes Tailwind
+
+### 2.3 Section FAQ (Lignes 560-608)
+
+**Actuel :** 4 éléments FAQ codés en dur avec accordéon
+
+**Rendre dynamique :**
+
+- Texte de la question
+- Texte de la réponse
+- Ordre d'affichage
+- Statut actif/inactif
+
+**Besoins base de données :**
+
+- Modèle FAQ (question, réponse, ordre, est_actif)
+- Enregistrements multiples ordonnés par champ ordre
 
 ---
 
-## 4. Email Configuration
+## 3. Exigences Backend
 
-### Settings to Add
+### Modèles à Créer
+
+1. **ContactInfo** - Tous les détails de contact
+2. **ContactMessage** - Soumissions de formulaire
+3. **FAQ** - Questions fréquemment posées
+
+### Formulaire à Créer
+
+- **ContactForm** - ModelForm pour soumissions de contact avec validation
+
+### Vue à Créer
+
+- **contact()** - Gérer GET (afficher formulaire) et POST (traiter soumission)
+- Envoyer notification email à la soumission
+- Gérer inscription newsletter si case cochée
+
+### Fonctionnalité Email
+
+- Créer modèle email pour notifications admin
+- Configurer paramètres email (SMTP)
+- Envoyer notification quand formulaire soumis
+
+### URL à Ajouter
+
+- `/contact/` - Page de contact
+
+### Interface Admin
+
+- Enregistrer tous les modèles
+- Admin ContactMessage : vue liste avec filtres (sujet, lu, date)
+- Marquer messages comme lus
+- Voir détails soumission
+- Admin FAQ : ordonnancement inline
+
+---
+
+## 4. Configuration Email
+
+### Paramètres à Ajouter
 
 - EMAIL_BACKEND
-- EMAIL_HOST (e.g., smtp.gmail.com)
+- EMAIL_HOST (ex: smtp.gmail.com)
 - EMAIL_PORT (587)
 - EMAIL_USE_TLS
 - EMAIL_HOST_USER
@@ -130,56 +130,56 @@
 - DEFAULT_FROM_EMAIL
 - ADMIN_EMAIL
 
-### Email Template
+### Modèle Email
 
-- Create `templates/email/contact_notification.html`
-- Include sender info, subject, message
-- Professional formatting
-
----
-
-## 5. Implementation Steps
-
-1. Update contact.html to extend base.html
-2. Use header and footer includes
-3. Create all required models
-4. Create ContactForm
-5. Run migrations
-6. Create contact view (GET and POST)
-7. Implement email notification function
-8. Create email template
-9. Configure email settings
-10. Update URLs
-11. Register models in admin
-12. Update template to use dynamic data and form
-13. Add Django messages framework for feedback
-14. Test form submission and email
-15. Test FAQ accordion functionality
+- Créer `templates/email/contact_notification.html`
+- Inclure infos expéditeur, sujet, message
+- Formatage professionnel
 
 ---
 
-## 6. Form Handling Flow
+## 5. Étapes d'Implémentation
 
-1. User fills out contact form
-2. Form submitted via POST
-3. Server validates form data
-4. If valid:
-   - Save ContactMessage to database
-   - If newsletter checkbox: add/update Newsletter record
-   - Send email notification to admin
-   - Display success message
-   - Redirect to contact page
-5. If invalid:
-   - Display error messages
-   - Re-render form with user's data
+1. Mettre à jour contact.html pour étendre base.html
+2. Utiliser les includes d'en-tête et pied de page
+3. Créer tous les modèles requis
+4. Créer ContactForm
+5. Exécuter les migrations
+6. Créer vue contact (GET et POST)
+7. Implémenter fonction notification email
+8. Créer modèle d'email
+9. Configurer paramètres email
+10. Mettre à jour les URLs
+11. Enregistrer modèles dans admin
+12. Mettre à jour template pour utiliser données dynamiques et formulaire
+13. Ajouter framework messages Django pour feedback
+14. Tester soumission formulaire et email
+15. Tester fonctionnalité accordéon FAQ
 
 ---
 
-## 7. Security Considerations
+## 6. Flux de Gestion Formulaire
 
-- CSRF token in form
-- Email validation
-- Rate limiting (prevent spam)
-- Sanitize user input
-- Store IP address for tracking
-- Honeypot field (optional anti-spam)
+1. Utilisateur remplit formulaire contact
+2. Formulaire soumis via POST
+3. Serveur valide données
+4. Si valide :
+   - Sauvegarder ContactMessage en base
+   - Si case newsletter : ajouter/mettre à jour enregistrement Newsletter
+   - Envoyer notification email à l'admin
+   - Afficher message succès
+   - Rediriger vers page contact
+5. Si invalide :
+   - Afficher messages erreur
+   - Ré-afficher formulaire avec données utilisateur
+
+---
+
+## 7. Considérations de Sécurité
+
+- Jeton CSRF dans formulaire
+- Validation email
+- Limitation de débit (éviter spam)
+- Aseptiser entrées utilisateur
+- Stocker adresse IP pour suivi
+- Champ Honeypot (anti-spam optionnel)

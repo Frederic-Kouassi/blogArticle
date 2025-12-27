@@ -1,120 +1,141 @@
-# About Page - Refactoring Documentation
+# Page À Propos - Documentation de Refactoring
 
-## 1. Components to Extract
+## 1. Composants à Extraire
 
-### Use Shared Components
-- Header from `includes/header.html`
-- Footer from `includes/footer.html`
-- CSS from `static/css/main.css`
-- JavaScript from `static/js/main.js`
+### Utiliser les Composants Partagés
 
-### Update Template
-- Make about.html extend base.html
-- Remove duplicate header/footer code
-- Remove inline CSS and JavaScript
+- En-tête de `includes/header.html`
+- Pied de page de `includes/footer.html`
+- CSS de `static/css/main.css`
+- JavaScript de `static/js/main.js`
+
+### Mettre à Jour le Modèle
+
+- Faire en sorte que about.html étende base.html
+- Supprimer le code dupliqué en-tête/pied de page
+- Supprimer le CSS et JavaScript inline
 
 ---
 
-## 2. Dynamic Elements to Implement
+## 2. Éléments Dynamiques à Implémenter
 
-### 2.1 Statistics Section (Lines 171-198)
-**Current:** Static numbers (10,000+ readers, 250+ articles, 150+ countries)
+### 2.1 Section Statistiques (Lignes 171-198)
 
-**Make dynamic:**
-- Monthly readers count
-- Published articles count
-- Countries reached count
+**Actuel :** Chiffres statiques (10,000+ lecteurs, 250+ articles, 150+ pays)
 
-**Database needs:**
-- AboutPageStats model with these three integer fields
-- Single record updated from admin
+**Rendre dynamique :**
 
-### 2.2 Mission & Vision (Lines 202-214)
-**Current:** Static text blocks
+- Nombre de lecteurs mensuels
+- Nombre d'articles publiés
+- Nombre de pays atteints
 
-**Make dynamic:**
-- Mission title and text
-- Vision title and text
+**Besoins base de données :**
 
-**Database needs:**
-- AboutPageContent model with mission and vision fields
-- Editable from admin panel
+- Modèle AboutPageStats avec ces trois champs entiers
+- Enregistrement unique mis à jour depuis l'administration
 
-### 2.3 Core Values (Lines 216-244)
-**Current:** 3 hardcoded values
+### 2.2 Mission & Vision (Lignes 202-214)
 
-**Make dynamic:**
-- Value icon (FontAwesome class)
-- Value title
-- Value description
-- Display order
+**Actuel :** Blocs de texte statiques
 
-**Database needs:**
-- CoreValue model with icon, title, description, order, is_active
-- Multiple records, ordered by order field
+**Rendre dynamique :**
 
-### 2.4 Timeline/Journey (Lines 246-308)
-**Current:** 4 hardcoded timeline items
+- Titre et texte de la Mission
+- Titre et texte de la Vision
 
-**Make dynamic:**
-- Year/period
-- Title
+**Besoins base de données :**
+
+- Modèle AboutPageContent avec champs mission et vision
+- Éditable depuis le panneau d'administration
+
+### 2.3 Valeurs Fondamentales (Lignes 216-244)
+
+**Actuel :** 3 valeurs codées en dur
+
+**Rendre dynamique :**
+
+- Icône de la valeur (classe FontAwesome)
+- Titre de la valeur
+- Description de la valeur
+- Ordre d'affichage
+
+**Besoins base de données :**
+
+- Modèle CoreValue avec icône, titre, description, ordre, est_actif
+- Enregistrements multiples, ordonnés par le champ ordre
+
+### 2.4 Chronologie/Parcours (Lignes 246-308)
+
+**Actuel :** 4 éléments de chronologie codés en dur
+
+**Rendre dynamique :**
+
+- Année/période
+- Titre
 - Description
-- Display order
+- Ordre d'affichage
 
-**Database needs:**
-- TimelineItem model with year, title, description, order, is_active
-- Multiple records showing company history
+**Besoins base de données :**
 
-### 2.5 Team Members (Lines 310-422)
-**Current:** 4 hardcoded team cards
+- Modèle TimelineItem avec année, titre, description, ordre, est_actif
+- Enregistrements multiples montrant l'histoire de l'entreprise
 
-**Make dynamic:**
-- Profile photo (with image upload)
-- Name
-- Position/title
+### 2.5 Membres de l'Équipe (Lignes 310-422)
+
+**Actuel :** 4 cartes d'équipe codées en dur
+
+**Rendre dynamique :**
+
+- Photo de profil (avec téléchargement d'image)
+- Nom
+- Poste/titre
 - Bio
-- Social media links (Twitter, LinkedIn, Email)
-- Display order
+- Liens réseaux sociaux (Twitter, LinkedIn, Email)
+- Ordre d'affichage
 
-**Database needs:**
-- TeamMember model with all profile fields
-- Image upload for photos
-- Optional social media URLs
+**Besoins base de données :**
 
----
-
-## 3. Backend Requirements
-
-### Models to Create
-1. **AboutPageStats** - Statistics numbers
-2. **AboutPageContent** - Mission/vision text
-3. **CoreValue** - Company values
-4. **TimelineItem** - Company history
-5. **TeamMember** - Team profiles
-
-### View to Create
-- **about()** - Fetch all about page data and render template
-
-### URL to Add
-- `/about/` - About page
-
-### Admin Interface
-- Register all models
-- Make stats and content editable (single record)
-- Allow adding/editing/ordering values, timeline, team members
+- Modèle TeamMember avec tous les champs de profil
+- Téléchargement d'image pour les photos
+- URLs de réseaux sociaux optionnelles
 
 ---
 
-## 4. Implementation Steps
+## 3. Exigences Backend
 
-1. Update about.html to extend base.html
-2. Use header and footer includes
-3. Create all required models
-4. Run migrations
-5. Create about view with context
-6. Update URLs
-7. Register models in admin
-8. Update template to use dynamic data
-9. Add sample data via admin
-10. Test responsive design
+### Modèles à Créer
+
+1. **AboutPageStats** - Chiffres statistiques
+2. **AboutPageContent** - Texte mission/vision
+3. **CoreValue** - Valeurs de l'entreprise
+4. **TimelineItem** - Histoire de l'entreprise
+5. **TeamMember** - Profils de l'équipe
+
+### Vue à Créer
+
+- **about()** - Récupérer toutes les données de la page à propos et rendre le modèle
+
+### URL à Ajouter
+
+- `/about/` - Page à propos
+
+### Interface Admin
+
+- Enregistrer tous les modèles
+- Rendre les stats et le contenu éditables (enregistrement unique)
+- Permettre l'ajout/édition/ordre des valeurs, chronologie, membres d'équipe
+
+---
+
+## 4. Étapes d'Implémentation
+
+1. Mettre à jour about.html pour étendre base.html
+2. Utiliser les includes d'en-tête et de pied de page
+3. Créer tous les modèles requis
+4. Exécuter les migrations
+5. Créer la vue about avec le contexte
+6. Mettre à jour les URLs
+7. Enregistrer les modèles dans l'administration
+8. Mettre à jour le modèle (template) pour utiliser les données dynamiques
+9. Ajouter des données exemple via l'admin
+10. Tester le design responsif

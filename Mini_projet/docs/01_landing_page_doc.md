@@ -1,197 +1,197 @@
-# Landing Page (home.html) - Refactoring Documentation
+# Page d'accueil (home.html) - Documentation de Refactoring
 
-## 1. Components to Extract to Includes
+## 1. Composants à extraire vers des fichiers inclus
 
-### Header Component (`templates/includes/header.html`)
+### Composant En-tête (`templates/includes/header.html`)
 
-- **Location:** Lines 112-165 in current home.html
-- **Contains:** Logo, navigation menu (desktop & mobile), authentication links
-- **Dynamic:** User authentication status, active page highlighting
-- **Context needed:** `user`, `request.path`
+- **Emplacement :** Lignes 112-165 dans le home.html actuel
+- **Contient :** Logo, menu de navigation (bureau et mobile), liens d'authentification
+- **Dynamique :** Statut d'authentification de l'utilisateur, mise en évidence de la page active
+- **Contexte nécessaire :** `user`, `request.path`
 
-### Footer Component (`templates/includes/footer.html`)
+### Composant Pied de page (`templates/includes/footer.html`)
 
-- **Location:** Lines 633-698 in current home.html
-- **Contains:** Logo, social links, navigation, categories, newsletter form, copyright
-- **Dynamic:** Categories list from database
-- **Context needed:** `categories`, `current_year`
+- **Emplacement :** Lignes 633-698 dans le home.html actuel
+- **Contient :** Logo, liens sociaux, navigation, catégories, formulaire de newsletter, droits d'auteur
+- **Dynamique :** Liste des catégories depuis la base de données
+- **Contexte nécessaire :** `categories`, `current_year`
 
-### CSS Styles (`static/css/main.css`)
+### Styles CSS (`static/css/main.css`)
 
-- **Location:** Lines 10-109 in current home.html
-- **Extract:** CSS variables, typography, component styles, responsive queries
+- **Emplacement :** Lignes 10-109 dans le home.html actuel
+- **Extraire :** Variables CSS, typographie, styles des composants, requêtes responsives
 
 ### JavaScript (`static/js/main.js`)
 
-- **Location:** Lines 700-796 in current home.html
-- **Extract:** Mobile menu toggle, sticky header, smooth scrolling, header initialization
+- **Emplacement :** Lignes 700-796 dans le home.html actuel
+- **Extraire :** Bascule du menu mobile, en-tête collant, défilement fluide, initialisation de l'en-tête
 
-### Page-Specific JavaScript (`static/js/home.js`)
+### JavaScript spécifique à la page (`static/js/home.js`)
 
-- **Extract:** Featured slider, load more button, newsletter form submission
-
----
-
-## 2. Dynamic Elements to Implement
-
-### 2.1 Hero Section (Lines 167-290)
-
-**Make dynamic:**
-
-- Hero title and subtitle
-- CTA buttons based on auth status
-- Featured posts slider (3 posts with image, category, date, title, excerpt, author)
-
-**Database needs:**
-
-- HeroSection model (title, subtitle, background_image, is_active)
-- BlogPost model with is_featured and featured_order fields
-
-### 2.2 Latest Articles Section (Lines 292-404)
-
-**Make dynamic:**
-
-- Section title and subtitle
-- Blog post cards (image, category, date, title, excerpt, author, read time)
-- Pagination with "Load More" button
-
-**Database needs:**
-
-- BlogPost model (title, slug, excerpt, content, featured_image, author, category, tags, published_date, read_time, is_published, views_count)
-
-### 2.3 Featured Article Preview (Lines 406-528)
-
-**Make dynamic:**
-
-- Featured image, category, title, author info, date, read time
-- Article content preview, tags, social sharing, author bio
-
-**Note:** Display single featured article selected from admin
-
-### 2.4 Sidebar - Newsletter (Lines 533-542)
-
-**Make dynamic:**
-
-- Form submission saves to database
-- Email validation and duplicate handling
-- Success/error messages
-
-**Database needs:**
-
-- Newsletter model (email, subscribed_date, is_active, ip_address)
-
-### 2.5 Sidebar - Categories (Lines 544-579)
-
-**Make dynamic:**
-
-- Category name, post count, link
-
-**Database needs:**
-
-- Category model (name, slug, description, icon, color, is_active)
-
-### 2.6 Sidebar - Recent Posts (Lines 581-613)
-
-**Make dynamic:**
-
-- Post thumbnail, title, date, link
-- Fetch last 3 published posts
-
-### 2.7 Sidebar - Popular Tags (Lines 615-628)
-
-**Make dynamic:**
-
-- Tag name, link, post count
-
-**Database needs:**
-
-- Tag model (name, slug, is_active)
+- **Extraire :** Curseur (slider) mis en avant, bouton "charger plus", soumission du formulaire de newsletter
 
 ---
 
-## 3. Backend Requirements
+## 2. Éléments dynamiques à implémenter
 
-### Models to Create
+### 2.1 Section Héros (Lignes 167-290)
 
-1. **Category** - Blog categories with icon and color
-2. **Tag** - Blog tags
-3. **BlogPost** - Main blog content with all metadata
-4. **HeroSection** - Homepage hero content
-5. **Newsletter** - Email subscriptions
+**Rendre dynamique :**
 
-### Views to Create
+- Titre et sous-titre du héros
+- Boutons CTA basés sur le statut d'authentification
+- Curseur des articles mis en avant (3 articles avec image, catégorie, date, titre, extrait, auteur)
 
-1. **home()** - Main landing page view with all context data
-2. **subscribe_newsletter()** - AJAX endpoint for newsletter signup
-3. **load_more_posts()** - AJAX endpoint for pagination
+**Besoins base de données :**
 
-### URLs to Add
+- Modèle HeroSection (titre, sous-titre, image_de_fond, est_actif)
+- Modèle BlogPost avec champs est_mis_en_avant et ordre_mise_en_avant
 
-- `/` - Home page
-- `/subscribe/` - Newsletter subscription
-- `/load-more/` - Load more posts
+### 2.2 Section Derniers Articles (Lignes 292-404)
+
+**Rendre dynamique :**
+
+- Titre et sous-titre de la section
+- Cartes d'articles de blog (image, catégorie, date, titre, extrait, auteur, temps de lecture)
+- Pagination avec bouton "Charger plus"
+
+**Besoins base de données :**
+
+- Modèle BlogPost (titre, slug, extrait, contenu, image_mise_en_avant, auteur, catégorie, tags, date_publication, temps_lecture, est_publie, nombre_vues)
+
+### 2.3 Aperçu de l'Article Mis en Avant (Lignes 406-528)
+
+**Rendre dynamique :**
+
+- Image mise en avant, catégorie, titre, infos auteur, date, temps de lecture
+- Aperçu du contenu de l'article, tags, partage social, bio de l'auteur
+
+**Note :** Afficher un seul article mis en avant sélectionné depuis l'administration
+
+### 2.4 Barre latérale - Newsletter (Lignes 533-542)
+
+**Rendre dynamique :**
+
+- La soumission du formulaire sauvegarde en base de données
+- Validation de l'email et gestion des doublons
+- Messages de succès/erreur
+
+**Besoins base de données :**
+
+- Modèle Newsletter (email, date_inscription, est_actif, adresse_ip)
+
+### 2.5 Barre latérale - Catégories (Lignes 544-579)
+
+**Rendre dynamique :**
+
+- Nom de la catégorie, nombre d'articles, lien
+
+**Besoins base de données :**
+
+- Modèle Category (nom, slug, description, icône, couleur, est_actif)
+
+### 2.6 Barre latérale - Articles Récents (Lignes 581-613)
+
+**Rendre dynamique :**
+
+- Miniature de l'article, titre, date, lien
+- Récupérer les 3 derniers articles publiés
+
+### 2.7 Barre latérale - Tags Populaires (Lignes 615-628)
+
+**Rendre dynamique :**
+
+- Nom du tag, lien, nombre d'articles
+
+**Besoins base de données :**
+
+- Modèle Tag (nom, slug, est_actif)
 
 ---
 
-## 4. JavaScript Functionality
+## 3. Exigences Backend
 
-### Newsletter Subscription
+### Modèles à Créer
 
-- Handle form submission via AJAX
-- Display success/error messages
-- Clear form on success
-- CSRF token handling
+1. **Category** - Catégories du blog avec icône et couleur
+2. **Tag** - Tags du blog
+3. **BlogPost** - Contenu principal du blog avec toutes les métadonnées
+4. **HeroSection** - Contenu héros de la page d'accueil
+5. **Newsletter** - Inscriptions par email
 
-### Load More Posts
+### Vues à Créer
 
-- Fetch next page of posts via AJAX
-- Append new posts to grid
-- Update button state (loading, disabled, hidden)
-- Update post count display
+1. **home()** - Vue principale de la page d'accueil avec toutes les données de contexte
+2. **subscribe_newsletter()** - Point de terminaison AJAX pour l'inscription à la newsletter
+3. **load_more_posts()** - Point de terminaison AJAX pour la pagination
 
-### Featured Slider
+### URLs à Ajouter
 
-- Scroll functionality with prev/next buttons
-- Smooth scrolling behavior
+- `/` - Page d'accueil
+- `/subscribe/` - Inscription newsletter
+- `/load-more/` - Charger plus d'articles
 
 ---
 
-## 5. File Structure After Refactoring
+## 4. Fonctionnalité JavaScript
+
+### Inscription Newsletter
+
+- Gérer la soumission du formulaire via AJAX
+- Afficher les messages de succès/erreur
+- Vider le formulaire en cas de succès
+- Gestion du jeton CSRF
+
+### Charger Plus d'Articles
+
+- Récupérer la page suivante d'articles via AJAX
+- Ajouter les nouveaux articles à la grille
+- Mettre à jour l'état du bouton (chargement, désactivé, caché)
+- Mettre à jour l'affichage du nombre d'articles
+
+### Curseur Mis en Avant (Slider)
+
+- Fonctionnalité de défilement avec boutons précédent/suivant
+- Comportement de défilement fluide
+
+---
+
+## 5. Structure des Fichiers après Refactoring
 
 ```
 templates/
-├── base.html (NEW - improved)
-├── home.html (UPDATED - extends base)
-├── includes/ (NEW FOLDER)
-│   ├── header.html (NEW)
-│   └── footer.html (NEW)
+├── base.html (NOUVEAU - amélioré)
+├── home.html (MIS À JOUR - étend base)
+├── includes/ (NOUVEAU DOSSIER)
+│   ├── header.html (NOUVEAU)
+│   └── footer.html (NOUVEAU)
 
 static/
 ├── css/
-│   └── main.css (NEW)
+│   └── main.css (NOUVEAU)
 └── js/
-    ├── main.js (NEW)
-    └── home.js (NEW)
+    ├── main.js (NOUVEAU)
+    └── home.js (NOUVEAU)
 
 blog/
-├── models.py (UPDATED)
-├── views.py (UPDATED)
-├── urls.py (UPDATED)
-└── admin.py (UPDATED)
+├── models.py (MIS À JOUR)
+├── views.py (MIS À JOUR)
+├── urls.py (MIS À JOUR)
+└── admin.py (MIS À JOUR)
 ```
 
 ---
 
-## 6. Implementation Steps
+## 6. Étapes d'Implémentation
 
-1. Create includes folder and extract header/footer
-2. Create base.html template
-3. Extract CSS to static file
-4. Extract JavaScript to static files
-5. Create all required models
-6. Run migrations
-7. Create views with context data
-8. Update URLs
-9. Register models in admin
-10. Update home.html to use dynamic data
-11. Test all functionality
+1. Créer le dossier includes et extraire en-tête/pied de page
+2. Créer le modèle base.html
+3. Extraire le CSS vers un fichier statique
+4. Extraire le JavaScript vers des fichiers statiques
+5. Créer tous les modèles requis
+6. Exécuter les migrations
+7. Créer les vues avec les données de contexte
+8. Mettre à jour les URLs
+9. Enregistrer les modèles dans l'administration
+10. Mettre à jour home.html pour utiliser les données dynamiques
+11. Tester toutes les fonctionnalités
