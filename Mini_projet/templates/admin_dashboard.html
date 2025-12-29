@@ -246,7 +246,7 @@
                 </div>
                 <div>
                     <h3 class="font-bold">Super Admin</h3>
-                    <p class="text-sm text-gray-400">Administrator</p>
+                    <p class="text-sm text-gray-400">{{user.username}}</p>
                 </div>
             </div>
         </div>
@@ -1059,157 +1059,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Blog 1 -->
-                                    <tr class="border-t border-gray-200">
-                                        <td class="py-4 px-6">
-                                            <div>
-                                                <p class="font-medium text-gray-900">The Future of AI Ethics</p>
-                                                <p class="text-sm text-gray-500">Exploring moral implications of AI</p>
-                                            </div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="flex items-center">
-                                                <div class="w-8 h-8 rounded-full bg-blue-200 mr-2"></div>
-                                                <span>John Doe</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Technology</span>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <span class="status-badge status-published">Published</span>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <p class="font-medium text-gray-900">12.5K</p>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <p class="text-gray-700">Jun 18, 2023</p>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="flex space-x-2">
-                                                <button class="text-blue-600 hover:text-blue-800 p-1">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="text-green-600 hover:text-green-800 p-1">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="text-red-600 hover:text-red-800 p-1">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                                <button class="text-yellow-600 hover:text-yellow-800 p-1">
-                                                    <i class="fas fa-flag"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                   
+                                   
                                     
-                                    <!-- Blog 2 -->
-                                    <tr class="border-t border-gray-200">
-                                        <td class="py-4 px-6">
-                                            <div>
-                                                <p class="font-medium text-gray-900">Digital Detox Strategies</p>
-                                                <p class="text-sm text-gray-500">Reclaiming attention in digital age</p>
-                                            </div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="flex items-center">
-                                                <div class="w-8 h-8 rounded-full bg-green-200 mr-2"></div>
-                                                <span>Sarah Chen</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <span class="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">Wellness</span>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <span class="status-badge status-published">Published</span>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <p class="font-medium text-gray-900">8.2K</p>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <p class="text-gray-700">Jun 10, 2023</p>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="flex space-x-2">
-                                                <button class="text-blue-600 hover:text-blue-800 p-1">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="text-green-600 hover:text-green-800 p-1">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="text-red-600 hover:text-red-800 p-1">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                                <button class="text-yellow-600 hover:text-yellow-800 p-1">
-                                                    <i class="fas fa-flag"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
-                                    <!-- Blog 3 -->
-                                    <tr class="border-t border-gray-200">
-                                        <td class="py-4 px-6">
-                                            <div>
-                                                <p class="font-medium text-gray-900">Quantum Computing Explained</p>
-                                                <p class="text-sm text-gray-500">Understanding quantum mechanics</p>
-                                            </div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="flex items-center">
-                                                <div class="w-8 h-8 rounded-full bg-purple-200 mr-2"></div>
-                                                <span>Michael Torres</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full">Technology</span>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <span class="status-badge status-pending">Pending Review</span>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <p class="font-medium text-gray-900">-</p>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <p class="text-gray-700">Jun 5, 2023</p>
-                                        </td>
-                                        <td class="py-4 px-6">
-                                            <div class="flex space-x-2">
-                                                <button class="text-blue-600 hover:text-blue-800 p-1">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="text-green-600 hover:text-green-800 p-1">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="text-red-600 hover:text-red-800 p-1">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                                <button class="text-green-600 hover:text-green-800 p-1">
-                                                    <i class="fas fa-check"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
+                                   
+                                    {% for article in articles %}
                                     <!-- Blog 4 -->
                                     <tr class="border-t border-gray-200">
                                         <td class="py-4 px-6">
                                             <div>
-                                                <p class="font-medium text-gray-900">Mindful Productivity</p>
-                                                <p class="text-sm text-gray-500">Working smarter, not harder</p>
+                                                <p class="font-medium text-gray-900">{{article.name}}</p>
+                                                <p class="text-sm text-gray-500">{{article.description}}</p>
                                             </div>
                                         </td>
                                         <td class="py-4 px-6">
                                             <div class="flex items-center">
                                                 <div class="w-8 h-8 rounded-full bg-yellow-200 mr-2"></div>
-                                                <span>Emma Richardson</span>
+                                                <span>{{article.author}}</span>
                                             </div>
                                         </td>
                                         <td class="py-4 px-6">
-                                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-3 py-1 rounded-full">Productivity</span>
+                                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-3 py-1 rounded-full">{{article.category}}</span>
                                         </td>
                                         <td class="py-4 px-6">
-                                            <span class="status-badge status-draft">Draft</span>
+                                            <span class="status-badge status-draft">{{article.status}}</span>
                                         </td>
                                         <td class="py-4 px-6">
                                             <p class="font-medium text-gray-900">-</p>
@@ -1234,6 +1107,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -1559,6 +1433,7 @@
                                     </thead>
                                     <tbody>
                                         <!-- Category 1 -->
+                                         {% for cat in categorie%}
                                         <tr class="border-t border-gray-200">
                                             <td class="py-4 px-6">
                                                 <div class="flex items-center">
@@ -1566,133 +1441,44 @@
                                                         <i class="fas fa-microchip text-blue-600"></i>
                                                     </div>
                                                     <div>
-                                                        <p class="font-medium text-gray-900">Technology</p>
-                                                        <p class="text-sm text-gray-500">tech</p>
+                                                        <p class="font-medium text-gray-900">{{cat.name}}</p>
+                                                        <p class="text-sm text-gray-500">{{cat.name}}</p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="py-4 px-6">
-                                                <p class="text-gray-700">Articles about technology, AI, software, and digital trends</p>
+                                                <p class="text-gray-700">{{cat.description}}</p>
                                             </td>
                                             <td class="py-4 px-6">
                                                 <p class="font-medium text-gray-900">342</p>
                                             </td>
                                             <td class="py-4 px-6">
-                                                <span class="status-badge status-active">Active</span>
+                                                <span class="status-badge status-active">{{cat.status}}</span>
                                             </td>
                                             <td class="py-4 px-6">
                                                 <div class="flex space-x-2">
                                                     <button class="text-blue-600 hover:text-blue-800 p-1">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <button class="text-red-600 hover:text-red-800 p-1">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
+                                             <form method="post" action="{% url 'delete_category' cat.id %}">
+                                                {% csrf_token %}
+                                                 <button type="submit" class="text-red-600 hover:text-red-800 p-1" 
+                                                 onclick="return confirm('Supprimer cette catégorie ?');" >
+                                                   <i class="fas fa-trash"></i>
+                                                 </button>
+                                            </form>
+
+
+
                                                 </div>
                                             </td>
                                         </tr>
+                                        {% endfor %}
                                         
-                                        <!-- Category 2 -->
-                                        <tr class="border-t border-gray-200">
-                                            <td class="py-4 px-6">
-                                                <div class="flex items-center">
-                                                    <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center mr-3">
-                                                        <i class="fas fa-chart-line text-green-600"></i>
-                                                    </div>
-                                                    <div>
-                                                        <p class="font-medium text-gray-900">Productivity</p>
-                                                        <p class="text-sm text-gray-500">productivity</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <p class="text-gray-700">Tips and strategies for better work efficiency and time management</p>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <p class="font-medium text-gray-900">218</p>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <span class="status-badge status-active">Active</span>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <div class="flex space-x-2">
-                                                    <button class="text-blue-600 hover:text-blue-800 p-1">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button class="text-red-600 hover:text-red-800 p-1">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                     
                                         
-                                        <!-- Category 3 -->
-                                        <tr class="border-t border-gray-200">
-                                            <td class="py-4 px-6">
-                                                <div class="flex items-center">
-                                                    <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center mr-3">
-                                                        <i class="fas fa-brain text-purple-600"></i>
-                                                    </div>
-                                                    <div>
-                                                        <p class="font-medium text-gray-900">Personal Growth</p>
-                                                        <p class="text-sm text-gray-500">personal-growth</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <p class="text-gray-700">Self-improvement, mindfulness, and personal development</p>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <p class="font-medium text-gray-900">189</p>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <span class="status-badge status-active">Active</span>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <div class="flex space-x-2">
-                                                    <button class="text-blue-600 hover:text-blue-800 p-1">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button class="text-red-600 hover:text-red-800 p-1">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        
-                                        <!-- Category 4 -->
-                                        <tr class="border-t border-gray-200">
-                                            <td class="py-4 px-6">
-                                                <div class="flex items-center">
-                                                    <div class="w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center mr-3">
-                                                        <i class="fas fa-heart text-yellow-600"></i>
-                                                    </div>
-                                                    <div>
-                                                        <p class="font-medium text-gray-900">Wellness</p>
-                                                        <p class="text-sm text-gray-500">wellness</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <p class="text-gray-700">Mental and physical health, meditation, and wellbeing</p>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <p class="font-medium text-gray-900">156</p>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <span class="status-badge status-active">Active</span>
-                                            </td>
-                                            <td class="py-4 px-6">
-                                                <div class="flex space-x-2">
-                                                    <button class="text-blue-600 hover:text-blue-800 p-1">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button class="text-red-600 hover:text-red-800 p-1">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+
+                                      
                                     </tbody>
                                 </table>
                             </div>
@@ -1701,65 +1487,88 @@
                     
                     <!-- Add/Edit Category Form -->
                     <div>
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sticky top-24">
-                            <h3 class="text-xl font-bold text-gray-900 mb-6">Add New Category</h3>
-                            
-                            <form class="space-y-6">
-                                <div>
-                                    <label for="category-name" class="block text-gray-700 font-medium mb-2">Category Name *</label>
-                                    <input type="text" id="category-name" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="e.g., Technology">
-                                </div>
-                                
-                                <div>
-                                    <label for="category-slug" class="block text-gray-700 font-medium mb-2">Slug *</label>
-                                    <input type="text" id="category-slug" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="e.g., technology">
-                                    <p class="text-sm text-gray-500 mt-2">URL-friendly version of the name</p>
-                                </div>
-                                
-                                <div>
-                                    <label for="category-description" class="block text-gray-700 font-medium mb-2">Description</label>
-                                    <textarea id="category-description" rows="3" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Brief description of this category"></textarea>
-                                </div>
-                                
-                                <div>
-                                    <label for="category-icon" class="block text-gray-700 font-medium mb-2">Icon</label>
-                                    <select id="category-icon" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                                        <option value="microchip">Technology (Microchip)</option>
-                                        <option value="chart-line">Productivity (Chart)</option>
-                                        <option value="brain">Personal Growth (Brain)</option>
-                                        <option value="heart">Wellness (Heart)</option>
-                                        <option value="briefcase">Business (Briefcase)</option>
-                                        <option value="book">Education (Book)</option>
-                                    </select>
-                                </div>
-                                
-                                <div>
-                                    <label for="category-color" class="block text-gray-700 font-medium mb-2">Color Theme</label>
-                                    <div class="flex space-x-2">
-                                        <button type="button" class="w-8 h-8 rounded-full bg-blue-500 border-2 border-blue-600"></button>
-                                        <button type="button" class="w-8 h-8 rounded-full bg-green-500"></button>
-                                        <button type="button" class="w-8 h-8 rounded-full bg-purple-500"></button>
-                                        <button type="button" class="w-8 h-8 rounded-full bg-yellow-500"></button>
-                                        <button type="button" class="w-8 h-8 rounded-full bg-red-500"></button>
-                                        <button type="button" class="w-8 h-8 rounded-full bg-indigo-500"></button>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center">
-                                    <input type="checkbox" id="category-active" class="w-4 h-4 text-[#8B0000] rounded focus:ring-[#8B0000]" checked>
-                                    <label for="category-active" class="ml-2 text-gray-700">Active Category</label>
-                                </div>
-                                
-                                <div class="pt-4 border-t border-gray-200">
-                                    <button type="submit" class="bg-[#8B0000] hover:bg-[#A52A2A] text-white font-medium py-3 px-8 rounded-lg transition-colors duration-300 w-full">
-                                        Save Category
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+   <div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 sticky top-24">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">Add New Category</h3>
+        
+        <form method="post" action="{% url 'admin_dashboard' %}" class="space-y-6">
+
+            {% csrf_token %}
+
+            <!-- NAME -->
+            <div>
+                <label for="category-name" class="block text-gray-700 font-medium mb-2">
+                    Category Name *
+                </label>
+                <input
+                    type="text"
+                    id="category-name"
+                    name="name"
+                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg"
+                    placeholder="e.g., Technology">
             </div>
+            
+            <!-- SLUG -->
+        
+            
+            <!-- DESCRIPTION -->
+            <div>
+                <label for="category-description" class="block text-gray-700 font-medium mb-2">
+                    Description
+                </label>
+                <textarea
+                    id="category-description"
+                    name="description"
+                    rows="3"
+                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg"
+                    placeholder="Brief description of this category"></textarea>
+            </div>
+            
+            <!-- STATUS (SELECT) -->
+            <div>
+                <label for="category-icon" class="block text-gray-700 font-medium mb-2">
+                    Icon
+                </label>
+                <select
+                    id="category-icon"
+                    name="status"
+                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                    <option value="ACTIVE">Technology (Microchip)</option>
+                    <option value="ACTIVE">Productivity (Chart)</option>
+                    <option value="ACTIVE">Personal Growth (Brain)</option>
+                    <option value="ACTIVE">Wellness (Heart)</option>
+                    <option value="ACTIVE">Business (Briefcase)</option>
+                    <option value="ACTIVE">Education (Book)</option>
+                </select>
+            </div>
+            
+            <!-- STATUS (CHECKBOX) -->
+            <div class="flex items-center">
+                <input
+                    type="checkbox"
+                    id="category-active"
+                    name="status"
+                    value="ACTIVE"
+                    class="w-4 h-4 text-[#8B0000] rounded focus:ring-[#8B0000]"
+                    checked>
+                <label for="category-active" class="ml-2 text-gray-700">
+                    Active Category
+                </label>
+            </div>
+            
+            <div class="pt-4 border-t border-gray-200">
+<button
+    type="submit"
+    class="bg-[#8B0000] hover:bg-[#A52A2A] text-white font-medium py-3 px-8 rounded-lg transition-colors duration-300 w-full">
+    Save Category
+</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
             
             <!-- Analytics Tab Content -->
             <div id="analytics-content" class="tab-content hidden">
@@ -2741,11 +2550,12 @@
 
         // Form submission handlers
         document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                showToast('Settings saved successfully');
-            });
-        });
+    form.addEventListener('submit', () => {
+        showToast('Settings saved successfully');
+        // PAS de preventDefault()
+    });
+});
+
 
         // Action buttons
         document.querySelectorAll('button').forEach(button => {

@@ -486,24 +486,25 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200">
                                 <!-- Blog 1 -->
+                                 {% for article in articles %}
                                 <tr class="hover:bg-gray-50">
                                     <td class="py-4 px-6">
                                         <div>
-                                            <p class="font-medium text-gray-900">The Future of AI Ethics</p>
-                                            <p class="text-sm text-gray-500">Exploring moral implications of artificial intelligence</p>
+                                            <p class="font-medium text-gray-900">{{ article.name}}</p>
+                                            <p class="text-sm text-gray-500">{{ article.description}}</p>
                                         </div>
                                     </td>
                                     <td class="py-4 px-6">
-                                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Technology</span>
+                                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">{{ article.category}}</span>
                                     </td>
                                     <td class="py-4 px-6">
-                                        <span class="status-badge status-published">Published</span>
+                                        <span class="status-badge status-published">{{ article.status}}</span>
                                     </td>
                                     <td class="py-4 px-6">
                                         <p class="font-medium text-gray-900">12.5K</p>
                                     </td>
                                     <td class="py-4 px-6">
-                                        <p class="text-gray-700">Jun 18, 2023</p>
+                                        <p class="text-gray-700">{{ article.date}}</p>
                                     </td>
                                     <td class="py-4 px-6">
                                         <div class="flex space-x-2">
@@ -513,117 +514,25 @@
                                             <button class="text-green-600 hover:text-green-800 p-1" onclick="viewBlog(1)">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <button class="text-red-600 hover:text-red-800 p-1" onclick="deleteBlog(1)">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                         <form method="post" action="{% url 'delete_article' article.id %}">
+                                               {% csrf_token %}
+                                                 <button
+                                                           type="submit"
+                                                              class="text-red-600 hover:text-red-800 p-1"
+                                                             onclick="return confirm('Supprimer cet article ?');"
+    >
+                                                           <i class="fas fa-trash"></i>
+                                                                </button>
+                                                                </form>
+
+                                                              </form>
+
                                         </div>
                                     </td>
                                 </tr>
-                                
-                                <!-- Blog 2 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="py-4 px-6">
-                                        <div>
-                                            <p class="font-medium text-gray-900">Remote Work Evolution</p>
-                                            <p class="text-sm text-gray-500">Building sustainable distributed teams</p>
-                                        </div>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <span class="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">Productivity</span>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <span class="status-badge status-draft">Draft</span>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <p class="font-medium text-gray-900">-</p>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <p class="text-gray-700">Jun 15, 2023</p>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <div class="flex space-x-2">
-                                            <button class="text-blue-600 hover:text-blue-800 p-1" onclick="editBlog(2)">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="text-green-600 hover:text-green-800 p-1" onclick="viewBlog(2)">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="text-red-600 hover:text-red-800 p-1" onclick="deleteBlog(2)">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <!-- Blog 3 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="py-4 px-6">
-                                        <div>
-                                            <p class="font-medium text-gray-900">Digital Detox Strategies</p>
-                                            <p class="text-sm text-gray-500">Reclaiming attention in the age of distraction</p>
-                                        </div>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <span class="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full">Wellness</span>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <span class="status-badge status-published">Published</span>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <p class="font-medium text-gray-900">8.2K</p>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <p class="text-gray-700">Jun 10, 2023</p>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <div class="flex space-x-2">
-                                            <button class="text-blue-600 hover:text-blue-800 p-1" onclick="editBlog(3)">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="text-green-600 hover:text-green-800 p-1" onclick="viewBlog(3)">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="text-red-600 hover:text-red-800 p-1" onclick="deleteBlog(3)">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <!-- Blog 4 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="py-4 px-6">
-                                        <div>
-                                            <p class="font-medium text-gray-900">Quantum Computing Basics</p>
-                                            <p class="text-sm text-gray-500">Understanding the next revolution in computing</p>
-                                        </div>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">Technology</span>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <span class="status-badge status-pending">Pending Review</span>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <p class="font-medium text-gray-900">-</p>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <p class="text-gray-700">Jun 5, 2023</p>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <div class="flex space-x-2">
-                                            <button class="text-blue-600 hover:text-blue-800 p-1" onclick="editBlog(4)">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="text-green-600 hover:text-green-800 p-1" onclick="viewBlog(4)">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="text-red-600 hover:text-red-800 p-1" onclick="deleteBlog(4)">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                {% endfor %}
+                               
+                               
                             </tbody>
                         </table>
                     </div>
@@ -635,10 +544,10 @@
                             <button class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-50">
                                 <i class="fas fa-chevron-left"></i>
                             </button>
-                            <button class="w-10 h-10 rounded-lg bg-[#000080] text-white flex items-center justify-center">1</button>
-                            <button class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-50">2</button>
-                            <button class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-50">3</button>
-                            <button class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-50">
+                            <button type="submit" class="w-10 h-10 rounded-lg bg-[#000080] text-white flex items-center justify-center">1</button>
+                            <button type="submit" class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-50">2</button>
+                            <button type="submit" class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-50">3</button>
+                            <button type="submit" class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-50">
                                 <i class="fas fa-chevron-right"></i>
                             </button>
                         </div>
@@ -647,146 +556,112 @@
             </div>
             
             <!-- Create Blog Tab Content -->
-            <div id="create-blog-content" class="tab-content hidden">
-                <div class="mb-8">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Create New Blog</h2>
-                    <p class="text-gray-600">Write and publish a new blog post to share with your audience.</p>
+           <div id="create-blog-content" class="tab-content hidden">
+    <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Create New Blog</h2>
+        <p class="text-gray-600">Write and publish a new blog post to share with your audience.</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <form id="create-blog-form"
+              method="post"
+              enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">Blog Title *</label>
+                    <input type="text" name="name" required
+                           class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
                 </div>
-                
-                <!-- Create Blog Form -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                    <form id="create-blog-form">
-                        <div class="grid md:grid-cols-2 gap-6 mb-6">
-                            <div>
-                                <label for="blog-title" class="block text-gray-700 font-medium mb-2">Blog Title *</label>
-                                <input type="text" id="blog-title" name="title" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Enter a compelling title">
-                            </div>
-                            
-                            <div>
-                                <label for="blog-category" class="block text-gray-700 font-medium mb-2">Category *</label>
-                                <select id="blog-category" name="category" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                                    <option value="">Select Category</option>
-                                    <option value="technology">Technology</option>
-                                    <option value="productivity">Productivity</option>
-                                    <option value="personal-growth">Personal Growth</option>
-                                    <option value="business">Business</option>
-                                    <option value="wellness">Wellness</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <label for="blog-excerpt" class="block text-gray-700 font-medium mb-2">Short Excerpt</label>
-                            <textarea id="blog-excerpt" name="excerpt" rows="3" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Brief summary of your blog post"></textarea>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <label class="block text-gray-700 font-medium mb-2">Featured Image</label>
-                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                                <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-4"></i>
-                                <p class="text-gray-600 mb-2">Drag & drop your image here, or click to browse</p>
-                                <p class="text-sm text-gray-500">Recommended: 1200x630px, JPG or PNG, max 5MB</p>
-                                <input type="file" id="blog-image" name="image" class="hidden" accept="image/*">
-                                <button type="button" onclick="document.getElementById('blog-image').click()" class="mt-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-6 rounded-lg transition-colors duration-200">
-                                    Choose File
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <label for="blog-content" class="block text-gray-700 font-medium mb-2">Blog Content *</label>
-                            <div class="border border-gray-300 rounded-lg overflow-hidden">
-                                <!-- Rich Text Editor Toolbar -->
-                                <div class="bg-gray-50 border-b border-gray-300 p-3 flex flex-wrap gap-2">
-                                    <button type="button" class="editor-btn w-8 h-8 rounded flex items-center justify-center hover:bg-gray-200" data-command="bold">
-                                        <i class="fas fa-bold"></i>
-                                    </button>
-                                    <button type="button" class="editor-btn w-8 h-8 rounded flex items-center justify-center hover:bg-gray-200" data-command="italic">
-                                        <i class="fas fa-italic"></i>
-                                    </button>
-                                    <button type="button" class="editor-btn w-8 h-8 rounded flex items-center justify-center hover:bg-gray-200" data-command="underline">
-                                        <i class="fas fa-underline"></i>
-                                    </button>
-                                    <div class="w-px h-6 bg-gray-300 mx-1"></div>
-                                    <button type="button" class="editor-btn w-8 h-8 rounded flex items-center justify-center hover:bg-gray-200" data-command="formatBlock" data-value="h2">
-                                        <i class="fas fa-heading text-sm"></i><span class="text-xs ml-1">2</span>
-                                    </button>
-                                    <button type="button" class="editor-btn w-8 h-8 rounded flex items-center justify-center hover:bg-gray-200" data-command="formatBlock" data-value="h3">
-                                        <i class="fas fa-heading text-sm"></i><span class="text-xs ml-1">3</span>
-                                    </button>
-                                    <div class="w-px h-6 bg-gray-300 mx-1"></div>
-                                    <button type="button" class="editor-btn w-8 h-8 rounded flex items-center justify-center hover:bg-gray-200" data-command="insertUnorderedList">
-                                        <i class="fas fa-list-ul"></i>
-                                    </button>
-                                    <button type="button" class="editor-btn w-8 h-8 rounded flex items-center justify-center hover:bg-gray-200" data-command="insertOrderedList">
-                                        <i class="fas fa-list-ol"></i>
-                                    </button>
-                                    <div class="w-px h-6 bg-gray-300 mx-1"></div>
-                                    <button type="button" class="editor-btn w-8 h-8 rounded flex items-center justify-center hover:bg-gray-200" data-command="createLink">
-                                        <i class="fas fa-link"></i>
-                                    </button>
-                                    <button type="button" class="editor-btn w-8 h-8 rounded flex items-center justify-center hover:bg-gray-200" data-command="insertImage">
-                                        <i class="fas fa-image"></i>
-                                    </button>
-                                    <button type="button" class="editor-btn w-8 h-8 rounded flex items-center justify-center hover:bg-gray-200" data-command="insertHorizontalRule">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                                
-                                <!-- Rich Text Editor Content -->
-                                <div id="blog-content" class="rich-text-editor p-4 min-h-64" contenteditable="true">
-                                    <p>Start writing your blog post here...</p>
-                                    <p>You can use the toolbar above to format your text.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <label for="blog-tags" class="block text-gray-700 font-medium mb-2">Tags</label>
-                            <input type="text" id="blog-tags" name="tags" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg" placeholder="Add tags separated by commas (e.g., AI, Technology, Future)">
-                            <p class="text-sm text-gray-500 mt-2">Add up to 10 tags to help readers discover your content.</p>
-                        </div>
-                        
-                        <div class="flex flex-wrap gap-4 mb-8">
-                            <div class="flex items-center">
-                                <input type="checkbox" id="featured-post" name="featured" class="w-4 h-4 text-[#000080] rounded focus:ring-[#000080]">
-                                <label for="featured-post" class="ml-2 text-gray-700">Feature this post on homepage</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="checkbox" id="allow-comments" name="allow_comments" class="w-4 h-4 text-[#000080] rounded focus:ring-[#000080]" checked>
-                                <label for="allow-comments" class="ml-2 text-gray-700">Allow comments</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input type="checkbox" id="newsletter-feature" name="newsletter_feature" class="w-4 h-4 text-[#000080] rounded focus:ring-[#000080]">
-                                <label for="newsletter-feature" class="ml-2 text-gray-700">Include in newsletter</label>
-                            </div>
-                        </div>
-                        
-                        <div class="border-t border-gray-200 pt-6">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <label for="blog-status" class="block text-gray-700 font-medium mb-2">Publish Status</label>
-                                    <select id="blog-status" name="status" class="form-input w-48 px-4 py-2 border border-gray-300 rounded-lg">
-                                        <option value="draft">Save as Draft</option>
-                                        <option value="pending">Submit for Review</option>
-                                        <option value="published">Publish Now</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="flex space-x-4">
-                                    <button type="button" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors duration-200" id="preview-blog">
-                                        Preview
-                                    </button>
-                                    <button type="submit" class="bg-[#000080] hover:bg-[#000066] text-white font-medium py-3 px-8 rounded-lg transition-colors duration-300">
-                                        Save & Publish
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+
+               <div>
+                    <label class="block text-gray-700 font-medium mb-2">Autheur *</label>
+                    <select name="category" required
+                            class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                        <option value="">Select author</option>
+                        {% for user in user %}
+                            <option value="{{ user.id }}">{{ user.username }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
-            
+
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">Category *</label>
+                    <select name="category" required
+                            class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                        <option value="">Select Category</option>
+                        {% for cat in categorie %}
+                            <option value="{{ cat.id }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2">Featured Image</label>
+                <input type="file" name="image" accept="image/*">
+            </div>
+
+            <!-- CONTENU RÉEL ENVOYÉ À DJANGO -->
+            <input type="hidden" name="description" id="real-content">
+
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2">Blog Content *</label>
+                <div id="blog-content" contenteditable="true"
+                     class="border border-gray-300 rounded-lg p-4 min-h-64">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2">Tags</label>
+                <input type="text" name="tags"
+                       class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+            </div>
+
+            <div class="flex flex-wrap gap-4 mb-8">
+                <div class="flex items-center">
+                    <input type="checkbox" name="featured">
+                    <label class="ml-2">Feature this post</label>
+                </div>
+
+                <div class="flex items-center">
+                    <input type="checkbox" name="allow_comments" checked>
+                    <label class="ml-2">Allow comments</label>
+                </div>
+
+                <div class="flex items-center">
+                    <input type="checkbox" name="newsletter_feature">
+                    <label class="ml-2">Include in newsletter</label>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 pt-6 flex justify-between">
+                <select name="status"
+                        class="form-input w-48 px-4 py-2 border border-gray-300 rounded-lg">
+                    <option value="DRAFT">Save as Draft</option>
+                    <option value="PENDING">Submit for Review</option>
+                    <option value="PUBLISHED">Publish Now</option>
+                </select>
+
+                <button type="submit"
+                        class="bg-[#000080] hover:bg-[#000066] text-white px-6 py-2 rounded-lg">
+                    Save & Publish
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById("create-blog-form").addEventListener("submit", function () {
+    document.getElementById("real-content").value =
+        document.getElementById("blog-content").innerHTML;
+});
+</script>
+
             <!-- Profile Tab Content -->
             <div id="profile-content" class="tab-content hidden">
                 <div class="mb-8">
@@ -1414,7 +1289,7 @@
         // Create/Update Blog Form Submission
         if (createBlogForm) {
             createBlogForm.addEventListener('submit', (e) => {
-                e.preventDefault();
+               
                 
                 const title = document.getElementById('blog-title').value;
                 const category = document.getElementById('blog-category').value;

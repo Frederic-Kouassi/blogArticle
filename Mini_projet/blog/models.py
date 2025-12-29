@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django_extensions.db.models import ActivatorModel, TimeStampedModel
@@ -63,6 +64,7 @@ class Article(BlogBaseModel):
         choices=BlogStatus.choices,
         default=BlogStatus.DRAFT
     )
+    date= models.DateTimeField(default=datetime.now)
     views = models.PositiveIntegerField(default=0)
     featured = models.BooleanField(default=False)
     newsletter_feature = models.BooleanField(default=False)

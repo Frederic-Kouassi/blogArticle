@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-lg mx-auto bg-white p-6 rounded shadow">
+    <h2 class="text-xl font-semibold mb-4">Modifier la catégorie</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-4">
+            <label class="block mb-1">Nom</label>
+            <input
+                type="text"
+                name="name"
+                value="{{ category.name }}"
+                class="w-full border px-3 py-2 rounded"
+                required
+            >
+        </div>
+
+        <div class="mb-4">
+            <label class="block mb-1">Description</label>
+            <textarea
+                name="description"
+                class="w-full border px-3 py-2 rounded"
+            >{{ category.description }}</textarea>
+        </div>
+
+        <div class="mb-4">
+            <label class="block mb-1">Statut</label>
+            <select name="status" class="w-full border px-3 py-2 rounded">
+                <option value="active" {% if category.status == "active" %}selected{% endif %}>
+                    Actif
+                </option>
+                <option value="inactive" {% if category.status == "inactive" %}selected{% endif %}>
+                    Inactif
+                </option>
+            </select>
+        </div>
+
+        <div class="flex justify-between">
+            <a
+                href="{% url 'admin_dashboard' %}"
+                class="text-gray-600 hover:underline"
+            >
+                Annuler
+            </a>
+
+            <button
+                type="submit"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+                Mettre à jour
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
