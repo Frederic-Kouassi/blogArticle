@@ -1,5 +1,5 @@
 from django.urls import path
-from blog.views import HomeView, about,DeleteArticle,  contact, Admin_dashboaord,DeleteCategory,  User_dashboaord, RegisterView, LoginView, VerifyEmailView
+from blog.views import HomeView, about,ArticleDetailView, DeleteArticle,EditArticle, EditCategory, contact, Admin_dashboaord,DeleteCategory,  User_dashboaord, RegisterView, LoginView, VerifyEmailView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -11,7 +11,11 @@ urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
     path("verify-email/", VerifyEmailView.as_view(), name="verify_email"),
     path("category/delete/<uuid:id>/", DeleteCategory.as_view(), name="delete_category"),
-    path("article/delete/<uuid:id>/",DeleteArticle.as_view(), name="delete_article")
+    path("article/delete/<uuid:id>/",DeleteArticle.as_view(), name="delete_article"),
+    path("category/edit/<uuid:id>/", EditCategory.as_view(), name="edit_category"),
+    path("article/edit/<uuid:id>/", EditArticle.as_view(), name="edit_article"),
+    path('article/<slug:slug>/', ArticleDetailView.as_view(), name='article_detail'),
+ 
 
   
 ]

@@ -1,0 +1,66 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}{{ article.name }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 md:px-8 py-12">
+
+    <!-- HERO IMAGE -->
+    {% if article.image %}
+    <div class="h-[420px] rounded-xl overflow-hidden mb-10 shadow-lg">
+        <img src="{{ article.image.url }}"
+             class="w-full h-full object-cover"
+             alt="{{ article.name }}">
+    </div>
+    {% endif %}
+
+    <!-- ARTICLE HEADER -->
+    <div class="max-w-4xl mx-auto mb-8">
+        <span class="inline-block bg-blue-100 text-[#000080] font-medium py-1 px-4 rounded-full mb-4">
+            {{ article.category }}
+        </span>
+
+        <h1 class="text-4xl font-bold font-serif text-gray-900 mb-4">
+            {{ article.name }}
+        </h1>
+
+        <div class="flex flex-wrap items-center text-gray-600 gap-6">
+            <span>✍️ {{ article.author }}</span>
+            <span>📅 {{ article.date|date:"d M Y" }}</span>
+            <span>👁 {{ article.views }} vues</span>
+        </div>
+    </div>
+
+    <!-- ARTICLE CONTENT -->
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-8 text-gray-700 leading-relaxed text-lg">
+        {{ article.description|striptags }}
+    </div>
+
+    <!-- TAGS -->
+    {% if article.tags %}
+    <div class="max-w-4xl mx-auto mt-10">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Tags</h3>
+        <div class="flex flex-wrap gap-3">
+            {% for tag in article.tags %}
+            <span class="bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm">
+                {{ tag}}
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- AUTHOR CARD -->
+    <div class="max-w-4xl mx-auto mt-12 bg-gray-50 rounded-xl p-6 flex items-center gap-6">
+        <div class="w-16 h-16 rounded-full bg-[#000080] text-white flex items-center justify-center text-xl font-bold">
+            {{ article.author.username|first|upper }}
+        </div>
+        <div>
+            <h4 class="font-bold text-gray-900">{{ article.author }}</h4>
+            <p class="text-gray-600 text-sm">Auteur de l’article</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

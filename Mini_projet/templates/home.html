@@ -18,98 +18,33 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <!-- Blog Post 1 -->
+                         {% for article in articles %}
                         <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
                             <div class="h-48 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Quantum Computing" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                                <img src="{{article.image.url}}">
                             </div>
                             <div class="p-6">
                                 <div class="flex items-center text-sm text-gray-500 mb-3">
-                                    <span class="bg-blue-100 text-[#000080] font-medium py-1 px-3 rounded-full">Technology</span>
+                                    <span class="bg-blue-100 text-[#000080] font-medium py-1 px-3 rounded-full">{{ article.category }}</span>
                                     <span class="mx-2">•</span>
-                                    <span>June 12, 2023</span>
+                                    <span>{{article.date}}</span>
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">The Rise of Quantum Computing: What You Need to Know</h3>
-                                <p class="text-gray-600 mb-4">Quantum computing is no longer just theoretical. Discover how it will revolutionize industries from pharmaceuticals to cryptography.</p>
+                                <h3 class="text-xl font-bold text-gray-900 mb-3">{{ article.name }}</h3>
+                               <p class="text-gray-600 mb-4">
+                                 {{ article.description|striptags|truncatewords:25 }}
+                                </p>
+
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center">
                                         <img src="https://images.unsplash.com/photo-1573496359-136d47552640?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Dr. Lisa Park" class="w-8 h-8 rounded-full mr-2 object-cover">
-                                        <span class="text-sm font-medium">Dr. Lisa Park</span>
+                                        <span class="text-sm font-medium">Dr. {{article.author }}</span>
                                     </div>
                                     <span class="text-sm text-gray-500">8 min read</span>
                                 </div>
                             </div>
                         </article>
-                        
-                        <!-- Blog Post 2 -->
-                        <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
-                            <div class="h-48 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1511871893393-82e9c16b8d77?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Digital Detox" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-center text-sm text-gray-500 mb-3">
-                                    <span class="bg-green-100 text-[#000080] font-medium py-1 px-3 rounded-full">Wellness</span>
-                                    <span class="mx-2">•</span>
-                                    <span>June 8, 2023</span>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">Digital Detox: Reclaiming Your Attention in the Age of Distraction</h3>
-                                <p class="text-gray-600 mb-4">Practical strategies to reduce screen time and improve focus, creativity, and mental wellbeing in a hyper-connected world.</p>
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Emma Richardson" class="w-8 h-8 rounded-full mr-2 object-cover">
-                                        <span class="text-sm font-medium">Emma Richardson</span>
-                                    </div>
-                                    <span class="text-sm text-gray-500">6 min read</span>
-                                </div>
-                            </div>
-                        </article>
-                        
-                        <!-- Blog Post 3 -->
-                        <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
-                            <div class="h-48 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Remote Work" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-center text-sm text-gray-500 mb-3">
-                                    <span class="bg-yellow-100 text-[#000080] font-medium py-1 px-3 rounded-full">Business</span>
-                                    <span class="mx-2">•</span>
-                                    <span>June 3, 2023</span>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">Remote Work Evolution: Building Sustainable Distributed Teams</h3>
-                                <p class="text-gray-600 mb-4">How successful companies are adapting to hybrid work models and creating inclusive, productive remote environments.</p>
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="David Kim" class="w-8 h-8 rounded-full mr-2 object-cover">
-                                        <span class="text-sm font-medium">David Kim</span>
-                                    </div>
-                                    <span class="text-sm text-gray-500">10 min read</span>
-                                </div>
-                            </div>
-                        </article>
-                        
-                        <!-- Blog Post 4 -->
-                        <article class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 blog-card">
-                            <div class="h-48 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1499244571973-2e6fd6a6be45?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Creativity" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-                            </div>
-                            <div class="p-6">
-                                <div class="flex items-center text-sm text-gray-500 mb-3">
-                                    <span class="bg-purple-100 text-[#000080] font-medium py-1 px-3 rounded-full">Creativity</span>
-                                    <span class="mx-2">•</span>
-                                    <span>May 28, 2023</span>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-3">Unlocking Creative Potential: Techniques for Consistent Innovation</h3>
-                                <p class="text-gray-600 mb-4">Research-backed methods to cultivate creativity and overcome blocks, whether you're an artist, engineer, or entrepreneur.</p>
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center">
-                                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=100&h=100&q=80" alt="Sophia Williams" class="w-8 h-8 rounded-full mr-2 object-cover">
-                                        <span class="text-sm font-medium">Sophia Williams</span>
-                                    </div>
-                                    <span class="text-sm text-gray-500">7 min read</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    
+                        {% endfor %}
+            
                     <!-- Pagination/Load More -->
                     <div class="mt-12 text-center">
                         <button id="load-more" class="bg-white border border-[#000080] text-[#000080] hover:bg-[#000080] hover:text-white font-medium py-3 px-8 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md">
@@ -260,41 +195,34 @@
                 </div>
                 
                 <!-- Categories -->
-                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200">Categories</h3>
-                    <ul class="space-y-3">
-                        <li>
-                            <a href="#" class="flex justify-between items-center text-gray-700 hover:text-[#000080] transition-colors duration-200">
-                                <span>Technology</span>
-                                <span class="bg-gray-100 text-gray-800 text-sm font-medium py-1 px-3 rounded-full">12</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex justify-between items-center text-gray-700 hover:text-[#000080] transition-colors duration-200">
-                                <span>Productivity</span>
-                                <span class="bg-gray-100 text-gray-800 text-sm font-medium py-1 px-3 rounded-full">8</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex justify-between items-center text-gray-700 hover:text-[#000080] transition-colors duration-200">
-                                <span>Personal Growth</span>
-                                <span class="bg-gray-100 text-gray-800 text-sm font-medium py-1 px-3 rounded-full">10</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex justify-between items-center text-gray-700 hover:text-[#000080] transition-colors duration-200">
-                                <span>Business</span>
-                                <span class="bg-gray-100 text-gray-800 text-sm font-medium py-1 px-3 rounded-full">6</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex justify-between items-center text-gray-700 hover:text-[#000080] transition-colors duration-200">
-                                <span>Wellness</span>
-                                <span class="bg-gray-100 text-gray-800 text-sm font-medium py-1 px-3 rounded-full">5</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+<div class="bg-white rounded-xl shadow-md p-6 mb-8">
+    <h3 class="text-xl font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200">
+        Catégories
+    </h3>
+
+    <ul class="space-y-3">
+        {% for category in categorie %}
+        <li>
+            <a href="#"
+               class="flex justify-between items-center text-gray-700 hover:text-[#000080] transition-colors duration-200">
+                
+                <!-- Nom de la catégorie -->
+                <span>{{ category.name }}</span>
+
+                <!-- Nombre d’articles (optionnel) -->
+                <span class="bg-gray-100 text-gray-800 text-sm font-medium py-1 px-3 rounded-full">
+                    {{ category.articles.count }}
+                </span>
+            </a>
+        </li>
+        {% empty %}
+        <li class="text-gray-500 text-sm">
+            Aucune catégorie disponible
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
                 
                 <!-- Recent Posts -->
                 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
@@ -331,19 +259,24 @@
                 </div>
                 
                 <!-- Popular Tags -->
-                <div class="bg-white rounded-xl shadow-md p-6">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200">Popular Tags</h3>
+                                
+                                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6 pb-3 border-b border-gray-200">
+                        Popular Tags
+                    </h3>
+
                     <div class="flex flex-wrap gap-2">
-                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">AI</a>
-                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Productivity</a>
-                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Learning</a>
-                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Mindfulness</a>
-                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Tech</a>
-                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Future</a>
-                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Innovation</a>
-                        <a href="#" class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">Wellness</a>
+                        {% for article in articles %}
+                            <a href="#"
+                            class="bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-full hover:bg-gray-200 transition-colors duration-200">
+                                {{ article.tags }}
+                            </a>
+                        {% endfor %}
                     </div>
                 </div>
+
+                                
+               
             </aside>
         </div>
     </div>
