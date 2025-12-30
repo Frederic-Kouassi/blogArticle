@@ -266,7 +266,7 @@
                 <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg" data-tab="blogs">
                     <i class="fas fa-file-alt w-5 mr-3"></i>
                     <span>Blogs</span>
-                    <span class="ml-auto bg-blue-500 text-white text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center">156</span>
+                    <span class="ml-auto bg-blue-500 text-white text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center">{{total_blogs}}</span>
                 </a>
                 <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg" data-tab="comments">
                     <i class="fas fa-comments w-5 mr-3"></i>
@@ -492,7 +492,7 @@
                             <div class="flex justify-between items-start">
                                 <div>
                                     <p class="text-gray-500 text-sm mb-2">Total Blogs</p>
-                                    <h3 class="text-3xl font-bold text-gray-900">1,256</h3>
+                                    <h3 class="text-3xl font-bold text-gray-900">{{total_blogs}}</h3>
                                 </div>
                                 <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
                                     <i class="fas fa-file-alt text-green-600 text-xl"></i>
@@ -998,24 +998,30 @@
                     </div>
                     
                     <!-- Blog Stats -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                        <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
-                            <p class="text-gray-500 text-sm">Total Blogs</p>
-                            <p class="text-2xl font-bold text-gray-900">1,256</p>
-                        </div>
-                        <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
-                            <p class="text-gray-500 text-sm">Published</p>
-                            <p class="text-2xl font-bold text-gray-900">1,042</p>
-                        </div>
-                        <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
-                            <p class="text-gray-500 text-sm">Pending Review</p>
-                            <p class="text-2xl font-bold text-gray-900">24</p>
-                        </div>
-                        <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
-                            <p class="text-gray-500 text-sm">Drafts</p>
-                            <p class="text-2xl font-bold text-gray-900">190</p>
-                        </div>
-                    </div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+
+    <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+        <p class="text-gray-500 text-sm">Total Blogs</p>
+        <p class="text-2xl font-bold text-gray-900">{{ total_blogs }}</p>
+    </div>
+
+    <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+        <p class="text-gray-500 text-sm">Published</p>
+        <p class="text-2xl font-bold text-gray-900">{{ published_blogs }}</p>
+    </div>
+
+    <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+        <p class="text-gray-500 text-sm">Pending Review</p>
+        <p class="text-2xl font-bold text-gray-900">{{ pending_blogs }}</p>
+    </div>
+
+    <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+        <p class="text-gray-500 text-sm">Drafts</p>
+        <p class="text-2xl font-bold text-gray-900">{{ draft_blogs }}</p>
+    </div>
+
+</div>
+
                     
                     <!-- Blogs Table -->
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -1433,7 +1439,7 @@
                                     </thead>
                                     <tbody>
                                         <!-- Category 1 -->
-                                         {% for cat in categorie%}
+                                         {% for cat in categories %}
                                         <tr class="border-t border-gray-200">
                                             <td class="py-4 px-6">
                                                 <div class="flex items-center">

@@ -28,13 +28,19 @@ class ArticleDetailView(View):
 class Admin_dashboaord(View):
 
     def get(self, request):
-        categories = Category.objects.all()
         articles = Article.objects.all()
-        return render(
-            request,
-            'admin_dashboard.html',
-            {"categorie": categories, "articles":articles}
-        )
+
+        context = {
+            "total_blogs": articles.count(),
+            "published_blogs": articles.filter(status="PUBLISHED").count(),
+            "pending_blogs": articles.filter(status="PENDING").count(),
+            "draft_blogs": articles.filter(status="DRAFT").count(),
+            "articles": articles,
+            "categories": Category.objects.all(),
+        }
+
+        return render(request, "admin_dashboard.html", context)
+
 
     def post(self, request):
         data= request.POST
@@ -86,9 +92,12 @@ class EditCategory(View):
 
 class User_dashboaord(View):
     def get(self, request):
+        
+        
        articles = Article.objects.all()
        categories = Category.objects.all()
        user = User.objects.all()
+       
        return render(request, 'user_dashboard.html', {"categorie": categories, "user": user,"articles":articles})
     
     def post(self, request):
