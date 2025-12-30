@@ -1,9 +1,12 @@
-from django.shortcuts import render,redirect, get_object_or_404
-from blog.models import *
-from django.utils.text import slugify
-from blog.forms import ArticleForm
+import logging
+from django.contrib import messages
+from blog.forms import ArticleForm, CategoryForm
 from django.views import View
+from blog.models import Article, Category, User, Comment
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils.text import slugify
 
+logger = logging.getLogger(__name__)
 
 
 # Create your views here.
@@ -26,58 +29,101 @@ class ArticleDetailView(View):
         })
 
 class Admin_dashboaord(View):
-
     def get(self, request):
+        # Stats logic for new dashboard
+        users_count = User.objects.count()
+        articles_count = Article.objects.count()
+        comments_count = Comment.objects.count()
         categories = Category.objects.all()
-        articles = Article.objects.all()
+        articles = Article.objects.order_by('-created')[:5] # Recent articles
+
         return render(
             request,
             'admin_dashboard.html',
-            {"categorie": categories, "articles":articles}
+            {
+                "users_count": users_count,
+                "articles_count": articles_count,
+                "comments_count": comments_count,
+                "categories": categories,
+                "articles": articles,
+                "active_tab": "dashboard"
+            }
         )
 
-    def post(self, request):
-        data= request.POST
-        name =data.get("name")
-        description = data.get("description")
-        status = data.get("status")
-
-        if name:
-            Category.objects.create(
-                name=name,
-                slug=slugify(name),
-                description=description,
-                status=status
-            )
-
-        return redirect("admin_dashboard")
-  
-        return redirect("admin_dashboard")
-
     
+
+class AdminCategoryView(View):
+    def get(self, request):
+        if not request.user.is_authenticated or not request.user.is_staff:
+            return redirect('login')
+        
+        categories = Category.objects.all().order_by('-id')
+        return render(request, "admin_categories.html", {
+            "categories": categories,
+            "active_tab": "categories"
+        })
+
+    def post(self, request):
+        if not request.user.is_authenticated or not request.user.is_staff:
+            return redirect('login')
+            
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            try:
+                category = form.save(commit=False)
+                category.slug = slugify(category.name)
+                category.save()
+                messages.success(request, "Category created successfully")
+            except Exception as e:
+                logger.error(f"Error creating category: {e}")
+                messages.error(request, f"Error creating category: {e}")
+        else:
+            logger.error(f"Category form validation error: {form.errors}")
+            messages.error(request, "Error creating category. Check form data.")
+            
+        return redirect("admin_categories")
+
 class DeleteCategory(View):
     def post(self, request, id):
-        category = get_object_or_404(Category, id=id)
-        category.delete()
-        return redirect("admin_dashboard")
+        try:
+            category = get_object_or_404(Category, id=id)
+            category.delete()
+            messages.success(request, "Category deleted successfully")
+        except Exception as e:
+            logger.error(f"Error deleting category {id}: {e}")
+            messages.error(request, f"Error deleting category: {e}")
+        return redirect("admin_categories")
   
 
 class EditCategory(View):
 
-    def get(self, request, id):
-        category = get_object_or_404(Category, id=id)
-        return render(request, "editcategory.html", {"category": category})
-
     def post(self, request, id):
-        category = get_object_or_404(Category, id=id)
+        try:
+            category = get_object_or_404(Category, id=id)
+            
+            # We can use the form to update as well
+            form = CategoryForm(request.POST, instance=category)
+            if form.is_valid():
+                cat = form.save(commit=False)
+                cat.slug = slugify(cat.name)
+                cat.save()
+                messages.success(request, "Category updated successfully")
+            else:
+                logger.warning(f"Category update form invalid, trying manual fallback. Errors: {form.errors}")
+                 # Fallback manual update if form validation fails strangely or for partial updates
+                category.name = request.POST.get("name")
+                category.description = request.POST.get("description")
+                category.status = request.POST.get("status")
+                if request.POST.get("icon"):
+                    category.icon = request.POST.get("icon")
+                category.slug = slugify(category.name)
+                category.save()
+                messages.success(request, "Category updated successfully")
+        except Exception as e:
+            logger.error(f"Error updating category {id}: {e}")
+            messages.error(request, f"Error updating category: {e}")
 
-        category.name = request.POST.get("name")
-        category.description = request.POST.get("description")
-        category.status = request.POST.get("status")
-        category.slug = slugify(category.name)
-
-        category.save()
-        return redirect("admin_dashboard")  
+        return redirect("admin_categories")  
 
     
   

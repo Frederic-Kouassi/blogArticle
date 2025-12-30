@@ -1,5 +1,5 @@
 from django import forms
-from .models import Article
+from .models import Article, Category
 
 class ArticleForm(forms.ModelForm):
     class Meta:
@@ -16,8 +16,15 @@ class ArticleForm(forms.ModelForm):
                 'placeholder': 'Description',
                 'rows': 5
             }),
-            'author': forms.TextInput(attrs={
-                'class': 'w-full p-2 border rounded',
-                'placeholder': 'Nom de l’auteur'
-            }),
+        }
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name', 'description', 'status', 'icon']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-input w-full px-4 py-3 border border-gray-300 rounded-lg'}),
+            'description': forms.Textarea(attrs={'class': 'form-input w-full px-4 py-3 border border-gray-300 rounded-lg', 'rows': 3}),
+            'status': forms.Select(attrs={'class': 'form-input w-full px-4 py-3 border border-gray-300 rounded-lg'}),
+            'icon': forms.TextInput(attrs={'class': 'form-input w-full px-4 py-3 border border-gray-300 rounded-lg'}),
         }
