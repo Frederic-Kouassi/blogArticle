@@ -46,6 +46,7 @@ class Category(BlogBaseModel):
         choices=CategoryStatus.choices,
         default=CategoryStatus.ACTIVE
     )
+    icon = models.CharField(max_length=50, default='fa-folder', blank=True)
 
     def __str__(self):
         return self.name

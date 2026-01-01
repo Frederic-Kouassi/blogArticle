@@ -1,0 +1,53 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="stat-card bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-gray-500 text-sm mb-2">Total Users</p>
+                <h3 class="text-3xl font-bold text-gray-900">{{ users_count }}</h3>
+            </div>
+            <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                <i class="fas fa-users text-blue-600 text-xl"></i>
+            </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-4"><span class="text-green-600 font-medium">Active</span> platform users</p>
+    </div>
+
+    <div class="stat-card bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-gray-500 text-sm mb-2">Total Blogs</p>
+                <h3 class="text-3xl font-bold text-gray-900">{{ articles_count }}</h3>
+            </div>
+            <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center">
+                <i class="fas fa-file-alt text-green-600 text-xl"></i>
+            </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-4"><span class="text-green-600 font-medium">Published</span> content</p>
+    </div>
+
+    <div class="stat-card bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-gray-500 text-sm mb-2">Comments</p>
+                <h3 class="text-3xl font-bold text-gray-900">{{ comments_count }}</h3>
+            </div>
+            <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
+                <i class="fas fa-comments text-purple-600 text-xl"></i>
+            </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-4"><span class="text-green-600 font-medium">Community</span> interactions</p>
+    </div>
+
+    <div class="stat-card bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-gray-500 text-sm mb-2">Categories</p>
+                <h3 class="text-3xl font-bold text-gray-900">{{ categories.count }}</h3>
+            </div>
+            <div class="w-12 h-12 rounded-lg bg-yellow-100 flex items-center justify-center">
+                <i class="fas fa-tags text-yellow-600 text-xl"></i>
+            </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-4"><span class="text-green-600 font-medium">Organized</span> topics</p>
+    </div>
+</div>

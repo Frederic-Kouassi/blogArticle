@@ -161,6 +161,7 @@
             color: #1e40af;
         }
     </style>
+
 </head>
 <body>
     <!-- Sidebar Navigation -->
@@ -201,7 +202,7 @@
                 <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="my-blogs">
                     <i class="fas fa-file-alt text-gray-500 w-5 mr-3"></i>
                     <span>My Blogs</span>
-                    <span class="ml-auto bg-[#000080] text-white text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center">5</span>
+                    <span class="ml-auto bg-[#000080] text-white text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center">{{article_count}}</span>
                 </a>
                 <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="create-blog">
                     <i class="fas fa-plus-circle text-gray-500 w-5 mr-3"></i>
@@ -323,7 +324,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-gray-500 text-sm mb-2">Total Blogs</p>
-                                <h3 class="text-3xl font-bold text-gray-900">12</h3>
+                                <h3 class="text-3xl font-bold text-gray-900">{{article_count}}</h3>
                             </div>
                             <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
                                 <i class="fas fa-file-alt text-blue-600 text-xl"></i>
@@ -508,27 +509,29 @@
                                     </td>
                                     <td class="py-4 px-6">
                                         <div class="flex space-x-2">
-                                           <a href="{% url 'edit_article' article.id %}">
-                                                <button type="button" class="text-blue-600 hover:text-blue-800 p-1">
-                                                        <i class="fas fa-edit"></i>
-                                                                </button>
-                                                         </a>
+                                  <a href="{% url 'edit_article' article.id %}"
+                                    class="text-blue-600 hover:text-blue-800 p-1 inline-flex items-center"
+                                    title="Modifier l'article">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
 
                                             <button class="text-green-600 hover:text-green-800 p-1" onclick="viewBlog(1)">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                         <form method="post" action="{% url 'delete_article' article.id %}">
-                                               {% csrf_token %}
-                                                 <button
-                                                           type="submit"
-                                                              class="text-red-600 hover:text-red-800 p-1"
-                                                             onclick="return confirm('Supprimer cet article ?');"
-    >
-                                                           <i class="fas fa-trash"></i>
-                                                                </button>
-                                                                </form>
+                                            <form id="delete-article-form-{{ article.id }}"
+                                    method="post"
+                                    action="{% url 'delete_article' article.id %}">
+                                    {% csrf_token %}
+                                    <button type="button"
+                                            onclick="confirmDeleteArticle('{{ article.id }}', '{{ article.name|escapejs }}')"
+                                            class="text-red-600 hover:text-red-800 p-1">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
 
-                                                              </form>
+
+
 
                                         </div>
                                     </td>
@@ -584,9 +587,9 @@
                     <select name="category" required
                             class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
                         <option value="">Select author</option>
-                        {% for user in user %}
-                            <option value="{{ user.id }}">{{ user.username }}</option>
-                        {% endfor %}
+                       
+                            <option value="{{ request.user.id }}">{{ request.user.username }}</option>
+                       
                     </select>
                 </div>
             </div>
@@ -1027,7 +1030,7 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
         </div>
     </div>
 
-    <!-- Success Toast -->
+   
     <div id="success-toast" class="fixed top-6 right-6 bg-green-100 border border-green-200 text-green-800 px-6 py-4 rounded-lg shadow-lg z-50 hidden transform translate-x-full transition-transform duration-300">
         <div class="flex items-center">
             <i class="fas fa-check-circle text-green-600 text-xl mr-3"></i>
@@ -1039,7 +1042,7 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
     </div>
 
     <script>
-        // Global Variables
+        
         let currentBlogId = null;
         let blogs = [
             {
@@ -1080,7 +1083,7 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             }
         ];
 
-        // DOM Elements
+        
         const sidebar = document.querySelector('.sidebar');
         const mainContent = document.querySelector('.main-content');
         const sidebarToggle = document.getElementById('sidebar-toggle');
@@ -1103,12 +1106,12 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
         const settingsTabs = document.querySelectorAll('.settings-tab');
         const settingsContents = document.querySelectorAll('.settings-content');
 
-        // Sidebar Toggle for Mobile
+       
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('sidebar-open');
         });
 
-        // Close sidebar when clicking outside on mobile
+        
         document.addEventListener('click', (e) => {
             if (window.innerWidth < 1024) {
                 if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
@@ -1117,18 +1120,18 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             }
         });
 
-        // Navigation Tab Switching
+        
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
                 
-                // Remove active class from all nav items
+                
                 navItems.forEach(navItem => {
                     navItem.classList.remove('active');
                     navItem.classList.add('text-gray-700');
                     navItem.classList.remove('text-[#000080]');
                     
-                    // Reset icon colors
+                   
                     const icon = navItem.querySelector('i');
                     if (icon) {
                         if (navItem.dataset.tab === 'dashboard') {
@@ -1140,35 +1143,34 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
                     }
                 });
                 
-                // Add active class to clicked item
+               
                 item.classList.add('active');
                 item.classList.remove('text-gray-700');
                 item.classList.add('text-[#000080]');
                 
-                // Update icon color
+               
                 const icon = item.querySelector('i');
                 if (icon) {
                     icon.classList.remove('text-gray-500');
                     icon.classList.add('text-[#000080]');
                 }
                 
-                // Get target tab
                 const targetTab = item.dataset.tab;
                 
-                // Hide all tab contents
+                
                 tabContents.forEach(content => {
                     content.classList.remove('active');
                     content.classList.add('hidden');
                 });
                 
-                // Show target tab content
+               
                 const targetContent = document.getElementById(`${targetTab}-content`);
                 if (targetContent) {
                     targetContent.classList.remove('hidden');
                     targetContent.classList.add('active');
                 }
                 
-                // Update page title
+               
                 const tabNames = {
                     'dashboard': 'Dashboard',
                     'my-blogs': 'My Blogs',
@@ -1179,26 +1181,26 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
                 };
                 pageTitle.textContent = tabNames[targetTab] || 'Dashboard';
                 
-                // Close mobile sidebar after click
+                
                 if (window.innerWidth < 1024) {
                     sidebar.classList.remove('sidebar-open');
                 }
             });
         });
 
-        // Notifications Dropdown Toggle
+        
         notificationsBtn.addEventListener('click', () => {
             notificationsDropdown.classList.toggle('hidden');
             userMenuDropdown.classList.add('hidden');
         });
 
-        // User Menu Dropdown Toggle
+      
         userMenuBtn.addEventListener('click', () => {
             userMenuDropdown.classList.toggle('hidden');
             notificationsDropdown.classList.add('hidden');
         });
 
-        // Close dropdowns when clicking outside
+        
         document.addEventListener('click', (e) => {
             if (!notificationsBtn.contains(e.target) && !notificationsDropdown.contains(e.target)) {
                 notificationsDropdown.classList.add('hidden');
@@ -1209,14 +1211,14 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             }
         });
 
-        // Quick Actions Navigation
+      
         document.querySelectorAll('[data-tab]').forEach(link => {
             if (!link.classList.contains('nav-item')) {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     const targetTab = link.dataset.tab;
                     
-                    // Find and click the corresponding nav item
+                    
                     navItems.forEach(navItem => {
                         if (navItem.dataset.tab === targetTab) {
                             navItem.click();
@@ -1226,26 +1228,26 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             }
         });
 
-        // Blog CRUD Functions
+        
         function editBlog(blogId) {
             currentBlogId = blogId;
             const blog = blogs.find(b => b.id === blogId);
             
             if (blog) {
-                // Switch to create blog tab with edit mode
+                
                 navItems.forEach(navItem => {
                     if (navItem.dataset.tab === 'create-blog') {
                         navItem.click();
                     }
                 });
                 
-                // Fill form with blog data
+                
                 document.getElementById('blog-title').value = blog.title;
                 document.getElementById('blog-excerpt').value = blog.excerpt;
                 document.getElementById('blog-category').value = blog.category.toLowerCase().replace(' ', '-');
                 document.getElementById('blog-status').value = blog.status;
                 
-                // Update form title
+               
                 document.querySelector('#create-blog-content h2').textContent = 'Edit Blog';
                 document.querySelector('#create-blog-content button[type="submit"]').textContent = 'Update Blog';
                 
@@ -1255,7 +1257,7 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
 
         function viewBlog(blogId) {
             showToast('Viewing blog post ' + blogId);
-            // In a real app, this would redirect to the blog post page
+           
         }
 
         function deleteBlog(blogId) {
@@ -1263,33 +1265,32 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             deleteModal.classList.add('modal-open');
         }
 
-        // Delete Modal Handlers
         cancelDeleteBtn.addEventListener('click', () => {
             deleteModal.classList.remove('modal-open');
         });
 
         confirmDeleteBtn.addEventListener('click', () => {
-            // Remove blog from array
+           
             blogs = blogs.filter(blog => blog.id !== currentBlogId);
             
-            // Update UI (in a real app, this would update the table)
+            
             showToast('Blog post deleted successfully');
             
-            // Close modal
+           
             deleteModal.classList.remove('modal-open');
             
-            // Reset current blog ID
+           
             currentBlogId = null;
         });
 
-        // Close modal when clicking outside
+       
         deleteModal.addEventListener('click', (e) => {
             if (e.target === deleteModal) {
                 deleteModal.classList.remove('modal-open');
             }
         });
 
-        // Create/Update Blog Form Submission
+        
         if (createBlogForm) {
             createBlogForm.addEventListener('submit', (e) => {
                
@@ -1299,7 +1300,7 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
                 const status = document.getElementById('blog-status').value;
                 
                 if (currentBlogId) {
-                    // Update existing blog
+                   
                     const blogIndex = blogs.findIndex(b => b.id === currentBlogId);
                     if (blogIndex !== -1) {
                         blogs[blogIndex].title = title;
@@ -1310,14 +1311,14 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
                     showToast('Blog updated successfully');
                     currentBlogId = null;
                     
-                    // Switch back to my blogs tab
+                   
                     navItems.forEach(navItem => {
                         if (navItem.dataset.tab === 'my-blogs') {
                             navItem.click();
                         }
                     });
                 } else {
-                    // Create new blog
+                    
                     const newBlog = {
                         id: blogs.length + 1,
                         title: title,
@@ -1331,11 +1332,11 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
                     blogs.unshift(newBlog);
                     showToast('Blog created successfully');
                     
-                    // Reset form
+                    
                     createBlogForm.reset();
                     document.getElementById('blog-content').innerHTML = '<p>Start writing your blog post here...</p><p>You can use the toolbar above to format your text.</p>';
                     
-                    // Switch to my blogs tab
+                  
                     navItems.forEach(navItem => {
                         if (navItem.dataset.tab === 'my-blogs') {
                             navItem.click();
@@ -1345,7 +1346,7 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             });
         }
 
-        // Profile Form Submission
+        
         if (profileForm) {
             profileForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -1353,14 +1354,13 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             });
         }
 
-        // Preview Blog Button
         if (previewBlogBtn) {
             previewBlogBtn.addEventListener('click', () => {
                 showToast('Preview feature would open in a new tab');
             });
         }
 
-        // Rich Text Editor Functionality
+       
         editorBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const command = btn.dataset.command;
@@ -1382,25 +1382,25 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             });
         });
 
-        // Settings Tab Switching
+        
         settingsTabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active state from all tabs
+                
                 settingsTabs.forEach(t => {
                     t.classList.remove('bg-gray-100');
                     t.classList.remove('text-[#000080]');
                 });
                 
-                // Add active state to clicked tab
+                
                 tab.classList.add('bg-gray-100');
                 tab.classList.add('text-[#000080]');
                 
-                // Hide all settings content
+                
                 settingsContents.forEach(content => {
                     content.classList.add('hidden');
                 });
                 
-                // Show target settings content
+                
                 const targetTab = tab.dataset.settingsTab;
                 const targetContent = document.getElementById(`${targetTab}-settings`);
                 if (targetContent) {
@@ -1409,7 +1409,7 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             });
         });
 
-        // Toast Notification Function
+      
         function showToast(message) {
             toastMessage.textContent = message;
             successToast.classList.remove('hidden');
@@ -1423,7 +1423,7 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             }, 3000);
         }
 
-        // Initialize first settings tab as active
+       
         if (settingsTabs.length > 0) {
             settingsTabs[0].classList.add('bg-gray-100', 'text-[#000080]');
             if (settingsContents.length > 0) {
@@ -1431,19 +1431,32 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             }
         }
 
-        // Initialize rich text editor
+        
         document.getElementById('blog-content').addEventListener('focus', function() {
             if (this.innerHTML === '<p>Start writing your blog post here...</p><p>You can use the toolbar above to format your text.</p>') {
                 this.innerHTML = '';
             }
         });
 
-        // File upload preview (simulated)
+        
         document.getElementById('blog-image').addEventListener('change', function(e) {
             if (this.files && this.files[0]) {
                 showToast('Image selected: ' + this.files[0].name);
             }
         });
     </script>
+   {% block extra_js %}
+<script>
+function confirmDeleteArticle(id, title) {
+    if (confirm('Voulez-vous vraiment supprimer cet article ?')) {
+        document
+            .getElementById('delete-article-form-' + id)
+            .submit();
+    }
+}
+</script>
+{% endblock %}
+
+
 </body>
 </html>

@@ -1,0 +1,335 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Dashboard | Insightful Blog{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #000080;
+            --primary-light: #333399;
+            --primary-dark: #000066;
+            --admin-color: #8B0000;
+            --admin-light: #A52A2A;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --bg-light: #f9fafb;
+            --border-color: #e2e8f0;
+            --sidebar-width: 280px;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-color: #f8fafc;
+        }
+        
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            transition: transform 0.3s ease;
+            z-index: 40;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        .sidebar-closed {
+            transform: translateX(-100%);
+        }
+        
+        .main-content {
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.3s ease;
+        }
+        
+        .no-sidebar {
+            margin-left: 0;
+        }
+        
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar-open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+        
+        .nav-item {
+            transition: all 0.2s ease;
+        }
+        
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item.active {
+            background-color: var(--admin-color);
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .form-input:focus {
+            border-color: var(--admin-color);
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.modal-open {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: scale(0.95);
+            transition: transform 0.3s ease-in-out;
+            max-width: 32rem;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal.modal-open .modal-content {
+            transform: scale(1);
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+        }
+        
+        .notification-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 10px;
+            height: 10px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        
+        .dropdown-content {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .search-input:focus {
+            border-color: var(--admin-color);
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar text-white">
+        <!-- Logo -->
+        <div class="p-6 border-b border-gray-700">
+            <div class="flex items-center">
+                <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-[#8B0000] to-[#A52A2A] flex items-center justify-center mr-3">
+                    <i class="fas fa-shield-alt text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold">Insightful</h2>
+                    <p class="text-xs text-gray-400">Admin Dashboard</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Admin Info -->
+        <div class="p-6 border-b border-gray-700">
+            <div class="flex items-center">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-r from-red-200 to-red-300 flex items-center justify-center mr-4">
+                    <span class="text-2xl font-bold text-gray-800">{{ request.user.username|slice:":2"|upper }}</span>
+                </div>
+                <div>
+                    <h3 class="font-bold">{{ request.user.username }}</h3>
+                    <p class="text-sm text-gray-400">Administrator</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="p-4">
+            <div class="space-y-1">
+                <a href="{% url 'admin_dashboard' %}" class="nav-item flex items-center px-4 py-3 rounded-lg {% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
+                    <i class="fas fa-tachometer-alt w-5 mr-3"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{% url 'user_dashboard' %}" class="nav-item flex items-center px-4 py-3 rounded-lg {% if request.resolver_match.url_name == 'user_dashboard' %}active{% endif %}">
+                    <i class="fas fa-users w-5 mr-3"></i>
+                    <span>Users</span>
+                </a>
+                <!-- We can point to Article Management later -->
+                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg">
+                    <i class="fas fa-file-alt w-5 mr-3"></i>
+                    <span>Blogs</span>
+                </a>
+                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg">
+                    <i class="fas fa-comments w-5 mr-3"></i>
+                    <span>Comments</span>
+                </a>
+                <a href="{% url 'admin_categories' %}" class="nav-item flex items-center px-4 py-3 rounded-lg {% if request.resolver_match.url_name == 'admin_categories' %}active{% endif %}">
+                    <i class="fas fa-tags w-5 mr-3"></i>
+                    <span>Categories</span>
+                </a>
+                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg">
+                    <i class="fas fa-chart-bar w-5 mr-3"></i>
+                    <span>Analytics</span>
+                </a>
+                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg">
+                    <i class="fas fa-cog w-5 mr-3"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            
+            <!-- Logout -->
+            <div class="mt-20">
+                <a href="{% url 'home' %}" class="nav-item flex items-center px-4 py-3 rounded-lg">
+                    <i class="fas fa-sign-out-alt w-5 mr-3"></i>
+                    <span>Back to Site</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content min-h-screen flex flex-col">
+        <!-- Top Header -->
+        <header class="admin-header py-4 px-6 flex justify-between items-center sticky top-0 z-30 shadow-md">
+            <div class="flex items-center">
+                <button id="sidebar-toggle" class="lg:hidden text-white mr-4">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <h1 class="text-2xl font-bold">{% block page_title %}Admin{% endblock %}</h1>
+            </div>
+            
+            <div class="flex items-center space-x-6">
+                <!-- Search -->
+                <div class="relative hidden md:block">
+                    <input type="text" placeholder="Search..." class="search-input bg-white/10 border border-white/20 text-white placeholder-gray-300 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-white/40 w-64">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-300"></i>
+                </div>
+                
+                <!-- User Menu -->
+                <div class="relative group">
+                    <button class="flex items-center space-x-3 focus:outline-none">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-200 to-red-300 flex items-center justify-center">
+                            <span class="font-bold text-gray-800">{{ request.user.username|slice:":2"|upper }}</span>
+                        </div>
+                        <div class="hidden md:block text-left text-white">
+                            <p class="text-sm font-medium">{{ request.user.username }}</p>
+                            <p class="text-xs text-gray-300">Admin</p>
+                        </div>
+                        <i class="fas fa-chevron-down text-white hidden md:block"></i>
+                    </button>
+                     <!-- Simple Menu for logout -->
+                     <div class="hidden group-hover:block absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl overflow-hidden z-50 text-gray-800">
+                        <a href="{% url 'login' %}" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+                     </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="p-6 flex-grow">
+            <!-- Messages are now handled via ToastManager below -->
+            {% block admin_content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+    <script src="{% static 'js/common/alert_manager.js' %}"></script>
+    <script src="{% static 'js/common/toast_manager.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+    <script>
+        // Sidebar Toggle
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        
+        if(sidebarToggle){
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('sidebar-closed');
+                
+                // Adjust main content margin on desktop
+                if (window.innerWidth >= 1024) {
+                    if (sidebar.classList.contains('sidebar-closed')) {
+                        mainContent.classList.add('no-sidebar');
+                    } else {
+                        mainContent.classList.remove('no-sidebar');
+                    }
+                } else {
+                    // Mobile behavior
+                    if (sidebar.classList.contains('sidebar-closed')) {
+                        sidebar.classList.remove('sidebar-open');
+                    } else {
+                        sidebar.classList.add('sidebar-open');
+                    }
+                }
+            });
+        }
+
+        // Initialize ToastManager and show messages
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure toastManager is initialized (it is initialized in the file but let's be safe)
+            if (!window.toastManager) {
+                window.toastManager = new ToastManager();
+            }
+
+            {% if messages %}
+                {% for message in messages %}
+                    window.toastManager.buildToast()
+                        .setMessage("{{ message|escapejs }}")
+                        .setType("{% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% elif message.tags == 'warning' %}warning{% else %}info{% endif %}")
+                        .setPosition('top-right')
+                        .show();
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
+</body>
+</html>
