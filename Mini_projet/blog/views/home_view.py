@@ -5,6 +5,7 @@ from django.views import View
 from blog.models import Article, Category, User, Comment
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.text import slugify
+from django.core.paginator import Paginator
 
 logger = logging.getLogger(__name__)
 
@@ -132,15 +133,24 @@ class EditCategory(View):
 
 
 class User_dashboaord(View):
+   
     def get(self, request):
+        article_list = Article.objects.all().order_by('-date')
+        categories = Category.objects.all()
+        users = User.objects.all()
+
+        paginator = Paginator(article_list, 2)  # 5 articles par page
+        page_number = request.GET.get('page')
+        articles = paginator.get_page(page_number)
+
+        return render(request, 'user_dashboard.html', {
+            "categorie": categories,
+            "article_count": article_list.count(),
+            "user": users,
+            "articles": articles
+        })
         
-       article_count = Article.objects.count()
-       articles = Article.objects.all()
-       categories = Category.objects.all()
-       user = User.objects.all()
-       
-       return render(request, 'user_dashboard.html', {"categorie": categories,"article_count":article_count, "user": user,"articles":articles})
-    
+        
     def post(self, request):
         data= request.POST
         name = data.get("name")
@@ -264,6 +274,29 @@ def about(request):
 
 def contact(request):
     return render(request, 'contact.html')
+
+
+def blog(request):
+    article_list = Article.objects.all().order_by('-date')
+    categories = Category.objects.all()
+    users = User.objects.all()
+
+    paginator = Paginator(article_list, 2)  # 5 articles par page
+    page_number = request.GET.get('page')
+    articles = paginator.get_page(page_number)
+
+    # Récupérer l'onglet actif depuis l'URL ou défaut
+    active_tab = request.GET.get('tab', 'my-blogs')
+
+    return render(request, 'blog.html', {
+        "categorie": categories,
+        "article_count": article_list.count(),
+        "user": users,
+        "articles": articles,
+        "active_tab": active_tab
+    })
+    
+    
 
 
     

@@ -193,43 +193,57 @@
         </div>
         
         <!-- Navigation -->
-        <nav class="p-4">
-            <div class="space-y-2">
-                <a href="#" class="nav-item active flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="dashboard">
-                    <i class="fas fa-tachometer-alt text-[#000080] w-5 mr-3"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="my-blogs">
-                    <i class="fas fa-file-alt text-gray-500 w-5 mr-3"></i>
-                    <span>My Blogs</span>
-                    <span class="ml-auto bg-[#000080] text-white text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center">{{article_count}}</span>
-                </a>
-                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="create-blog">
-                    <i class="fas fa-plus-circle text-gray-500 w-5 mr-3"></i>
-                    <span>Create Blog</span>
-                </a>
-                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="profile">
-                    <i class="fas fa-user text-gray-500 w-5 mr-3"></i>
-                    <span>Profile</span>
-                </a>
-                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="analytics">
-                    <i class="fas fa-chart-line text-gray-500 w-5 mr-3"></i>
-                    <span>Analytics</span>
-                </a>
-                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="settings">
-                    <i class="fas fa-cog text-gray-500 w-5 mr-3"></i>
-                    <span>Settings</span>
-                </a>
-            </div>
-            
-            <!-- Logout -->
-            <div class="mt-20">
-                <a href="index.html" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700">
-                    <i class="fas fa-sign-out-alt text-gray-500 w-5 mr-3"></i>
-                    <span>Back to Blog</span>
-                </a>
-            </div>
-        </nav>
+       <nav class="p-4">
+    <div class="space-y-2">
+        <!-- Dashboard (SPA) -->
+        <a href="#" class="nav-item active flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="dashboard">
+            <i class="fas fa-tachometer-alt text-[#000080] w-5 mr-3"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <!-- My Blogs (vrai lien Django) -->
+        <a href="{% url 'blog' %}" class="flex items-center px-4 py-3 rounded-lg text-gray-700">
+            <i class="fas fa-file-alt text-gray-500 w-5 mr-3"></i>
+            <span>My Blogs</span>
+            <span class="ml-auto bg-[#000080] text-white text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center">
+                {{ article_count }}
+            </span>
+        </a>
+
+        <!-- Create Blog (SPA) -->
+        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="create-blog">
+            <i class="fas fa-plus-circle text-gray-500 w-5 mr-3"></i>
+            <span>Create Blog</span>
+        </a>
+
+        <!-- Profile (SPA) -->
+        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="profile">
+            <i class="fas fa-user text-gray-500 w-5 mr-3"></i>
+            <span>Profile</span>
+        </a>
+
+        <!-- Analytics (SPA) -->
+        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="analytics">
+            <i class="fas fa-chart-line text-gray-500 w-5 mr-3"></i>
+            <span>Analytics</span>
+        </a>
+
+        <!-- Settings (SPA) -->
+        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="settings">
+            <i class="fas fa-cog text-gray-500 w-5 mr-3"></i>
+            <span>Settings</span>
+        </a>
+    </div>
+
+    <!-- Logout / Back to Blog (vrai lien Django) -->
+    <div class="mt-20">
+        <a href="" class="flex items-center px-4 py-3 rounded-lg text-gray-700">
+            <i class="fas fa-sign-out-alt text-gray-500 w-5 mr-3"></i>
+            <span>Back to Blog</span>
+        </a>
+    </div>
+</nav>
+
     </aside>
 
     <!-- Main Content -->
