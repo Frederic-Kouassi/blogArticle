@@ -1,0 +1,42 @@
+
+<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+    {% for article in articles %}
+    <div class="bg-white rounded-2xl shadow-md overflow-hidden
+                transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col">
+
+        {% if article.image %}
+        <img src="{{ article.image.url }}"
+             alt="{{ article.name }}"
+             class="w-full h-48 object-cover">
+        {% endif %}
+
+        <div class="p-5 text-center flex flex-col gap-4">
+
+            <p class="text-lg font-semibold text-gray-800">
+                {{ article.name }}
+            </p>
+
+            <p class="text-sm text-gray-500">
+                Auteur : {{ article.auteur.prenom }} {{ article.auteur.nom }}
+            </p>
+
+            <a href="{% url 'detail' article.id %}"
+               class="inline-flex items-center justify-center
+                      border border-blue-600 text-blue-600
+                      px-4 py-2 rounded-full font-medium
+                      hover:bg-violet-600 hover:border-violet-600 hover:text-white
+                      active:scale-95 transition-all duration-200">
+                Voir les détails
+            </a>
+
+        </div>
+
+    </div>
+    {% empty %}
+    <p class="text-center text-gray-600 col-span-full">
+        Aucun article disponible.
+    </p>
+    {% endfor %}
+
+</div>

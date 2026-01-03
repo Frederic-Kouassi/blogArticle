@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django_extensions.db.models import ActivatorModel, TimeStampedModel
@@ -45,15 +46,18 @@ class Category(BlogBaseModel):
         choices=CategoryStatus.choices,
         default=CategoryStatus.ACTIVE
     )
+    icon = models.CharField(max_length=50, default='fa-folder', blank=True)
 
     def __str__(self):
         return self.name
     
     class Meta:
         verbose_name_plural = "Categories"
+from django.utils.text import slugify
 
 class Article(BlogBaseModel):
     name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=220, blank=True)
     description = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles')
     image = models.ImageField(upload_to='articles', blank=True, null=True)
@@ -63,14 +67,21 @@ class Article(BlogBaseModel):
         choices=BlogStatus.choices,
         default=BlogStatus.DRAFT
     )
+    date = models.DateTimeField(default=datetime.now)
     views = models.PositiveIntegerField(default=0)
     featured = models.BooleanField(default=False)
     newsletter_feature = models.BooleanField(default=False)
     allow_comments = models.BooleanField(default=True)
-    tags = models.CharField(max_length=200, blank=True, help_text="Comma separated tags")
+    tags = models.CharField(max_length=200, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
+
 
 class Comment(BlogBaseModel):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')

@@ -1,0 +1,113 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">Modifier l’article</h2>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- TITRE -->
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Titre *</label>
+            <input type="text" name="name" required
+                   value="{{ article.name }}"
+                   class="w-full px-4 py-3 border rounded-lg">
+        </div>
+
+        <!-- CATÉGORIE -->
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Catégorie *</label>
+            <select name="category" required
+                    class="w-full px-4 py-3 border rounded-lg">
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}"
+                        {% if article.category and article.category.id == cat.id %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ cat.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- IMAGE -->
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Image</label>
+            <input type="file" name="image">
+            {% if article.image %}
+                <p class="text-sm text-gray-500 mt-2">
+                    Image actuelle : {{ article.image.url }}
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- CONTENU -->
+        <input type="hidden" name="description" id="real-content" value="{{ article.description }}">
+
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Contenu *</label>
+            <div id="blog-content" contenteditable="true"
+                 class="border rounded-lg p-4 min-h-64">
+                {{ article.description|safe }}
+            </div>
+        </div>
+
+        <!-- TAGS -->
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Tags</label>
+            <input type="text" name="tags"
+                   value="{{ article.tags }}"
+                   class="w-full px-4 py-3 border rounded-lg">
+        </div>
+
+        <!-- OPTIONS -->
+        <div class="flex flex-wrap gap-6 mb-8">
+            <label>
+                <input type="checkbox" name="featured" {% if article.featured %}checked{% endif %}>
+                Mettre en avant
+            </label>
+
+            <label>
+                <input type="checkbox" name="allow_comments" {% if article.allow_comments %}checked{% endif %}>
+                Autoriser les commentaires
+            </label>
+
+            <label>
+                <input type="checkbox" name="newsletter_feature" {% if article.newsletter_feature %}checked{% endif %}>
+                Newsletter
+            </label>
+        </div>
+
+        <!-- STATUS + SUBMIT -->
+        <div class="border-t pt-6 flex justify-between">
+            <select name="status"
+                    class="px-4 py-2 border rounded-lg">
+                <option value="DRAFT" {% if article.status == "DRAFT" %}selected{% endif %}>Draft</option>
+                <option value="PENDING" {% if article.status == "PENDING" %}selected{% endif %}>En attente</option>
+                <option value="PUBLISHED" {% if article.status == "PUBLISHED" %}selected{% endif %}>Publié</option>
+            </select>
+
+            <button type="submit"
+                    class="bg-[#000080] hover:bg-[#000066] text-white px-6 py-2 rounded-lg">
+                Mettre à jour
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Synchroniser le contenu éditable vers le champ caché
+    document.querySelector("form").addEventListener("submit", function () {
+        document.getElementById("real-content").value =
+            document.getElementById("blog-content").innerHTML;
+    });
+</script>
+
+
+{% endblock %}
