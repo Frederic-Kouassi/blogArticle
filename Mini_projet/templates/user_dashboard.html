@@ -183,10 +183,10 @@
         <div class="p-6 border-b border-gray-200">
             <div class="flex items-center">
                 <div class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center mr-4">
-                    <span class="text-2xl font-bold text-gray-800">JD</span>
+                    <span class="text-2xl font-bold text-gray-800">{{ user.first_name|slice:":2" }}</span>
                 </div>
                 <div>
-                    <h3 class="font-bold text-gray-900">John Doe</h3>
+                    <h3 class="font-bold text-gray-900">{{user.last_name}}</h3>
                     <p class="text-sm text-gray-500">Author & Contributor</p>
                 </div>
             </div>
@@ -328,7 +328,7 @@
             <div id="dashboard-content" class="tab-content active">
                 <!-- Welcome Message -->
                 <div class="mb-8">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, John!</h2>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, {{user.last_name}}!</h2>
                     <p class="text-gray-600">Here's what's happening with your blog content today.</p>
                 </div>
                 
@@ -364,7 +364,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-gray-500 text-sm mb-2">Comments</p>
-                                <h3 class="text-3xl font-bold text-gray-900">342</h3>
+                                <h3 class="text-3xl font-bold text-gray-900">{{total_comments}}</h3>
                             </div>
                             <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
                                 <i class="fas fa-comments text-purple-600 text-xl"></i>
@@ -430,39 +430,75 @@
                         <a href="#" class="text-sm text-[#000080] font-medium hover:text-[#000066]">View All</a>
                     </div>
                     
-                    <div class="space-y-4">
-                        <div class="flex items-center p-4 rounded-lg bg-blue-50">
+                       <div class="space-y-4">
+                                                <!-- Notifications pour articles publiés -->
+                        {% for article in published_articles %}
+                        <div class="flex items-center p-4 rounded-lg mb-2 bg-blue-50 hover:bg-blue-100 transition">
                             <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
                                 <i class="fas fa-check text-blue-600"></i>
                             </div>
                             <div class="flex-grow">
-                                <p class="font-medium text-gray-900">Blog published: "The Future of AI Ethics"</p>
-                                <p class="text-sm text-gray-600">Published 2 hours ago</p>
+                                <p class="font-medium text-gray-900">
+                                    Blog published: "{{ article.name }}"
+                                </p>
+                                <p class="text-sm text-gray-600">
+                                    Published {{ article.date|timesince }} ago
+                                </p>
                             </div>
                             <span class="status-badge status-published">Published</span>
                         </div>
-                        
+                        {% empty %}
+                        <p class="text-gray-500">No new published articles.</p>
+                        {% endfor %}
+
+                        {% for article in draft_articles %}
                         <div class="flex items-center p-4 rounded-lg bg-yellow-50">
                             <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-4">
                                 <i class="fas fa-pen text-yellow-600"></i>
                             </div>
                             <div class="flex-grow">
-                                <p class="font-medium text-gray-900">Draft updated: "Remote Work Evolution"</p>
-                                <p class="text-sm text-gray-600">Updated 1 day ago</p>
+                                <p class="font-medium text-gray-900">
+                                    Draft updated: "{{ article.name }}"
+                                </p>
+                                <p class="text-sm text-gray-600">
+                                    Updated {{ article.modified|timesince }} ago
+                                </p>
                             </div>
-                            <span class="status-badge status-draft">Draft</span>
+                            <a href="{% url 'edit_article' article.id %}" class="status-badge status-draft">Edit</a>
                         </div>
+                        {% endfor %}
+
+                                            
+                                        <!-- Notifications -->
+                    <div class="mb-6">
                         
-                        <div class="flex items-center p-4 rounded-lg bg-green-50">
-                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
-                                <i class="fas fa-comment text-green-600"></i>
+
+                        {% if new_comments %}
+                            {% for comment in new_comments %}
+                            <div class="flex items-center p-4 rounded-lg mb-2 bg-green-50 hover:bg-green-100 transition">
+                                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                                    <i class="fas fa-comment text-green-600"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <p class="font-medium text-gray-900">
+                                        New comment on "<strong>{{ comment.article.name }}</strong>"
+                                    </p>
+                                    <p class="text-sm text-gray-600">
+                                        From {{ comment.author.username }}, {{ comment.created|timesince }} ago
+                                    </p>
+                                </div>
+                                <a href="{% url 'comments' %}#comment-{{ comment.id }}" class="text-sm text-[#000080] font-medium">
+                                    View
+                                </a>
                             </div>
-                            <div class="flex-grow">
-                                <p class="font-medium text-gray-900">New comment on "Digital Detox Strategies"</p>
-                                <p class="text-sm text-gray-600">From Sarah Chen, 2 days ago</p>
-                            </div>
-                            <a href="#" class="text-sm text-[#000080] font-medium">View</a>
-                        </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-gray-500">No new comments.</p>
+                        {% endif %}
+
+                        <p class="text-sm text-gray-600 mt-2">Total comments: {{ total_comments }}</p>
+                    </div>
+
                     </div>
                 </div>
             </div>
@@ -607,6 +643,8 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
         <h2 class="text-3xl font-bold text-gray-900 mb-2">Your Profile</h2>
         <p class="text-gray-600">Manage your personal information and preferences.</p>
     </div>
+
+   
 
    <form id="profile-form" method="POST" enctype="multipart/form-data">
 
@@ -973,9 +1011,11 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
                                 <div class="border-t border-gray-200 pt-6">
                                     <h4 class="font-bold text-gray-900 mb-4">Account Actions</h4>
                                     <div class="space-y-4">
-                                        <button class="text-red-600 hover:text-red-800 font-medium py-2 px-4 border border-red-200 rounded-lg hover:bg-red-50 transition-colors duration-200">
-                                            Deactivate Account
+                                        <button onclick="window.location.href='{% url 'logout' %}'" 
+                                           class="text-red-600 hover:text-red-800 font-medium py-2 px-4 border border-red-200 rounded-lg hover:bg-red-50 transition-colors duration-200">
+                                                     Deactivate Account
                                         </button>
+
                                         <p class="text-sm text-gray-600">Deactivating your account will hide your profile and content from the blog.</p>
                                     </div>
                                 </div>

@@ -7,6 +7,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.text import slugify
 from django.core.paginator import Paginator
 
+from django.contrib.auth import logout
+
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+
 
 
 
@@ -146,17 +151,22 @@ class User_dashboaord(View):
         article_list = Article.objects.all().order_by('-date')
         categories = Category.objects.all()
         users = User.objects.all()
+        total_comments = Comment.objects.count()
+        new_comments = Comment.objects.filter(status='PENDING').order_by('-created')[:5]
+        published_articles = Article.objects.filter(status='PUBLISHED').order_by('-date')[:5]
+        draft_articles = Article.objects.filter(status='DRAFT').order_by('-date')[:5]
 
-        paginator = Paginator(article_list, 2)  # 5 articles par page
-        page_number = request.GET.get('page')
-        articles = paginator.get_page(page_number)
 
         return render(request, 'user_dashboard.html', {
             "categorie": categories,
             "article_count": article_list.count(),
              "user": current_user,
-            "articles": articles
-            
+             "new_comments": new_comments,
+             "published_articles":published_articles,
+              "draft_articles": draft_articles,
+             
+              "total_comments": total_comments, 
+ 
         })
         
         
@@ -179,7 +189,7 @@ class User_dashboaord(View):
                 current_user.avatar = request.FILES.get("avatar")
             current_user.save()
             messages.success(request, "Profil mis à jour avec succès")
-            return redirect(request.path)
+            return redirect('user_dashboard')
 
         # Création d'article
         name = request.POST.get("name")
@@ -306,7 +316,7 @@ def blog(request):
     categories = Category.objects.all()
     users = User.objects.all()
 
-    paginator = Paginator(article_list, 2)  
+    paginator = Paginator(article_list, 3)  
     page_number = request.GET.get('page')
     articles = paginator.get_page(page_number)
 
@@ -320,5 +330,79 @@ def blog(request):
         "articles": articles,
         "active_tab": active_tab
     })
+    
+    
+
+class Comments(View):
+    template_name = "comments.html"
+
+    def get(self, request):
+        # Récupération de tous les commentaires
+        comments = Comment.objects.select_related('author', 'article')
+        # Récupération des articles pour le formulaire
+        articles = Article.objects.all().order_by('-date')
+        return render(request, self.template_name, {
+            "comments": comments,
+            "articles": articles,
+        })
+
+    def post(self, request):
+        # Récupération des données du formulaire
+        article_id = request.POST.get("article")
+        content = request.POST.get("content")
+        status = request.POST.get("status", "PENDING")
+        author = request.user
+
+        if not article_id or not content:
+            messages.error(request, "Veuillez remplir tous les champs obligatoires.")
+            return redirect(request.path)
+
+        article = get_object_or_404(Article, id=article_id)
+
+        # Création du commentaire
+        Comment.objects.create(
+            article=article,
+            author=author,
+            content=content,
+            status=status
+        )
+        messages.success(request, "Commentaire ajouté avec succès.")
+        return redirect(request.path)
 
 
+class DeleteComment(View):
+    def post(self, request, comment_id):
+        comment = get_object_or_404(Comment, id=comment_id)
+        if request.user != comment.author and not request.user.is_superuser:
+            messages.error(request, "Vous n'avez pas la permission de supprimer ce commentaire.")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+        comment.delete()
+        messages.success(request, "Commentaire supprimé avec succès.")
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+
+class CommentLikeView(View):
+    def post(self, request, comment_id):
+        comment = get_object_or_404(Comment, id=comment_id)
+        user = request.user
+
+        if user in comment.liked_by.all():
+            comment.liked_by.remove(user)
+            messages.info(request, "Vous avez retiré votre like.")
+        else:
+            comment.liked_by.add(user)
+            messages.success(request, "Vous avez aimé ce commentaire !")
+
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+
+
+
+
+
+
+def user_logout(request):
+    logout(request) # type: ignore
+    return redirect('login')

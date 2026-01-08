@@ -81,7 +81,9 @@ class Article(BlogBaseModel):
 
     def __str__(self):
         return self.name
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class Comment(BlogBaseModel):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
@@ -92,7 +94,11 @@ class Comment(BlogBaseModel):
         choices=CommentStatus.choices,
         default=CommentStatus.PENDING
     )
-    likes = models.PositiveIntegerField(default=0)
+    liked_by = models.ManyToManyField(User, blank=True, related_name='liked_comments')
+
+    @property
+    def likes_count(self):
+        return self.liked_by.count()
 
     def __str__(self):
         return f"Comment by {self.author} on {self.article}"
