@@ -7,6 +7,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.text import slugify
 from django.core.paginator import Paginator
 
+
+
+
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -135,6 +140,9 @@ class EditCategory(View):
 class User_dashboaord(View):
    
     def get(self, request):
+        
+        current_user = request.user
+      
         article_list = Article.objects.all().order_by('-date')
         categories = Category.objects.all()
         users = User.objects.all()
@@ -146,34 +154,50 @@ class User_dashboaord(View):
         return render(request, 'user_dashboard.html', {
             "categorie": categories,
             "article_count": article_list.count(),
-            "user": users,
+             "user": current_user,
             "articles": articles
+            
         })
         
         
     def post(self, request):
-        data= request.POST
-        name = data.get("name")
-        description = data.get("description")
-        category_id = data.get("category")
-        status = data.get("status")
-        tags = data.get("tags")
+        """
+        Gère la mise à jour du profil et la création d'article selon les champs présents.
+        """
+        current_user = request.user
+        if "first_name" in request.POST:  # Mise à jour du profil
+            current_user.first_name = request.POST.get("first_name", current_user.first_name)
+            current_user.last_name = request.POST.get("last_name", current_user.last_name)
+            current_user.email = request.POST.get("email", current_user.email)
+            current_user.bio = request.POST.get("bio", current_user.bio)
+            current_user.website = request.POST.get("website", current_user.website)
+            current_user.location = request.POST.get("location", current_user.location)
+            current_user.twitter_username = request.POST.get("twitter_username", current_user.twitter_username)
+            current_user.linkedin_url = request.POST.get("linkedin_url", current_user.linkedin_url)
+            current_user.github_username = request.POST.get("github_username", current_user.github_username)
+            if request.FILES.get("avatar"):
+                current_user.avatar = request.FILES.get("avatar")
+            current_user.save()
+            messages.success(request, "Profil mis à jour avec succès")
+            return redirect(request.path)
 
+        # Création d'article
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        category_id = request.POST.get("category")
+        status = request.POST.get("status")
+        tags = request.POST.get("tags")
         featured = "featured" in request.POST
         allow_comments = "allow_comments" in request.POST
         newsletter_feature = "newsletter_feature" in request.POST
-
         image = request.FILES.get("image")
 
         if name and description and category_id:
-            
             category = get_object_or_404(Category, id=category_id)
-            author = request.user
-
             Article.objects.create(
                 name=name,
                 description=description,
-                author=author,
+                author=current_user,
                 category=category,
                 image=image,
                 status=status,
@@ -182,9 +206,10 @@ class User_dashboaord(View):
                 allow_comments=allow_comments,
                 newsletter_feature=newsletter_feature,
             )
+            messages.success(request, "Article créé avec succès")
+            return redirect(request.path)
 
-            return redirect("user_dashboard")
-        return redirect("user_dashboard")
+        return redirect(request.path)
         
  
 class DeleteArticle(View):
@@ -281,11 +306,11 @@ def blog(request):
     categories = Category.objects.all()
     users = User.objects.all()
 
-    paginator = Paginator(article_list, 2)  # 5 articles par page
+    paginator = Paginator(article_list, 2)  
     page_number = request.GET.get('page')
     articles = paginator.get_page(page_number)
 
-    # Récupérer l'onglet actif depuis l'URL ou défaut
+    
     active_tab = request.GET.get('tab', 'my-blogs')
 
     return render(request, 'blog.html', {
@@ -295,10 +320,5 @@ def blog(request):
         "articles": articles,
         "active_tab": active_tab
     })
-    
-    
-
-
-    
 
 
