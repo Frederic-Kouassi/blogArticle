@@ -183,53 +183,67 @@
         <div class="p-6 border-b border-gray-200">
             <div class="flex items-center">
                 <div class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center mr-4">
-                    <span class="text-2xl font-bold text-gray-800">JD</span>
+                    <span class="text-2xl font-bold text-gray-800">{{ user.first_name|slice:":2" }}</span>
                 </div>
                 <div>
-                    <h3 class="font-bold text-gray-900">John Doe</h3>
+                    <h3 class="font-bold text-gray-900">{{user.last_name}}</h3>
                     <p class="text-sm text-gray-500">Author & Contributor</p>
                 </div>
             </div>
         </div>
         
         <!-- Navigation -->
-        <nav class="p-4">
-            <div class="space-y-2">
-                <a href="#" class="nav-item active flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="dashboard">
-                    <i class="fas fa-tachometer-alt text-[#000080] w-5 mr-3"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="my-blogs">
-                    <i class="fas fa-file-alt text-gray-500 w-5 mr-3"></i>
-                    <span>My Blogs</span>
-                    <span class="ml-auto bg-[#000080] text-white text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center">{{article_count}}</span>
-                </a>
-                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="create-blog">
-                    <i class="fas fa-plus-circle text-gray-500 w-5 mr-3"></i>
-                    <span>Create Blog</span>
-                </a>
-                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="profile">
-                    <i class="fas fa-user text-gray-500 w-5 mr-3"></i>
-                    <span>Profile</span>
-                </a>
-                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="analytics">
-                    <i class="fas fa-chart-line text-gray-500 w-5 mr-3"></i>
-                    <span>Analytics</span>
-                </a>
-                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="settings">
-                    <i class="fas fa-cog text-gray-500 w-5 mr-3"></i>
-                    <span>Settings</span>
-                </a>
-            </div>
-            
-            <!-- Logout -->
-            <div class="mt-20">
-                <a href="index.html" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700">
-                    <i class="fas fa-sign-out-alt text-gray-500 w-5 mr-3"></i>
-                    <span>Back to Blog</span>
-                </a>
-            </div>
-        </nav>
+       <nav class="p-4">
+    <div class="space-y-2">
+        <!-- Dashboard (SPA) -->
+        <a href="#" class="nav-item active flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="dashboard">
+            <i class="fas fa-tachometer-alt text-[#000080] w-5 mr-3"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <!-- My Blogs (vrai lien Django) -->
+        <a href="{% url 'blog' %}" class="flex items-center px-4 py-3 rounded-lg text-gray-700">
+            <i class="fas fa-file-alt text-gray-500 w-5 mr-3"></i>
+            <span>My Blogs</span>
+            <span class="ml-auto bg-[#000080] text-white text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center">
+                {{ article_count }}
+            </span>
+        </a>
+
+        <!-- Create Blog (SPA) -->
+        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="create-blog">
+            <i class="fas fa-plus-circle text-gray-500 w-5 mr-3"></i>
+            <span>Create Blog</span>
+        </a>
+
+        <!-- Profile (SPA) -->
+        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="profile">
+            <i class="fas fa-user text-gray-500 w-5 mr-3"></i>
+            <span>Profile</span>
+        </a>
+
+        <!-- Analytics (SPA) -->
+        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="analytics">
+            <i class="fas fa-chart-line text-gray-500 w-5 mr-3"></i>
+            <span>Analytics</span>
+        </a>
+
+        <!-- Settings (SPA) -->
+        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="settings">
+            <i class="fas fa-cog text-gray-500 w-5 mr-3"></i>
+            <span>Settings</span>
+        </a>
+    </div>
+
+    <!-- Logout / Back to Blog (vrai lien Django) -->
+    <div class="mt-20">
+        <a href="" class="flex items-center px-4 py-3 rounded-lg text-gray-700">
+            <i class="fas fa-sign-out-alt text-gray-500 w-5 mr-3"></i>
+            <span>Back to Blog</span>
+        </a>
+    </div>
+</nav>
+
     </aside>
 
     <!-- Main Content -->
@@ -314,7 +328,7 @@
             <div id="dashboard-content" class="tab-content active">
                 <!-- Welcome Message -->
                 <div class="mb-8">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, John!</h2>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, {{user.last_name}}!</h2>
                     <p class="text-gray-600">Here's what's happening with your blog content today.</p>
                 </div>
                 
@@ -350,7 +364,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-gray-500 text-sm mb-2">Comments</p>
-                                <h3 class="text-3xl font-bold text-gray-900">342</h3>
+                                <h3 class="text-3xl font-bold text-gray-900">{{total_comments}}</h3>
                             </div>
                             <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center">
                                 <i class="fas fa-comments text-purple-600 text-xl"></i>
@@ -416,39 +430,75 @@
                         <a href="#" class="text-sm text-[#000080] font-medium hover:text-[#000066]">View All</a>
                     </div>
                     
-                    <div class="space-y-4">
-                        <div class="flex items-center p-4 rounded-lg bg-blue-50">
+                       <div class="space-y-4">
+                                                <!-- Notifications pour articles publiés -->
+                        {% for article in published_articles %}
+                        <div class="flex items-center p-4 rounded-lg mb-2 bg-blue-50 hover:bg-blue-100 transition">
                             <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
                                 <i class="fas fa-check text-blue-600"></i>
                             </div>
                             <div class="flex-grow">
-                                <p class="font-medium text-gray-900">Blog published: "The Future of AI Ethics"</p>
-                                <p class="text-sm text-gray-600">Published 2 hours ago</p>
+                                <p class="font-medium text-gray-900">
+                                    Blog published: "{{ article.name }}"
+                                </p>
+                                <p class="text-sm text-gray-600">
+                                    Published {{ article.date|timesince }} ago
+                                </p>
                             </div>
                             <span class="status-badge status-published">Published</span>
                         </div>
-                        
+                        {% empty %}
+                        <p class="text-gray-500">No new published articles.</p>
+                        {% endfor %}
+
+                        {% for article in draft_articles %}
                         <div class="flex items-center p-4 rounded-lg bg-yellow-50">
                             <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-4">
                                 <i class="fas fa-pen text-yellow-600"></i>
                             </div>
                             <div class="flex-grow">
-                                <p class="font-medium text-gray-900">Draft updated: "Remote Work Evolution"</p>
-                                <p class="text-sm text-gray-600">Updated 1 day ago</p>
+                                <p class="font-medium text-gray-900">
+                                    Draft updated: "{{ article.name }}"
+                                </p>
+                                <p class="text-sm text-gray-600">
+                                    Updated {{ article.modified|timesince }} ago
+                                </p>
                             </div>
-                            <span class="status-badge status-draft">Draft</span>
+                            <a href="{% url 'edit_article' article.id %}" class="status-badge status-draft">Edit</a>
                         </div>
+                        {% endfor %}
+
+                                            
+                                        <!-- Notifications -->
+                    <div class="mb-6">
                         
-                        <div class="flex items-center p-4 rounded-lg bg-green-50">
-                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
-                                <i class="fas fa-comment text-green-600"></i>
+
+                        {% if new_comments %}
+                            {% for comment in new_comments %}
+                            <div class="flex items-center p-4 rounded-lg mb-2 bg-green-50 hover:bg-green-100 transition">
+                                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                                    <i class="fas fa-comment text-green-600"></i>
+                                </div>
+                                <div class="flex-grow">
+                                    <p class="font-medium text-gray-900">
+                                        New comment on "<strong>{{ comment.article.name }}</strong>"
+                                    </p>
+                                    <p class="text-sm text-gray-600">
+                                        From {{ comment.author.username }}, {{ comment.created|timesince }} ago
+                                    </p>
+                                </div>
+                                <a href="{% url 'comments' %}#comment-{{ comment.id }}" class="text-sm text-[#000080] font-medium">
+                                    View
+                                </a>
                             </div>
-                            <div class="flex-grow">
-                                <p class="font-medium text-gray-900">New comment on "Digital Detox Strategies"</p>
-                                <p class="text-sm text-gray-600">From Sarah Chen, 2 days ago</p>
-                            </div>
-                            <a href="#" class="text-sm text-[#000080] font-medium">View</a>
-                        </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-gray-500">No new comments.</p>
+                        {% endif %}
+
+                        <p class="text-sm text-gray-600 mt-2">Total comments: {{ total_comments }}</p>
+                    </div>
+
                     </div>
                 </div>
             </div>
@@ -473,91 +523,8 @@
                     </div>
                     
                     <!-- Table -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                                    <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                                    <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                    <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Views</th>
-                                    <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                    <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                <!-- Blog 1 -->
-                                 {% for article in articles %}
-                                <tr class="hover:bg-gray-50">
-                                    <td class="py-4 px-6">
-                                        <div>
-                                            <p class="font-medium text-gray-900">{{ article.name}}</p>
-                                            <p class="text-sm text-gray-500">{{ article.description|striptags }}</p>
-                                        </div>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">{{ article.category}}</span>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <span class="status-badge status-published">{{ article.status}}</span>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <p class="font-medium text-gray-900">12.5K</p>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <p class="text-gray-700">{{ article.date}}</p>
-                                    </td>
-                                    <td class="py-4 px-6">
-                                        <div class="flex space-x-2">
-                                  <a href="{% url 'edit_article' article.id %}"
-                                    class="text-blue-600 hover:text-blue-800 p-1 inline-flex items-center"
-                                    title="Modifier l'article">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-
-
-                                            <button class="text-green-600 hover:text-green-800 p-1" onclick="viewBlog(1)">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <form id="delete-article-form-{{ article.id }}"
-                                    method="post"
-                                    action="{% url 'delete_article' article.id %}">
-                                    {% csrf_token %}
-                                    <button type="button"
-                                            onclick="confirmDeleteArticle('{{ article.id }}', '{{ article.name|escapejs }}')"
-                                            class="text-red-600 hover:text-red-800 p-1">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-
-
-
-
-                                        </div>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                               
-                               
-                            </tbody>
-                        </table>
-                    </div>
+                  
                     
-                    <!-- Pagination -->
-                    <div class="p-6 border-t border-gray-200 flex justify-between items-center">
-                        <p class="text-gray-600 text-sm">Showing 4 of 12 blog posts</p>
-                        <div class="flex space-x-2">
-                            <button class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-50">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <button type="submit" class="w-10 h-10 rounded-lg bg-[#000080] text-white flex items-center justify-center">1</button>
-                            <button type="submit" class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-50">2</button>
-                            <button type="submit" class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-50">3</button>
-                            <button type="submit" class="w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center text-gray-700 hover:bg-gray-50">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
             
@@ -669,111 +636,167 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
 </script>
 
             <!-- Profile Tab Content -->
-            <div id="profile-content" class="tab-content hidden">
-                <div class="mb-8">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Your Profile</h2>
-                    <p class="text-gray-600">Manage your personal information and preferences.</p>
-                </div>
-                
-                <div class="grid lg:grid-cols-3 gap-8">
-                    <!-- Profile Info -->
-                    <div class="lg:col-span-2">
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                            <h3 class="text-xl font-bold text-gray-900 mb-6">Personal Information</h3>
-                            
-                            <form id="profile-form">
-                                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                                    <div>
-                                        <label for="first-name" class="block text-gray-700 font-medium mb-2">First Name *</label>
-                                        <input type="text" id="first-name" name="first_name" value="John" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                                    </div>
-                                    
-                                    <div>
-                                        <label for="last-name" class="block text-gray-700 font-medium mb-2">Last Name *</label>
-                                        <input type="text" id="last-name" name="last_name" value="Doe" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <label for="email" class="block text-gray-700 font-medium mb-2">Email Address *</label>
-                                    <input type="email" id="email" name="email" value="john.doe@example.com" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <label for="bio" class="block text-gray-700 font-medium mb-2">Bio / About</label>
-                                    <textarea id="bio" name="bio" rows="4" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">Technology writer and AI ethics researcher with over 10 years of experience. Passionate about exploring how emerging technologies shape society and human behavior.</textarea>
-                                    <p class="text-sm text-gray-500 mt-2">This will be displayed on your author profile page.</p>
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <label for="website" class="block text-gray-700 font-medium mb-2">Website</label>
-                                    <input type="url" id="website" name="website" value="https://johndoe.com" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                                </div>
-                                
-                                <div class="mb-6">
-                                    <label for="location" class="block text-gray-700 font-medium mb-2">Location</label>
-                                    <input type="text" id="location" name="location" value="San Francisco, CA" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                                </div>
-                                
-                                <div class="flex justify-end pt-6 border-t border-gray-200">
-                                    <button type="submit" class="bg-[#000080] hover:bg-[#000066] text-white font-medium py-3 px-8 rounded-lg transition-colors duration-300">
-                                        Save Changes
-                                    </button>
-                                </div>
-                            </form>
+        
+
+<div id="profile-content" class="tab-content">
+    <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Your Profile</h2>
+        <p class="text-gray-600">Manage your personal information and preferences.</p>
+    </div>
+
+   
+
+   <form id="profile-form" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <div class="grid lg:grid-cols-3 gap-8">
+
+            <!-- ================= LEFT : PROFILE INFO ================= -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Personal Information</h3>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">First Name *</label>
+                            <input type="text"
+                                   name="first_name"
+                                   value="{{ user.username }}"
+                                   required
+                                   class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Last Name *</label>
+                            <input type="text"
+                                   name="last_name"
+                                   value="{{ user.last_name }}"
+                                   required
+                                   class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
                         </div>
                     </div>
-                    
-                    <!-- Profile Sidebar -->
-                    <div>
-                        <!-- Profile Photo -->
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
-                            <h3 class="text-xl font-bold text-gray-900 mb-4">Profile Photo</h3>
-                            <div class="flex flex-col items-center">
-                                <div class="w-32 h-32 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center mb-4">
-                                    <span class="text-4xl font-bold text-gray-800">JD</span>
-                                </div>
-                                <p class="text-gray-600 text-sm mb-4">JPG or PNG, max 5MB</p>
-                                <button class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-6 rounded-lg transition-colors duration-200 w-full">
-                                    Change Photo
-                                </button>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Email Address *</label>
+                        <input type="email"
+                               name="email"
+                               value="{{ user.email }}"
+                               required
+                               class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Bio / About</label>
+                        <textarea name="bio"
+                                  rows="4"
+                                  class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">{{ user.bio }}</textarea>
+                        <p class="text-sm text-gray-500 mt-2">
+                            This will be displayed on your author profile page.
+                        </p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Website</label>
+                        <input type="url"
+                               name="website"
+                               value="{{ user.website }}"
+                               class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Location</label>
+                        <input type="text"
+                               name="location"
+                               value="{{ user.location }}"
+                               class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                    </div>
+                </div>
+
+                <!-- ================= SOCIAL LINKS ================= -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mt-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Social Links</h3>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mr-3">
+                                <i class="fab fa-twitter text-blue-500"></i>
                             </div>
+                            <input type="text"
+                                   name="twitter_username"
+                                   value="{{ user.twitter_username }}"
+                                   class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg"
+                                   placeholder="Twitter username">
                         </div>
-                        
-                        <!-- Social Links -->
-                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                            <h3 class="text-xl font-bold text-gray-900 mb-4">Social Links</h3>
-                            <div class="space-y-4">
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mr-3">
-                                        <i class="fab fa-twitter text-blue-500"></i>
-                                    </div>
-                                    <input type="text" value="@johndoe" class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg" placeholder="Twitter username">
-                                </div>
-                                
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 rounded-lg bg-blue-700 flex items-center justify-center mr-3">
-                                        <i class="fab fa-linkedin-in text-white"></i>
-                                    </div>
-                                    <input type="text" value="linkedin.com/in/johndoe" class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg" placeholder="LinkedIn URL">
-                                </div>
-                                
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center mr-3">
-                                        <i class="fab fa-github text-white"></i>
-                                    </div>
-                                    <input type="text" value="github.com/johndoe" class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg" placeholder="GitHub username">
-                                </div>
-                                
-                                <button class="bg-[#000080] hover:bg-[#000066] text-white font-medium py-2 px-6 rounded-lg transition-colors duration-300 w-full mt-4">
-                                    Save Social Links
-                                </button>
+
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-lg bg-blue-700 flex items-center justify-center mr-3">
+                                <i class="fab fa-linkedin-in text-white"></i>
                             </div>
+                            <input type="url"
+                                   name="linkedin_url"
+                                   value="{{ user.linkedin_url }}"
+                                   class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg"
+                                   placeholder="LinkedIn URL">
+                        </div>
+
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center mr-3">
+                                <i class="fab fa-github text-white"></i>
+                            </div>
+                            <input type="text"
+                                   name="github_username"
+                                   value="{{ user.github_username }}"
+                                   class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg"
+                                   placeholder="GitHub username">
                         </div>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- ================= RIGHT : AVATAR ================= -->
+            <div>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Profile Photo</h3>
+
+                    <div class="flex flex-col items-center">
+                        {% if user.avatar %}
+                            <img src="{{ user.avatar.url }}"
+                                 class="w-32 h-32 rounded-full object-cover mb-4">
+                        {% else %}
+                            <div class="w-32 h-32 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center mb-4">
+                                <span class="text-4xl font-bold text-gray-800">
+                                    {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        <p class="text-gray-600 text-sm mb-4">JPG or PNG, max 5MB</p>
+
+                        <input type="file"
+                               name="avatar"
+                               id="avatar-input"
+                               accept="image/*"
+                               class="hidden">
+
+                        <label for="avatar-input"
+                               class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-6 rounded-lg transition-colors duration-200 w-full text-center cursor-pointer">
+                            Change Photo
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= SUBMIT ================= -->
+        <div class="flex justify-end mt-8">
+            <button type="submit"
+                    class="bg-[#000080] hover:bg-[#000066] text-white font-medium py-3 px-8 rounded-lg transition-colors duration-300">
+                Save Changes
+            </button>
+        </div>
+    </form>
+</div>
             <!-- Analytics Tab Content -->
             <div id="analytics-content" class="tab-content hidden">
                 <div class="mb-8">
@@ -988,9 +1011,11 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
                                 <div class="border-t border-gray-200 pt-6">
                                     <h4 class="font-bold text-gray-900 mb-4">Account Actions</h4>
                                     <div class="space-y-4">
-                                        <button class="text-red-600 hover:text-red-800 font-medium py-2 px-4 border border-red-200 rounded-lg hover:bg-red-50 transition-colors duration-200">
-                                            Deactivate Account
+                                        <button onclick="window.location.href='{% url 'logout' %}'" 
+                                           class="text-red-600 hover:text-red-800 font-medium py-2 px-4 border border-red-200 rounded-lg hover:bg-red-50 transition-colors duration-200">
+                                                     Deactivate Account
                                         </button>
+
                                         <p class="text-sm text-gray-600">Deactivating your account will hide your profile and content from the blog.</p>
                                     </div>
                                 </div>
@@ -1347,12 +1372,7 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
         }
 
         
-        if (profileForm) {
-            profileForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                showToast('Profile updated successfully');
-            });
-        }
+      
 
         if (previewBlogBtn) {
             previewBlogBtn.addEventListener('click', () => {
