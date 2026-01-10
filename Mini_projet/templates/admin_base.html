@@ -260,8 +260,12 @@
                 <!-- User Menu -->
                 <div class="relative group">
                     <button class="flex items-center space-x-3 focus:outline-none">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-200 to-red-300 flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-red-200 to-red-300 flex items-center justify-center overflow-hidden">
+                            {% if request.user.avatar %}
+                            <img src="{{ request.user.avatar.url }}" alt="{{ request.user.username }}" class="w-full h-full object-cover">
+                            {% else %}
                             <span class="font-bold text-gray-800">{{ request.user.username|slice:":2"|upper }}</span>
+                            {% endif %}
                         </div>
                         <div class="hidden md:block text-left text-white">
                             <p class="text-sm font-medium">{{ request.user.username }}</p>
