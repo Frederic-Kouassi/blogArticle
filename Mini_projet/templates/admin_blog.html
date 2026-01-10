@@ -1,0 +1,83 @@
+{% extends 'admin_base.html' %}
+
+{% block page_title %}Manage All Blogs{% endblock %}
+
+{% block admin_content %}
+<div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">Manage All Blogs</h2>
+    <p class="text-gray-600">Review, edit, or delete articles from all users.</p>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <!-- Table Header -->
+    <div class="p-6 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+        <h3 class="text-xl font-bold text-gray-900">All Articles</h3>
+        <!-- You might want to pass article count in context or use length -->
+        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">{{ articles.count }} Total</span>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr>
+                    <th class="py-4 px-6 bg-gray-50 text-gray-600 font-semibold text-sm uppercase tracking-wider">Title</th>
+                    <th class="py-4 px-6 bg-gray-50 text-gray-600 font-semibold text-sm uppercase tracking-wider">Author</th>
+                    <th class="py-4 px-6 bg-gray-50 text-gray-600 font-semibold text-sm uppercase tracking-wider">Category</th>
+                    <th class="py-4 px-6 bg-gray-50 text-gray-600 font-semibold text-sm uppercase tracking-wider">Status</th>
+                    <th class="py-4 px-6 bg-gray-50 text-gray-600 font-semibold text-sm uppercase tracking-wider">Date</th>
+                    <th class="py-4 px-6 bg-gray-50 text-gray-600 font-semibold text-sm uppercase tracking-wider text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for article in articles %}
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="py-4 px-6">
+                        <p class="font-medium text-gray-900">{{ article.name }}</p>
+                    </td>
+                    <td class="py-4 px-6">
+                        <div class="flex items-center">
+                             <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center mr-2 text-xs font-bold overflow-hidden">
+                                {% if article.author.avatar %}
+                                    <img src="{{ article.author.avatar.url }}" class="w-full h-full object-cover">
+                                {% else %}
+                                    {{ article.author.first_name|slice:":1" }}
+                                {% endif %}
+                            </div>
+                            <span class="text-sm text-gray-600">{{ article.author.first_name }} {{ article.author.last_name }}</span>
+                        </div>
+                    </td>
+                    <td class="py-4 px-6">
+                        <span class="text-sm text-gray-600">{{ article.category.name }}</span>
+                    </td>
+                    <td class="py-4 px-6">
+                         <span class="px-2 py-1 text-xs rounded-full 
+                            {% if article.status == 'PUBLISHED' %}bg-green-100 text-green-800
+                            {% elif article.status == 'DRAFT' %}bg-gray-100 text-gray-800
+                            {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                            {{ article.status }}
+                        </span>
+                    </td>
+                    <td class="py-4 px-6 text-sm text-gray-500">
+                        {{ article.date|date:"M d, Y" }}
+                    </td>
+                    <td class="py-4 px-6 text-right">
+                        <div class="flex justify-end space-x-2">
+                             <!-- Action Buttons (using existing named urls if possible, or placeholder) -->
+                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fas fa-eye"></i></a>
+                            <form method="post" action="{% url 'delete_article' article.id %}" class="inline" onsubmit="return confirm('Delete this article?');">
+                                {% csrf_token %}
+                                <button type="submit" class="text-red-600 hover:text-red-800 ml-2"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="py-8 text-center text-gray-500">No articles found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

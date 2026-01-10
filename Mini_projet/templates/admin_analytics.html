@@ -1,0 +1,28 @@
+{% extends 'admin_base.html' %}
+
+{% block page_title %}Admin Analytics{% endblock %}
+
+{% block admin_content %}
+<div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">Platform Analytics</h2>
+    <p class="text-gray-600">Insights into platform performance.</p>
+</div>
+
+<!-- Placeholder Analytics Content -->
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <h3 class="text-xl font-bold text-gray-900 mb-6">Top Performing Posts</h3>
+    <div class="space-y-4">
+        {% for article in top_articles %}
+        <div class="flex items-center justify-between p-3 rounded-lg bg-red-50">
+            <div>
+                <p class="font-medium text-gray-900">{{ article.name }}</p>
+                <p class="text-sm text-gray-600">By {{ article.author.get_full_name }}</p>
+            </div>
+            <span class="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full">Popular</span>
+        </div>
+        {% empty %}
+        <p class="text-gray-500">No data available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -12,6 +12,11 @@ urlpatterns = [
     path("admin-dashboard/",Admin_dashboaord.as_view(), name="admin_dashboard"),
     path("admin-dashboard/categories/", AdminCategoryView.as_view(), name="admin_categories"),
     
+    # Admin New Multi-Page URLs
+    path("admin-users/", AdminUserView.as_view(), name="admin_users"),
+    path("admin-blog/", AdminBlogView.as_view(), name="admin_blog"),
+    path("admin-analytics/", AdminAnalyticsView.as_view(), name="admin_analytics"),
+    
     # Dashboard URLs
     path('user-dashboard/', UserDashboardView.as_view(), name='user_dashboard'),
     path('user-profile/', UserProfileView.as_view(), name='user_profile'),

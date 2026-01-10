@@ -110,3 +110,34 @@ class CreateBlogView(DashboardBaseView):
 
         messages.error(request, "Erreur lors de la création de l'article")
         return redirect('create_blog')
+
+class AdminUserView(DashboardBaseView):
+    def get(self, request):
+        if not request.user.is_authenticated or not request.user.is_staff:
+            return redirect('login')
+            
+        context = {
+            "users": User.objects.all().order_by('-date_joined'),
+            "users_count": User.objects.count(),
+        }
+        return render(request, 'admin_users.html', context)
+        
+class AdminBlogView(DashboardBaseView):
+    def get(self, request):
+        if not request.user.is_authenticated or not request.user.is_staff:
+            return redirect('login')
+            
+        context = {
+            "articles": Article.objects.all().order_by('-date'),
+        }
+        return render(request, 'admin_blog.html', context)
+        
+class AdminAnalyticsView(DashboardBaseView):
+    def get(self, request):
+        if not request.user.is_authenticated or not request.user.is_staff:
+            return redirect('login')
+            
+        context = {
+            "top_articles": Article.objects.filter(status='PUBLISHED').order_by('-date')[:5],
+        }
+        return render(request, 'admin_analytics.html', context)

@@ -1,0 +1,64 @@
+<aside class="sidebar bg-white border-r border-gray-200 shadow-sm">
+    <!-- Logo -->
+    <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-[#8B0000] to-[#A52A2A] flex items-center justify-center mr-3">
+                <i class="fas fa-shield-alt text-white text-lg"></i>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold text-gray-900">Insightful</h2>
+                <p class="text-xs text-gray-500">Admin Panel</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Profile -->
+    <div class="p-6 border-b border-gray-200">
+        <div class="flex items-center">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-r from-red-200 to-red-300 flex items-center justify-center mr-4">
+                <span class="text-2xl font-bold text-gray-800">{{ request.user.first_name|slice:":1" }}{{ request.user.last_name|slice:":1" }}</span>
+            </div>
+            <div>
+                <h3 class="font-bold text-gray-900">{{ request.user.first_name }} {{ request.user.last_name }}</h3>
+                <p class="text-sm text-gray-500">Administrator</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="p-4">
+        <div class="space-y-2">
+            <!-- Dashboard -->
+            <a href="{% url 'admin_dashboard' %}" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700 {% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
+                <i class="fas fa-tachometer-alt {% if request.resolver_match.url_name == 'admin_dashboard' %}text-[#8B0000]{% else %}text-gray-500{% endif %} w-5 mr-3"></i>
+                <span class="{% if request.resolver_match.url_name == 'admin_dashboard' %}font-medium text-[#8B0000]{% endif %}">Dashboard</span>
+            </a>
+
+            <!-- Categories -->
+            <a href="{% url 'admin_categories' %}" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700 {% if request.resolver_match.url_name == 'admin_categories' %}active{% endif %}">
+                <i class="fas fa-tags {% if request.resolver_match.url_name == 'admin_categories' %}text-[#8B0000]{% else %}text-gray-500{% endif %} w-5 mr-3"></i>
+                <span class="{% if request.resolver_match.url_name == 'admin_categories' %}font-medium text-[#8B0000]{% endif %}">Categories</span>
+            </a>
+            
+            <!-- All Blogs -->
+            <a href="{% url 'admin_blog' %}" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700 {% if request.resolver_match.url_name == 'admin_blog' %}active{% endif %}">
+                <i class="fas fa-file-alt {% if request.resolver_match.url_name == 'admin_blog' %}text-[#8B0000]{% else %}text-gray-500{% endif %} w-5 mr-3"></i>
+                <span class="{% if request.resolver_match.url_name == 'admin_blog' %}font-medium text-[#8B0000]{% endif %}">All Blogs</span>
+            </a>
+
+            <!-- Comments (if exists) -->
+             <!-- <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700">
+                <i class="fas fa-comments text-gray-500 w-5 mr-3"></i>
+                <span>Comments</span>
+            </a> -->
+        </div>
+
+        <!-- Logout -->
+        <div class="mt-20">
+            <a href="{% url 'logout' %}" class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-red-50 hover:text-red-700 transition">
+                <i class="fas fa-sign-out-alt text-gray-500 w-5 mr-3"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+</aside>

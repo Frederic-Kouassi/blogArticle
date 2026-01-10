@@ -181,8 +181,12 @@
         <!-- Admin Info -->
         <div class="p-6 border-b border-gray-700">
             <div class="flex items-center">
-                <div class="w-14 h-14 rounded-full bg-gradient-to-r from-red-200 to-red-300 flex items-center justify-center mr-4">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-r from-red-200 to-red-300 flex items-center justify-center mr-4 overflow-hidden">
+                    {% if request.user.avatar %}
+                    <img src="{{ request.user.avatar.url }}" alt="{{ request.user.username }}" class="w-full h-full object-cover">
+                    {% else %}
                     <span class="text-2xl font-bold text-gray-800">{{ request.user.username|slice:":2"|upper }}</span>
+                    {% endif %}
                 </div>
                 <div>
                     <h3 class="font-bold">{{ request.user.username }}</h3>
@@ -198,12 +202,12 @@
                     <i class="fas fa-tachometer-alt w-5 mr-3"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="{% url 'user_dashboard' %}" class="nav-item flex items-center px-4 py-3 rounded-lg {% if request.resolver_match.url_name == 'user_dashboard' %}active{% endif %}">
+                <a href="{% url 'admin_users' %}" class="nav-item flex items-center px-4 py-3 rounded-lg {% if request.resolver_match.url_name == 'admin_users' %}active{% endif %}">
                     <i class="fas fa-users w-5 mr-3"></i>
                     <span>Users</span>
                 </a>
-                <!-- We can point to Article Management later -->
-                <a href="{% url 'blog' %}" class="nav-item flex items-center px-4 py-3 rounded-lg">
+                
+                <a href="{% url 'admin_blog' %}" class="nav-item flex items-center px-4 py-3 rounded-lg {% if request.resolver_match.url_name == 'admin_blog' %}active{% endif %}">
                     <i class="fas fa-file-alt w-5 mr-3"></i>
                     <span>Blogs</span>
                 </a>
@@ -215,7 +219,7 @@
                     <i class="fas fa-tags w-5 mr-3"></i>
                     <span>Categories</span>
                 </a>
-                <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg">
+                <a href="{% url 'admin_analytics' %}" class="nav-item flex items-center px-4 py-3 rounded-lg {% if request.resolver_match.url_name == 'admin_analytics' %}active{% endif %}">
                     <i class="fas fa-chart-bar w-5 mr-3"></i>
                     <span>Analytics</span>
                 </a>
