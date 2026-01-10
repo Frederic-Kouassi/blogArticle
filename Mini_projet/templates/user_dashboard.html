@@ -186,7 +186,7 @@
                     <span class="text-2xl font-bold text-gray-800">{{ user.first_name|slice:":2" }}</span>
                 </div>
                 <div>
-                    <h3 class="font-bold text-gray-900">{{user.last_name}}</h3>
+                    <h3 class="font-bold text-gray-900">{{user.first_name}}</h3>
                     <p class="text-sm text-gray-500">Author & Contributor</p>
                 </div>
             </div>
@@ -294,10 +294,10 @@
                 <div class="relative">
                     <button id="user-menu-btn" class="flex items-center space-x-3 focus:outline-none">
                         <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center">
-                            <span class="font-bold text-gray-800">JD</span>
+                            <span class="font-bold text-gray-800">{{ user.first_name|slice:":2" }}</span>
                         </div>
                         <div class="hidden md:block text-left">
-                            <p class="text-sm font-medium text-gray-900">John Doe</p>
+                            <p class="text-sm font-medium text-gray-900">{{user.first_name}}</p>
                             <p class="text-xs text-gray-500">Author</p>
                         </div>
                         <i class="fas fa-chevron-down text-gray-500 hidden md:block"></i>
@@ -635,169 +635,169 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
 });
 </script>
 
-            <!-- Profile Tab Content -->
-        
+                                    <!-- Profile Tab Content -->
+                                
 
-<div id="profile-content" class="tab-content">
-    <div class="mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">Your Profile</h2>
-        <p class="text-gray-600">Manage your personal information and preferences.</p>
-    </div>
-
-   
-
-   <form id="profile-form" method="POST" enctype="multipart/form-data">
-
-        {% csrf_token %}
-
-        <div class="grid lg:grid-cols-3 gap-8">
-
-            <!-- ================= LEFT : PROFILE INFO ================= -->
-            <div class="lg:col-span-2">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6">Personal Information</h3>
-
-                    <div class="grid md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">First Name *</label>
-                            <input type="text"
-                                   name="first_name"
-                                   value="{{ user.username }}"
-                                   required
-                                   class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                        </div>
-
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Last Name *</label>
-                            <input type="text"
-                                   name="last_name"
-                                   value="{{ user.last_name }}"
-                                   required
-                                   class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                        </div>
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-medium mb-2">Email Address *</label>
-                        <input type="email"
-                               name="email"
-                               value="{{ user.email }}"
-                               required
-                               class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-medium mb-2">Bio / About</label>
-                        <textarea name="bio"
-                                  rows="4"
-                                  class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">{{ user.bio }}</textarea>
-                        <p class="text-sm text-gray-500 mt-2">
-                            This will be displayed on your author profile page.
-                        </p>
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-medium mb-2">Website</label>
-                        <input type="url"
-                               name="website"
-                               value="{{ user.website }}"
-                               class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-medium mb-2">Location</label>
-                        <input type="text"
-                               name="location"
-                               value="{{ user.location }}"
-                               class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
-                    </div>
-                </div>
-
-                <!-- ================= SOCIAL LINKS ================= -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mt-6">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Social Links</h3>
-
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mr-3">
-                                <i class="fab fa-twitter text-blue-500"></i>
+                        <div id="profile-content" class="tab-content">
+                            <div class="mb-8">
+                                <h2 class="text-3xl font-bold text-gray-900 mb-2">Your Profile</h2>
+                                <p class="text-gray-600">Manage your personal information and preferences.</p>
                             </div>
-                            <input type="text"
-                                   name="twitter_username"
-                                   value="{{ user.twitter_username }}"
-                                   class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg"
-                                   placeholder="Twitter username">
+
+                        
+
+                        <form id="profile-form" method="POST" enctype="multipart/form-data">
+
+                                {% csrf_token %}
+
+                                <div class="grid lg:grid-cols-3 gap-8">
+
+                                    <!-- ================= LEFT : PROFILE INFO ================= -->
+                                    <div class="lg:col-span-2">
+                                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                                            <h3 class="text-xl font-bold text-gray-900 mb-6">Personal Information</h3>
+
+                                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                                <div>
+                                                    <label class="block text-gray-700 font-medium mb-2">First Name *</label>
+                                                    <input type="text"
+                                                        name="first_name"
+                                                        value="{{ user.username }}"
+                                                        required
+                                                        class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                                                </div>
+
+                                                <div>
+                                                    <label class="block text-gray-700 font-medium mb-2">Last Name *</label>
+                                                    <input type="text"
+                                                        name="last_name"
+                                                        value="{{ user.last_name }}"
+                                                        required
+                                                        class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-6">
+                                                <label class="block text-gray-700 font-medium mb-2">Email Address *</label>
+                                                <input type="email"
+                                                    name="email"
+                                                    value="{{ user.email }}"
+                                                    required
+                                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                                            </div>
+
+                                            <div class="mb-6">
+                                                <label class="block text-gray-700 font-medium mb-2">Bio / About</label>
+                                                <textarea name="bio"
+                                                        rows="4"
+                                                        class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">{{ user.bio }}</textarea>
+                                                <p class="text-sm text-gray-500 mt-2">
+                                                    This will be displayed on your author profile page.
+                                                </p>
+                                            </div>
+
+                                            <div class="mb-6">
+                                                <label class="block text-gray-700 font-medium mb-2">Website</label>
+                                                <input type="url"
+                                                    name="website"
+                                                    value="{{ user.website }}"
+                                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                                            </div>
+
+                                            <div class="mb-6">
+                                                <label class="block text-gray-700 font-medium mb-2">Location</label>
+                                                <input type="text"
+                                                    name="location"
+                                                    value="{{ user.location }}"
+                                                    class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                                            </div>
+                                        </div>
+
+                                        <!-- ================= SOCIAL LINKS ================= -->
+                                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mt-6">
+                                            <h3 class="text-xl font-bold text-gray-900 mb-4">Social Links</h3>
+
+                                            <div class="space-y-4">
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mr-3">
+                                                        <i class="fab fa-twitter text-blue-500"></i>
+                                                    </div>
+                                                    <input type="text"
+                                                        name="twitter_username"
+                                                        value="{{ user.twitter_username }}"
+                                                        class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg"
+                                                        placeholder="Twitter username">
+                                                </div>
+
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 rounded-lg bg-blue-700 flex items-center justify-center mr-3">
+                                                        <i class="fab fa-linkedin-in text-white"></i>
+                                                    </div>
+                                                    <input type="url"
+                                                        name="linkedin_url"
+                                                        value="{{ user.linkedin_url }}"
+                                                        class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg"
+                                                        placeholder="LinkedIn URL">
+                                                </div>
+
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center mr-3">
+                                                        <i class="fab fa-github text-white"></i>
+                                                    </div>
+                                                    <input type="text"
+                                                        name="github_username"
+                                                        value="{{ user.github_username }}"
+                                                        class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg"
+                                                        placeholder="GitHub username">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ================= RIGHT : AVATAR ================= -->
+                                    <div>
+                                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                                            <h3 class="text-xl font-bold text-gray-900 mb-4">Profile Photo</h3>
+
+                                            <div class="flex flex-col items-center">
+                                                {% if user.avatar %}
+                                                    <img src="{{ user.avatar.url }}"
+                                                        class="w-32 h-32 rounded-full object-cover mb-4">
+                                                {% else %}
+                                                    <div class="w-32 h-32 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center mb-4">
+                                                        <span class="text-4xl font-bold text-gray-800">
+                                                            {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}
+                                                        </span>
+                                                    </div>
+                                                {% endif %}
+
+                                                <p class="text-gray-600 text-sm mb-4">JPG or PNG, max 5MB</p>
+
+                                                <input type="file"
+                                                    name="avatar"
+                                                    id="avatar-input"
+                                                    accept="image/*"
+                                                    class="hidden">
+
+                                                <label for="avatar-input"
+                                                    class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-6 rounded-lg transition-colors duration-200 w-full text-center cursor-pointer">
+                                                    Change Photo
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ================= SUBMIT ================= -->
+                                <div class="flex justify-end mt-8">
+                                    <button type="submit"
+                                            class="bg-[#000080] hover:bg-[#000066] text-white font-medium py-3 px-8 rounded-lg transition-colors duration-300">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-lg bg-blue-700 flex items-center justify-center mr-3">
-                                <i class="fab fa-linkedin-in text-white"></i>
-                            </div>
-                            <input type="url"
-                                   name="linkedin_url"
-                                   value="{{ user.linkedin_url }}"
-                                   class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg"
-                                   placeholder="LinkedIn URL">
-                        </div>
-
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center mr-3">
-                                <i class="fab fa-github text-white"></i>
-                            </div>
-                            <input type="text"
-                                   name="github_username"
-                                   value="{{ user.github_username }}"
-                                   class="form-input flex-grow px-4 py-2 border border-gray-300 rounded-lg"
-                                   placeholder="GitHub username">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ================= RIGHT : AVATAR ================= -->
-            <div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Profile Photo</h3>
-
-                    <div class="flex flex-col items-center">
-                        {% if user.avatar %}
-                            <img src="{{ user.avatar.url }}"
-                                 class="w-32 h-32 rounded-full object-cover mb-4">
-                        {% else %}
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center mb-4">
-                                <span class="text-4xl font-bold text-gray-800">
-                                    {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}
-                                </span>
-                            </div>
-                        {% endif %}
-
-                        <p class="text-gray-600 text-sm mb-4">JPG or PNG, max 5MB</p>
-
-                        <input type="file"
-                               name="avatar"
-                               id="avatar-input"
-                               accept="image/*"
-                               class="hidden">
-
-                        <label for="avatar-input"
-                               class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-6 rounded-lg transition-colors duration-200 w-full text-center cursor-pointer">
-                            Change Photo
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= SUBMIT ================= -->
-        <div class="flex justify-end mt-8">
-            <button type="submit"
-                    class="bg-[#000080] hover:bg-[#000066] text-white font-medium py-3 px-8 rounded-lg transition-colors duration-300">
-                Save Changes
-            </button>
-        </div>
-    </form>
-</div>
-            <!-- Analytics Tab Content -->
+                                    <!-- Analytics Tab Content -->
             <div id="analytics-content" class="tab-content hidden">
                 <div class="mb-8">
                     <h2 class="text-3xl font-bold text-gray-900 mb-2">Analytics Dashboard</h2>

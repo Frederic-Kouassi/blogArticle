@@ -1,13 +1,14 @@
 from django.urls import path
-from blog.views import HomeView, blog, about,ArticleDetailView,Comments,CommentLikeView, user_logout, DeleteComment ,DeleteArticle,EditArticle, EditCategory, contact, Admin_dashboaord, AdminCategoryView, DeleteCategory,  User_dashboaord, RegisterView, LoginView, VerifyEmailView
+from blog.views import HomeView,ContactView, blog, about,ArticleDetailView,Comments,CommentLikeView, user_logout, DeleteComment ,DeleteArticle,EditArticle, EditCategory,  Admin_dashboaord, AdminCategoryView, DeleteCategory,  User_dashboaord, RegisterView, LoginView, VerifyEmailView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path("about/", about, name="about"),
      path("blog/", blog, name="blog"),
-    path("contact/", contact, name="contact"),
+   
     path('logout/', user_logout, name='logout'),
     
+    path("contact/", ContactView.as_view(), name="contact"),
     path("admin-dashboard/",Admin_dashboaord.as_view(), name="admin_dashboard"),
     path("admin-dashboard/categories/", AdminCategoryView.as_view(), name="admin_categories"),
     path("user-dashboard/", User_dashboaord.as_view(), name="user_dashboard"),

@@ -2,7 +2,7 @@ import logging
 from django.contrib import messages
 from blog.forms import ArticleForm, CategoryForm
 from django.views import View
-from blog.models import Article, Category, User, Comment
+from blog.models import *
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.text import slugify
 from django.core.paginator import Paginator
@@ -307,10 +307,6 @@ def about(request):
 
 
 
-def contact(request):
-    return render(request, 'contact.html')
-
-
 def blog(request):
     article_list = Article.objects.all().order_by('-date')
     categories = Category.objects.all()
@@ -399,6 +395,36 @@ class CommentLikeView(View):
 
 
 
+
+
+
+class ContactView(View):
+    template_name = "contact.html"
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        subject = request.POST.get("subject")
+        message = request.POST.get("message")
+        newsletter = request.POST.get("newsletter") == "on"
+
+        if not name or not email or not subject or not message:
+            messages.error(request, "Veuillez remplir tous les champs obligatoires.")
+            return redirect(request.path)
+
+        ContactMessage.objects.create(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message,
+            newsletter=newsletter
+        )
+
+        messages.success(request, f"Merci {name}, votre message a été envoyé ! Nous vous répondrons à {email}.")
+        return redirect(request.path)
 
 
 

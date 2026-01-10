@@ -20,7 +20,6 @@ if (header) {
         }
     });
 
-    // Initialize with header state
     if (window.scrollY > 50) {
         header.classList.add('header-scrolled');
     }
@@ -49,9 +48,7 @@ if (loadMoreButton) {
         loadMoreButton.textContent = 'Loading...';
         loadMoreButton.disabled = true;
         
-        // Simulate loading delay
         setTimeout(() => {
-            // In a real implementation, this would fetch more posts from an API
             alert('In a real implementation, this would load more blog posts from the server.');
             loadMoreButton.textContent = 'Load More Articles';
             loadMoreButton.disabled = false;
@@ -76,27 +73,20 @@ if (newsletterForm) {
     });
 }
 
-// Contact form submission
+// Contact form submission - correction
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
-        
-        // Basic validation
-        if (name && email && subject && message) {
-            // In a real implementation, this would send data to a server
-            alert(`Thank you, ${name}! Your message has been sent. We'll get back to you at ${email} within 1-2 business days.`);
-            contactForm.reset();
-        } else {
-            alert('Please fill in all required fields.');
-        }
+        // **Ne pas bloquer le formulaire** : laisser Django gérer le POST
+        // Afficher l’alerte après un petit délai pour que le POST soit déclenché
+        setTimeout(() => {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            if (name && email) {
+                alert(`Merci, ${name} ! Votre message a été envoyé. Nous vous répondrons à ${email} dans 1-2 jours.`);
+            }
+        }, 50);
     });
 }
 
@@ -108,10 +98,8 @@ faqToggles.forEach(toggle => {
         const content = toggle.nextElementSibling;
         const icon = toggle.querySelector('i');
         
-        // Toggle current FAQ
         content.classList.toggle('hidden');
         
-        // Rotate icon
         if (content.classList.contains('hidden')) {
             icon.classList.remove('fa-chevron-up');
             icon.classList.add('fa-chevron-down');
@@ -120,7 +108,6 @@ faqToggles.forEach(toggle => {
             icon.classList.add('fa-chevron-up');
         }
         
-        // Close other FAQs (optional - remove if you want multiple open)
         faqToggles.forEach(otherToggle => {
             if (otherToggle !== toggle) {
                 const otherContent = otherToggle.nextElementSibling;
@@ -138,28 +125,18 @@ faqToggles.forEach(toggle => {
     });
 });
 
-
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         const targetId = this.getAttribute('href');
-        
-        // Handle links that might be just "#"
         if (targetId === '#' || !targetId) return;
-
-        // Make sure it's a valid ID selector
-        if (!targetId.startsWith('#')) return;
-        
         const targetElement = document.querySelector(targetId);
-        
         if (targetElement) {
             e.preventDefault();
             window.scrollTo({
                 top: targetElement.offsetTop - 100,
                 behavior: 'smooth'
             });
-            
-            // Close mobile menu if open
             if (mobileMenu) {
                 mobileMenu.classList.add('hidden');
             }

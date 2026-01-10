@@ -102,3 +102,60 @@ class Comment(BlogBaseModel):
 
     def __str__(self):
         return f"Comment by {self.author} on {self.article}"
+    
+    
+    
+    
+    
+class ContactMessage(models.Model):
+
+    SUBJECT_CHOICES = [
+        ('general', 'Demande Générale'),
+        ('submission', "Soumission d'Article"),
+        ('partnership', 'Opportunité de Partenariat'),
+        ('technical', 'Support Technique'),
+        ('feedback', 'Commentaires & Suggestions'),
+        ('other', 'Autre'),
+    ]
+
+    name = models.CharField(
+        max_length=150,
+        verbose_name="Nom"
+    )
+
+    email = models.EmailField(
+        verbose_name="Adresse email"
+    )
+
+    subject = models.CharField(
+        max_length=20,
+        choices=SUBJECT_CHOICES,
+        verbose_name="Sujet"
+    )
+
+    message = models.TextField(
+        verbose_name="Message"
+    )
+
+    newsletter = models.BooleanField(
+        default=False,
+        verbose_name="Abonné à la newsletter"
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Date d'envoi"
+    )
+
+    is_read = models.BooleanField(
+        default=False,
+        verbose_name="Lu"
+    )
+
+    class Meta:
+        verbose_name = "Message de contact"
+        verbose_name_plural = "Messages de contact"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.name} - {self.subject}"
