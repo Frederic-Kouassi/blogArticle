@@ -1,0 +1,102 @@
+{% extends 'base_dashboard.html' %}
+
+{% block page_title %}Create New Blog{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">Create New Blog</h2>
+    <p class="text-gray-600">Write and publish a new blog post to share with your audience.</p>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <form id="create-blog-form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label class="block text-gray-700 font-medium mb-2">Blog Title *</label>
+                <input type="text" name="name" required
+                       class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-medium mb-2">Category *</label>
+                <select name="category" required
+                        class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+                    <option value="">Select Category</option>
+                    {% for cat in categories %}
+                        <option value="{{ cat.id }}">{{ cat.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Featured Image</label>
+            <input type="file" name="image" accept="image/*" class="w-full">
+        </div>
+
+        <!-- CONTENU RÉEL ENVOYÉ À DJANGO -->
+        <input type="hidden" name="description" id="real-content">
+
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Blog Content *</label>
+            <div id="blog-content" contenteditable="true"
+                 class="border border-gray-300 rounded-lg p-4 min-h-64 rich-text-editor">
+                 <p>Start writing your blog post here...</p>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Tags</label>
+            <input type="text" name="tags" placeholder="Comma separated tags"
+                   class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg">
+        </div>
+
+        <div class="flex flex-wrap gap-4 mb-8">
+            <div class="flex items-center">
+                <input type="checkbox" name="featured" id="featured" class="w-4 h-4">
+                <label for="featured" class="ml-2 text-gray-700">Feature this post</label>
+            </div>
+
+            <div class="flex items-center">
+                <input type="checkbox" name="allow_comments" id="allow_comments" checked class="w-4 h-4">
+                <label for="allow_comments" class="ml-2 text-gray-700">Allow comments</label>
+            </div>
+
+            <div class="flex items-center">
+                <input type="checkbox" name="newsletter_feature" id="newsletter_feature" class="w-4 h-4">
+                <label for="newsletter_feature" class="ml-2 text-gray-700">Include in newsletter</label>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-200 pt-6 flex justify-between">
+            <select name="status"
+                    class="form-input w-48 px-4 py-2 border border-gray-300 rounded-lg">
+                <option value="DRAFT">Save as Draft</option>
+                <option value="PENDING">Submit for Review</option>
+                <option value="PUBLISHED">Publish Now</option>
+            </select>
+
+            <button type="submit"
+                    class="bg-[#000080] hover:bg-[#000066] text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                Save & Publish
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+document.getElementById("create-blog-form").addEventListener("submit", function () {
+    document.getElementById("real-content").value =
+        document.getElementById("blog-content").innerHTML;
+});
+
+// Simple placeholder clear
+document.getElementById('blog-content').addEventListener('focus', function() {
+    if (this.innerHTML.trim().startsWith('<p>Start writing')) {
+        this.innerHTML = '';
+    }
+});
+</script>
+{% endblock %}

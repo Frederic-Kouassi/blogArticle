@@ -165,86 +165,7 @@
 </head>
 <body>
     <!-- Sidebar Navigation -->
-    <aside class="sidebar bg-white border-r border-gray-200 shadow-sm">
-        <!-- Logo -->
-        <div class="p-6 border-b border-gray-200">
-            <div class="flex items-center">
-                <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-[#000080] to-[#333399] flex items-center justify-center mr-3">
-                    <span class="text-white font-bold text-lg">I</span>
-                </div>
-                <div>
-                    <h2 class="text-xl font-bold text-gray-900">Insightful</h2>
-                    <p class="text-xs text-gray-500">Dashboard</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- User Profile -->
-        <div class="p-6 border-b border-gray-200">
-            <div class="flex items-center">
-                <div class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center mr-4">
-                    <span class="text-2xl font-bold text-gray-800">{{ user.first_name|slice:":2" }}</span>
-                </div>
-                <div>
-                    <h3 class="font-bold text-gray-900">{{user.last_name}}</h3>
-                    <p class="text-sm text-gray-500">Author & Contributor</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Navigation -->
-       <nav class="p-4">
-    <div class="space-y-2">
-        <!-- Dashboard (SPA) -->
-        <a href="#" class="nav-item active flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="dashboard">
-            <i class="fas fa-tachometer-alt text-[#000080] w-5 mr-3"></i>
-            <span>Dashboard</span>
-        </a>
-
-        <!-- My Blogs (vrai lien Django) -->
-        <a href="{% url 'blog' %}" class="flex items-center px-4 py-3 rounded-lg text-gray-700">
-            <i class="fas fa-file-alt text-gray-500 w-5 mr-3"></i>
-            <span>My Blogs</span>
-            <span class="ml-auto bg-[#000080] text-white text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center">
-                {{ article_count }}
-            </span>
-        </a>
-
-        <!-- Create Blog (SPA) -->
-        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="create-blog">
-            <i class="fas fa-plus-circle text-gray-500 w-5 mr-3"></i>
-            <span>Create Blog</span>
-        </a>
-
-        <!-- Profile (SPA) -->
-        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="profile">
-            <i class="fas fa-user text-gray-500 w-5 mr-3"></i>
-            <span>Profile</span>
-        </a>
-
-        <!-- Analytics (SPA) -->
-        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="analytics">
-            <i class="fas fa-chart-line text-gray-500 w-5 mr-3"></i>
-            <span>Analytics</span>
-        </a>
-
-        <!-- Settings (SPA) -->
-        <a href="#" class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700" data-tab="settings">
-            <i class="fas fa-cog text-gray-500 w-5 mr-3"></i>
-            <span>Settings</span>
-        </a>
-    </div>
-
-    <!-- Logout / Back to Blog (vrai lien Django) -->
-    <div class="mt-20">
-        <a href="" class="flex items-center px-4 py-3 rounded-lg text-gray-700">
-            <i class="fas fa-sign-out-alt text-gray-500 w-5 mr-3"></i>
-            <span>Back to Blog</span>
-        </a>
-    </div>
-</nav>
-
-    </aside>
+    {% include 'includes/sidebar.html' %}
 
     <!-- Main Content -->
     <main class="main-content min-h-screen">
@@ -293,11 +214,15 @@
                 <!-- User Menu -->
                 <div class="relative">
                     <button id="user-menu-btn" class="flex items-center space-x-3 focus:outline-none">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center">
-                            <span class="font-bold text-gray-800">JD</span>
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center overflow-hidden">
+                            {% if user.avatar %}
+                                <img src="{{ user.avatar.url }}" alt="{{ user.first_name }}" class="w-full h-full object-cover">
+                            {% else %}
+                                <span class="font-bold text-gray-800">{{ user.first_name|slice:":1"|upper }}{{ user.last_name|slice:":1"|upper }}</span>
+                            {% endif %}
                         </div>
                         <div class="hidden md:block text-left">
-                            <p class="text-sm font-medium text-gray-900">John Doe</p>
+                            <p class="text-sm font-medium text-gray-900">{{ user.first_name }} {{ user.last_name }}</p>
                             <p class="text-xs text-gray-500">Author</p>
                         </div>
                         <i class="fas fa-chevron-down text-gray-500 hidden md:block"></i>
@@ -1136,6 +1061,17 @@ document.getElementById("create-blog-form").addEventListener("submit", function 
             sidebar.classList.toggle('sidebar-open');
         });
 
+        // Handle URL parameters for tab switching
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get('tab');
+            if (tab) {
+                const targetNavItem = document.querySelector(`.nav-item[data-tab="${tab}"]`);
+                if (targetNavItem) {
+                    targetNavItem.click();
+                }
+            }
+        });
         
         document.addEventListener('click', (e) => {
             if (window.innerWidth < 1024) {

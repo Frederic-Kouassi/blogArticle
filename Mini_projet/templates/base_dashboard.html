@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard | Insightful Blog{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #000080;
+            --primary-light: #333399;
+            --primary-dark: #000066;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --bg-light: #f9fafb;
+            --border-color: #e2e8f0;
+            --sidebar-width: 260px;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-color: #f8fafc;
+        }
+        
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            transition: transform 0.3s ease;
+            z-index: 40;
+        }
+        
+        .sidebar-closed {
+            transform: translateX(-100%);
+        }
+        
+        .main-content {
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.3s ease;
+        }
+        
+        .no-sidebar {
+            margin-left: 0;
+        }
+        
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar-open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+        }
+        
+        .nav-item {
+            transition: all 0.2s ease;
+        }
+        
+        .nav-item:hover {
+            background-color: rgba(0, 0, 128, 0.05);
+        }
+        
+        .nav-item.active {
+            background-color: rgba(0, 0, 128, 0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 0, 128, 0.1);
+        }
+        
+        .modal {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-open {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-published {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-draft {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-pending {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    {% include 'includes/sidebar.html' %}
+
+    <!-- Main Content -->
+    <main class="main-content min-h-screen">
+        <!-- Top Header -->
+        <header class="bg-white border-b border-gray-200 py-4 px-6 flex justify-between items-center sticky top-0 z-30">
+            <div class="flex items-center">
+                <button id="sidebar-toggle" class="lg:hidden text-gray-600 mr-4">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <h1 class="text-2xl font-bold text-gray-900" id="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <!-- Notifications (Placeholder Logic) -->
+                <div class="relative">
+                    <button id="notifications-btn" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors duration-200">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <!-- Notification count can be dynamic later -->
+                    <span class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
+                </div>
+                
+                <!-- User Menu -->
+                <div class="relative">
+                    <button id="user-menu-btn" class="flex items-center space-x-3 focus:outline-none">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center overflow-hidden">
+                            {% if user.avatar %}
+                                <img src="{{ user.avatar.url }}" alt="{{ user.first_name }}" class="w-full h-full object-cover">
+                            {% else %}
+                                <span class="font-bold text-gray-800">{{ user.first_name|slice:":1"|upper }}{{ user.last_name|slice:":1"|upper }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="hidden md:block text-left">
+                            <p class="text-sm font-medium text-gray-900">{{ user.first_name }} {{ user.last_name }}</p>
+                            <p class="text-xs text-gray-500">Author</p>
+                        </div>
+                        <i class="fas fa-chevron-down text-gray-500 hidden md:block"></i>
+                    </button>
+                    
+                    <!-- User Dropdown -->
+                    <div id="user-menu-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-40">
+                        <div class="py-2">
+                            <a href="{% url 'user_profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-user mr-2"></i> Your Profile
+                            </a>
+                            <a href="{% url 'user_settings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-cog mr-2"></i> Settings
+                            </a>
+                            <div class="border-t border-gray-200 my-1"></div>
+                            <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Content -->
+        <div class="p-6">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- Success Toast -->
+    <div id="success-toast" class="fixed top-6 right-6 bg-green-100 border border-green-200 text-green-800 px-6 py-4 rounded-lg shadow-lg z-50 hidden transform translate-x-full transition-transform duration-300">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle text-green-600 text-xl mr-3"></i>
+            <div>
+                <p class="font-medium">Success!</p>
+                <p class="text-sm" id="toast-message">Operation completed successfully.</p>
+            </div>
+        </div>
+    </div>
+    
+    {% if messages %}
+    <div id="django-messages" class="hidden">
+        {% for message in messages %}
+            <div data-message="{{ message }}" data-tags="{{ message.tags }}"></div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <script>
+        // Sidebar Toggle
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('sidebar-open');
+            });
+        }
+        
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth < 1024) {
+                if (sidebar && !sidebar.contains(e.target) && sidebarToggle && !sidebarToggle.contains(e.target)) {
+                    sidebar.classList.remove('sidebar-open');
+                }
+            }
+        });
+
+        // User Dropdown
+        const userMenuBtn = document.getElementById('user-menu-btn');
+        const userMenuDropdown = document.getElementById('user-menu-dropdown');
+        
+        if (userMenuBtn && userMenuDropdown) {
+            userMenuBtn.addEventListener('click', () => {
+                userMenuDropdown.classList.toggle('hidden');
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!userMenuBtn.contains(e.target) && !userMenuDropdown.contains(e.target)) {
+                    userMenuDropdown.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Toast Functionality
+        const successToast = document.getElementById('success-toast');
+        const toastMessage = document.getElementById('toast-message');
+
+        function showToast(message) {
+            if (successToast && toastMessage) {
+                toastMessage.textContent = message;
+                successToast.classList.remove('hidden');
+                successToast.classList.remove('translate-x-full');
+                
+                setTimeout(() => {
+                    successToast.classList.add('translate-x-full');
+                    setTimeout(() => {
+                        successToast.classList.add('hidden');
+                    }, 300);
+                }, 3000);
+            }
+        }
+        
+        // Auto-show Django messages as toasts
+        document.addEventListener('DOMContentLoaded', () => {
+            const messagesContainer = document.getElementById('django-messages');
+            if (messagesContainer) {
+                const messages = messagesContainer.querySelectorAll('div');
+                messages.forEach(msg => {
+                    showToast(msg.dataset.message);
+                });
+            }
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,131 @@
+<aside class="sidebar bg-white border-r border-gray-200 shadow-sm">
+  <!-- Logo -->
+  <div class="p-6 border-b border-gray-200">
+    <div class="flex items-center">
+      <div
+        class="w-10 h-10 rounded-lg bg-gradient-to-r from-[#000080] to-[#333399] flex items-center justify-center mr-3"
+      >
+        <span class="text-white font-bold text-lg">I</span>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold text-gray-900">Insightful</h2>
+        <p class="text-xs text-gray-500">Dashboard</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Profile -->
+  <div class="p-6 border-b border-gray-200">
+    <div class="flex items-center">
+      <div
+        class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center mr-4 overflow-hidden"
+      >
+        {% if user.avatar %}
+        <img
+          src="{{ user.avatar.url }}"
+          alt="{{ user.first_name }}"
+          class="w-full h-full object-cover"
+        />
+        {% else %}
+        <span class="text-2xl font-bold text-gray-800"
+          >{{ user.first_name|slice:":1"|upper }}{{
+          user.last_name|slice:":1"|upper }}</span
+        >
+        {% endif %}
+      </div>
+      <div>
+        <h3 class="font-bold text-gray-900">
+          {{ user.first_name }} {{ user.last_name }}
+        </h3>
+        <p class="text-sm text-gray-500">Author & Contributor</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="p-4">
+    <div class="space-y-2">
+      <!-- Dashboard -->
+      <a
+        href="{% url 'user_dashboard' %}"
+        class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700 {% if request.resolver_match.url_name == 'user_dashboard' %}active{% endif %}"
+      >
+        <i
+          class="fas fa-tachometer-alt {% if request.resolver_match.url_name == 'user_dashboard' %}text-[#000080]{% else %}text-gray-500{% endif %} w-5 mr-3"
+        ></i>
+        <span>Dashboard</span>
+      </a>
+
+      <!-- My Blogs -->
+      <a
+        href="{% url 'blog' %}"
+        class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700 {% if request.resolver_match.url_name == 'blog' %}active{% endif %}"
+      >
+        <i
+          class="fas fa-file-alt {% if request.resolver_match.url_name == 'blog' %}text-[#000080]{% else %}text-gray-500{% endif %} w-5 mr-3"
+        ></i>
+        <span>My Blogs</span>
+        <span
+          class="ml-auto bg-[#000080] text-white text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center"
+        >
+          {{ article_count }}
+        </span>
+      </a>
+
+      <!-- Create Blog -->
+      <a
+        href="{% url 'create_blog' %}"
+        class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700 {% if request.resolver_match.url_name == 'create_blog' %}active{% endif %}"
+      >
+        <i
+          class="fas fa-plus-circle {% if request.resolver_match.url_name == 'create_blog' %}text-[#000080]{% else %}text-gray-500{% endif %} w-5 mr-3"
+        ></i>
+        <span>Create Blog</span>
+      </a>
+
+      <!-- Profile -->
+      <a
+        href="{% url 'user_profile' %}"
+        class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700 {% if request.resolver_match.url_name == 'user_profile' %}active{% endif %}"
+      >
+        <i
+          class="fas fa-user {% if request.resolver_match.url_name == 'user_profile' %}text-[#000080]{% else %}text-gray-500{% endif %} w-5 mr-3"
+        ></i>
+        <span>Profile</span>
+      </a>
+
+      <!-- Analytics -->
+      <a
+        href="{% url 'user_analytics' %}"
+        class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700 {% if request.resolver_match.url_name == 'user_analytics' %}active{% endif %}"
+      >
+        <i
+          class="fas fa-chart-line {% if request.resolver_match.url_name == 'user_analytics' %}text-[#000080]{% else %}text-gray-500{% endif %} w-5 mr-3"
+        ></i>
+        <span>Analytics</span>
+      </a>
+
+      <!-- Settings -->
+      <a
+        href="{% url 'user_settings' %}"
+        class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700 {% if request.resolver_match.url_name == 'user_settings' %}active{% endif %}"
+      >
+        <i
+          class="fas fa-cog {% if request.resolver_match.url_name == 'user_settings' %}text-[#000080]{% else %}text-gray-500{% endif %} w-5 mr-3"
+        ></i>
+        <span>Settings</span>
+      </a>
+    </div>
+
+    <!-- Logout -->
+    <div class="mt-20">
+      <a
+        href="{% url 'blog' %}"
+        class="flex items-center px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+      >
+        <i class="fas fa-sign-out-alt text-gray-500 w-5 mr-3"></i>
+        <span>Back to Blog</span>
+      </a>
+    </div>
+  </nav>
+</aside>

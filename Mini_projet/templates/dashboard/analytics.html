@@ -1,0 +1,94 @@
+{% extends 'base_dashboard.html' %}
+
+{% block page_title %}Analytics Dashboard{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">Analytics Dashboard</h2>
+    <p class="text-gray-600">Track your blog performance and audience engagement.</p>
+</div>
+
+<!-- Analytics Charts -->
+<div class="grid lg:grid-cols-2 gap-8 mb-8">
+    <!-- Views ChartPlaceholder -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">Total Views</h3>
+        <div class="h-64 flex items-end space-x-2 mb-6">
+            <div class="flex-grow bg-blue-100 rounded-t" style="height: 80%"></div>
+            <div class="flex-grow bg-blue-200 rounded-t" style="height: 60%"></div>
+            <div class="flex-grow bg-blue-300 rounded-t" style="height: 90%"></div>
+            <div class="flex-grow bg-blue-400 rounded-t" style="height: 70%"></div>
+            <div class="flex-grow bg-blue-500 rounded-t" style="height: 85%"></div>
+            <div class="flex-grow bg-blue-600 rounded-t" style="height: 95%"></div>
+            <div class="flex-grow bg-blue-700 rounded-t" style="height: 75%"></div>
+        </div>
+        <div class="text-center">
+            <p class="text-3xl font-bold text-gray-900">45,238</p>
+            <p class="text-gray-600">Total views in the last 30 days</p>
+            <p class="text-green-600 font-medium mt-2"><i class="fas fa-arrow-up mr-1"></i> 12% increase from last month</p>
+        </div>
+    </div>
+    
+    <!-- Top Posts -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">Top Performing Posts</h3>
+        <div class="space-y-4">
+            <!-- Dynamic Top Posts -->
+            {% for article in top_articles %}
+            <div class="flex items-center justify-between p-3 rounded-lg bg-blue-50">
+                <div>
+                    <p class="font-medium text-gray-900">{{ article.name }}</p>
+                    <p class="text-sm text-gray-600">12,548 views • {{ article.comments.count }} comments</p>
+                </div>
+                <!-- Calculate rank or use loop counter -->
+                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full">#{{ forloop.counter }}</span>
+            </div>
+            {% empty %}
+                <p>No articles yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Additional Metrics -->
+<div class="grid md:grid-cols-3 gap-6">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center mr-4">
+                <i class="fas fa-clock text-green-600"></i>
+            </div>
+            <div>
+                <p class="text-gray-500 text-sm">Avg. Reading Time</p>
+                <h3 class="text-2xl font-bold text-gray-900">4.2 min</h3>
+            </div>
+        </div>
+        <p class="text-sm text-gray-600">Average time readers spend on your posts</p>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center mr-4">
+                <i class="fas fa-share-alt text-purple-600"></i>
+            </div>
+            <div>
+                <p class="text-gray-500 text-sm">Social Shares</p>
+                <h3 class="text-2xl font-bold text-gray-900">1,245</h3>
+            </div>
+        </div>
+        <p class="text-sm text-gray-600">Total shares across all platforms</p>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-lg bg-yellow-100 flex items-center justify-center mr-4">
+                <i class="fas fa-user-plus text-yellow-600"></i>
+            </div>
+            <div>
+                <p class="text-gray-500 text-sm">New Followers</p>
+                <h3 class="text-2xl font-bold text-gray-900">156</h3>
+            </div>
+        </div>
+        <p class="text-sm text-gray-600">Gained in the last 30 days</p>
+    </div>
+</div>
+{% endblock %}

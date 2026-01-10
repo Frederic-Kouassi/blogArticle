@@ -326,7 +326,7 @@ def blog(request):
     return render(request, 'blog.html', {
         "categorie": categories,
         "article_count": article_list.count(),
-        "user": users,
+        "users": users,
         "articles": articles,
         "active_tab": active_tab
     })

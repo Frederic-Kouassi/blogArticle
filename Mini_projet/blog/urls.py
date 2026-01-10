@@ -1,5 +1,6 @@
 from django.urls import path
-from blog.views import HomeView, blog, about,ArticleDetailView,Comments,CommentLikeView, user_logout, DeleteComment ,DeleteArticle,EditArticle, EditCategory, contact, Admin_dashboaord, AdminCategoryView, DeleteCategory,  User_dashboaord, RegisterView, LoginView, VerifyEmailView
+from blog.views import *
+from .views.dashboard_views import *
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -10,7 +11,14 @@ urlpatterns = [
     
     path("admin-dashboard/",Admin_dashboaord.as_view(), name="admin_dashboard"),
     path("admin-dashboard/categories/", AdminCategoryView.as_view(), name="admin_categories"),
-    path("user-dashboard/", User_dashboaord.as_view(), name="user_dashboard"),
+    
+    # Dashboard URLs
+    path('user-dashboard/', UserDashboardView.as_view(), name='user_dashboard'),
+    path('user-profile/', UserProfileView.as_view(), name='user_profile'),
+    path('user-setting/', UserSettingsView.as_view(), name='user_settings'),
+    path('user-analytics/', UserAnalyticsView.as_view(), name='user_analytics'),
+    path('create-blog/', CreateBlogView.as_view(), name='create_blog'),
+    
     path("register/", RegisterView.as_view(), name="register"),
     path("login/", LoginView.as_view(), name="login"),
     path("verify-email/", VerifyEmailView.as_view(), name="verify_email"),

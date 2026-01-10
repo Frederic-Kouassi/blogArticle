@@ -50,42 +50,7 @@
 <body>
 
 <!-- Sidebar Navigation -->
-<aside class="sidebar bg-white border-r border-gray-200 shadow-sm">
-    <!-- Logo -->
-    <div class="p-6 border-b border-gray-200 flex items-center">
-        <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-[#000080] to-[#333399] flex items-center justify-center mr-3">
-            <span class="text-white font-bold text-lg">I</span>
-        </div>
-        <div>
-            <h2 class="text-xl font-bold text-gray-900">Insightful</h2>
-            <p class="text-xs text-gray-500">Dashboard</p>
-        </div>
-    </div>
-
-    <!-- User Profile -->
-    <div class="p-6 border-b border-gray-200 flex items-center">
-        <div class="w-14 h-14 rounded-full bg-gradient-to-r from-blue-200 to-indigo-300 flex items-center justify-center mr-4">
-            <span class="text-2xl font-bold text-gray-800">JD</span>
-        </div>
-        <div>
-            <h3 class="font-bold text-gray-900">John Doe</h3>
-            <p class="text-sm text-gray-500">Author & Contributor</p>
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="p-4">
-        <div class="space-y-2">
-            <a href="{% url 'blog' %}?tab=my-blogs" 
-               class="nav-item flex items-center px-4 py-3 rounded-lg text-gray-700 {% if active_tab == 'my-blogs' %}active{% endif %}" 
-               data-tab="my-blogs">
-                <i class="fas fa-file-alt text-gray-500 w-5 mr-3"></i>
-                <span>My Blogs</span>
-                <span class="ml-auto bg-[#000080] text-white text-xs font-medium rounded-full w-6 h-6 flex items-center justify-center">{{ article_count }}</span>
-            </a>
-        </div>
-    </nav>
-</aside>
+{% include 'includes/sidebar.html' %}
 
 <!-- Main Content -->
 <main class="main-content min-h-screen">
